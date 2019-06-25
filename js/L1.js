@@ -1,11 +1,15 @@
 const weatherKey = '3b74fe5b0c7443428c1125904192406';
 const locCheck  = 'Bromley';
+const DoWList = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+const MonList = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
 var wForecast = [];
 var locForecast = ["Bromley", "Durham", "Paris", "New York", "Sidney", "Berlin", "Moscow", "Hong Kong", "Deli", "Huston"];
 
 function getForecast(i, jsonResponse){
 	this.date = jsonResponse.forecast.forecastday[i].date;
+	this.dayHolder = new Date(this.date);
+	this.day = DoWList[this.dayHolder.getDay()] + " " + MonList[this.dayHolder.getMonth()] + " "  + this.dayHolder.getDate();
 	this.place = jsonResponse.location.name;
 	this.avgtemp_c = jsonResponse.forecast.forecastday[i].day.avgtemp_c;
 	this.maxtemp_c = jsonResponse.forecast.forecastday[i].day.maxtemp_c;
@@ -20,23 +24,11 @@ function getLocForecast(desiredLocation){
 }
 
 function load(){
-	cardBuild(locForecast[0], 0);
-	cardBuild(locForecast[1], 1);
-	cardBuild(locForecast[2], 2);
-	cardBuild(locForecast[3], 3);
-	cardBuild(locForecast[4], 4);
-	cardBuild(locForecast[5], 5);
-	cardBuild(locForecast[6], 6);
+	for(var j=0; j<7; j++)cardBuild(locForecast[j], j);
 }
 
 function refresh(){
-	getWeatherForecast(locForecast[0], 0);
-	getWeatherForecast(locForecast[1], 1);
-	getWeatherForecast(locForecast[2], 2);
-	getWeatherForecast(locForecast[3], 3);
-	getWeatherForecast(locForecast[4], 4);
-	getWeatherForecast(locForecast[5], 5);
-	getWeatherForecast(locForecast[6], 6);
+	for(var j=0; j<7; j++)getWeatherForecast(locForecast[j], j);
 }
 
 async function getWeatherForecast(desiredLocation, cardNo){
@@ -45,6 +37,7 @@ async function getWeatherForecast(desiredLocation, cardNo){
 	for(i=0; i<7; i++){
 		var item = new getForecast(i, jsonResponse);
 		wForecast[i] = item;
+		try{document.getElementById("weatherCard" + cardNo).getElementsByClassName("Day" + i)[0].getElementsByClassName("DoW")[0].innerHTML = wForecast[i].day}catch{};
 		try{document.getElementById("weatherCard" + cardNo).getElementsByClassName("Day" + i)[0].getElementsByClassName("Icon")[0].src = wForecast[i].icon}catch{};
 		try{document.getElementById("weatherCard" + cardNo).getElementsByClassName("Day" + i)[0].getElementsByClassName("Temp")[0].innerHTML = "Avg:" + wForecast[i].avgtemp_c + "°C"}catch{};
 		try{document.getElementById("weatherCard" + cardNo).getElementsByClassName("Day" + i)[0].getElementsByClassName("MaxTemp")[0].innerHTML = "Max:" + wForecast[i].maxtemp_c + "°C"}catch{};
@@ -63,9 +56,8 @@ function dateInvert(date){
 }
 
 function cardBuild(desiredLocation, idNum){
-	var position = idNum * 10
 	document.getElementsByClassName("weatherCards")[0].innerHTML +=`
-	<div class="weatherCard" id="weatherCard${idNum}" style="top: ${position}px;">
+	<div class="weatherCard" id="weatherCard${idNum}">
 	</div>`;
 	document.getElementById("weatherCard" + idNum).innerHTML=`
 	<div id="Header">
@@ -75,6 +67,7 @@ function cardBuild(desiredLocation, idNum){
 	for(i=0;i<7;i++){
 		document.getElementById("weatherCard" + idNum).innerHTML+=`
 		<div class="Day Day${i}">
+			<p class="DoW"></p>
 			<img src="" class="Icon temp">
 			<p class="Temp temp"></p>
 			<p class="MaxTemp temp"></p>
