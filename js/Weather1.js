@@ -37,7 +37,7 @@ async function getWeatherForecast(desiredLocation, cardNo){
 	for(i=0; i<7; i++){
 		var item = new getForecast(i, jsonResponse);
 		wForecast[i] = item;
-//		try{document.getElementById("weatherCard" + cardNo).getElementsByClassName("Day" + i)[0].getElementsByClassName("DoW")[0].innerHTML = wForecast[i].day}catch{};
+		try{document.getElementById("weatherCard" + cardNo).getElementsByClassName("Day" + i)[0].getElementsByClassName("DoW")[0].innerHTML = wForecast[i].day}catch{};
 		try{document.getElementById("weatherCard" + cardNo).getElementsByClassName("Day" + i)[0].getElementsByClassName("Icon")[0].src = wForecast[i].icon}catch{};
 		try{document.getElementById("weatherCard" + cardNo).getElementsByClassName("Day" + i)[0].getElementsByClassName("Temp")[0].innerHTML = "Avg:" + wForecast[i].avgtemp_c + "°C"}catch{};
 		try{document.getElementById("weatherCard" + cardNo).getElementsByClassName("Day" + i)[0].getElementsByClassName("MaxTemp")[0].innerHTML = "Max:" + wForecast[i].maxtemp_c + "°C"}catch{};
