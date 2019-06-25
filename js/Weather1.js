@@ -78,13 +78,15 @@ function dateInvert(date){
 }
 
 function cardBuild(desiredLocation){
+	var locTest = "'" + desiredLocation + "'";
 	document.getElementsByClassName("weatherCards")[0].innerHTML +=`
 	<div class="weatherCard" id="weatherCard${desiredLocation}">
 	</div>`;
 	document.getElementById("weatherCard" + desiredLocation).innerHTML=`
-	<div id="Header">
+	<div class="Header">
 		<h1 class="Date"></h1>
 		<p class="Place"></p>
+		<img src="./Images/Close.png" class="close" onClick="deleteCard(${locTest})">
 	</div>`
 	for(i=0;i<7;i++){
 		document.getElementById("weatherCard" + desiredLocation).innerHTML+=`
