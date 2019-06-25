@@ -11,6 +11,7 @@ const MonList = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", 
 
 var wForecast = [];
 var locForecast = [];
+var locRegStore = [];
 
 function getForecast(i, jsonResponse){
 	this.date = jsonResponse.forecast.forecastday[i].date;
@@ -41,11 +42,16 @@ function refresh(){
 async function addCard(){
 	var location = document.getElementById("locationSearch").value;
 	document.getElementById("locationSearch").value = null;
+	const response = await fetch(`https://api.apixu.com/v1/forecast.json?key=${weatherKey}&q=${location}&days=7`);
+	const jsonResponse = await response.json();
+	var locReg = jsonResponse.location.region;
 	var locName = await checkLoc(location);
-	console.log("locName = " + locName);
 	if(locName != 0){
 		cardBuild(location);
 		locForecast.push(location);
+		locRegStore.push(locReg);
+		console.log(locForecast);
+		console.log(locRegStore);
 	}
 }
 
@@ -57,7 +63,7 @@ function deleteCard(location){
 async function checkLoc(location){
 	const response = await fetch(`https://api.apixu.com/v1/forecast.json?key=${weatherKey}&q=${location}&days=7`);
 	const jsonResponse = await response.json();
-	if(locForecast.indexOf(jsonResponse.location.name) == -1){
+	if(locForecast.indexOf(jsonResponse.location.name) == -1 && locRegStore.indexOf(jsonResponse.location.region) == -1){
 		console.log(jsonResponse.location.name);
 		return jsonResponse.location.name;
 	}
