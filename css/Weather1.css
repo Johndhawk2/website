@@ -34,7 +34,7 @@ header{
 	position: absolute;
 	left: 0px;
 	right: 0px;
-	top: 100px;
+	top: 120px;         /*100px without buttons*/
 }
 
 .weatherCard{
