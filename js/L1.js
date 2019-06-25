@@ -2,7 +2,7 @@ const weatherKey = '3b74fe5b0c7443428c1125904192406';
 const locCheck  = 'Bromley';
 
 var wForecast = [];
-var locForecast = [];
+var locForecast = ["Bromley", "Durham", "Paris", "New York", "Sidney", "Berlin", "Moscow", "Hong Kong", "Deli", "Huston"];
 
 function getForecast(i, jsonResponse){
 	this.date = jsonResponse.forecast.forecastday[i].date;
@@ -19,19 +19,24 @@ function getLocForecast(desiredLocation){
 	this.forecast = getWeatherForecast(desiredLocation);
 }
 
-async function refresh(){
-	cardBuild("Bromley", 0);
-	cardBuild("Durham", 1);
-	cardBuild("Paris", 2);
-	cardBuild("New York", 3);
-	cardBuild("Sidney", 4);
-	cardBuild("Berlin", 5);
-	cardBuild("Moscow", 6);
-	cardBuild("Hong Kong", 7);
-	cardBuild("Deli", 8);
-	cardBuild("Huston", 9);
-//	var weatherForecast = await getWeatherForecast(locCheck);
-//	console.log(document.getElementById("weatherCards"));
+function load(){
+	cardBuild(locForecast[0], 0);
+	cardBuild(locForecast[1], 1);
+	cardBuild(locForecast[2], 2);
+	cardBuild(locForecast[3], 3);
+	cardBuild(locForecast[4], 4);
+	cardBuild(locForecast[5], 5);
+	cardBuild(locForecast[6], 6);
+}
+
+function refresh(){
+	getWeatherForecast(locForecast[0], 0);
+	getWeatherForecast(locForecast[1], 1);
+	getWeatherForecast(locForecast[2], 2);
+	getWeatherForecast(locForecast[3], 3);
+	getWeatherForecast(locForecast[4], 4);
+	getWeatherForecast(locForecast[5], 5);
+	getWeatherForecast(locForecast[6], 6);
 }
 
 async function getWeatherForecast(desiredLocation, cardNo){
