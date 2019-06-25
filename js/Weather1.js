@@ -2,12 +2,12 @@ const weatherKey = '3b74fe5b0c7443428c1125904192406';
 const locCheck  = 'Bromley';
 const DoWList = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 const MonList = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-const locList = ["Amsterdam", "Barcelona", "Belfast", "Bordeaux", 
+/*const locList = ["Br4 R", "Amsterdam", "Barcelona", "Belfast", "Bordeaux", 
 				 "Brighton", "Bristol", "Bromley", "California",
 				 "Cannes", "Córdoba", "Durham", "Dublin",
 				 "Edinburgh", "Glasgow", "Leeds", "Lille",
 				 "Liverpool", "Marseilles", "Manchester", "Newcastle",
-				 "New york", "Paris", "Seville", "Southampton"];
+				 "New york", "Paris", "Seville", "Southampton"];*/
 
 var wForecast = [];
 var locForecast = [];
@@ -16,8 +16,8 @@ function getForecast(i, jsonResponse){
 	this.date = jsonResponse.forecast.forecastday[i].date;
 	this.dayHolder = new Date(this.date);
 	this.day = DoWList[this.dayHolder.getDay()];
-	this.dayL2 = MonList[this.dayHolder.getMonth()] + " "  + this.dayHolder.getDate();
-	this.place = jsonResponse.location.name;
+	this.dayL2 = MonList[this.dayHolder.getMonth()] + ", "  + this.dayHolder.getDate();
+	this.place = jsonResponse.location.name + ", " + jsonResponse.location.region;
 	this.avgtemp_c = jsonResponse.forecast.forecastday[i].day.avgtemp_c;
 	this.maxtemp_c = jsonResponse.forecast.forecastday[i].day.maxtemp_c;
 	this.mintemp_c = jsonResponse.forecast.forecastday[i].day.mintemp_c;
@@ -31,9 +31,6 @@ function getLocForecast(desiredLocation){
 }
 
 function load(){
-	for(var i=0;i<locList.length;i++){
-		document.getElementById("location").innerHTML += `<option value="${locList[i]}">${locList[i]}</option>`
-	}
 }
 
 function refresh(){
@@ -41,17 +38,33 @@ function refresh(){
 	addCard();
 }
 
-function addCard(){
-	var location = document.getElementById("location").value;
-	if(locForecast.indexOf(location) == -1){
-		locForecast.push(location);
+async function addCard(){
+	var location = document.getElementById("locationSearch").value;
+	document.getElementById("locationSearch").value = null;
+	var locName = await checkLoc(location);
+	console.log("locName = " + locName);
+	if(locName != 0){
 		cardBuild(location);
+		locForecast.push(location);
 	}
 }
 
 function deleteCard(location){
 	locForecast.splice(locForecast.indexOf(location),1);
 	document.getElementById("weatherCard" + location).remove();
+}
+
+async function checkLoc(location){
+	const response = await fetch(`https://api.apixu.com/v1/forecast.json?key=${weatherKey}&q=${location}&days=7`);
+	const jsonResponse = await response.json();
+	if(locForecast.indexOf(jsonResponse.location.name) == -1){
+		console.log(jsonResponse.location.name);
+		return jsonResponse.location.name;
+	}
+	else{
+		console.log(0);
+		return 0;
+	}
 }
 
 async function getWeatherForecast(desiredLocation){
