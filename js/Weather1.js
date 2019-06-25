@@ -15,7 +15,8 @@ var locForecast = [];
 function getForecast(i, jsonResponse){
 	this.date = jsonResponse.forecast.forecastday[i].date;
 	this.dayHolder = new Date(this.date);
-	this.day = DoWList[this.dayHolder.getDay()] + " " + MonList[this.dayHolder.getMonth()] + " "  + this.dayHolder.getDate();
+	this.day = DoWList[this.dayHolder.getDay()];
+	this.dayL2 = MonList[this.dayHolder.getMonth()] + " "  + this.dayHolder.getDate();
 	this.place = jsonResponse.location.name;
 	this.avgtemp_c = jsonResponse.forecast.forecastday[i].day.avgtemp_c;
 	this.maxtemp_c = jsonResponse.forecast.forecastday[i].day.maxtemp_c;
@@ -60,6 +61,7 @@ async function getWeatherForecast(desiredLocation){
 		var item = new getForecast(i, jsonResponse);
 		wForecast[i] = item;
 		try{document.getElementById("weatherCard" + desiredLocation).getElementsByClassName("Day" + i)[0].getElementsByClassName("DoW")[0].innerHTML = wForecast[i].day}catch{};
+		try{document.getElementById("weatherCard" + desiredLocation).getElementsByClassName("Day" + i)[0].getElementsByClassName("DoWL2")[0].innerHTML = wForecast[i].dayL2}catch{};
 		try{document.getElementById("weatherCard" + desiredLocation).getElementsByClassName("Day" + i)[0].getElementsByClassName("Icon")[0].src = wForecast[i].icon}catch{};
 		try{document.getElementById("weatherCard" + desiredLocation).getElementsByClassName("Day" + i)[0].getElementsByClassName("Temp")[0].innerHTML = "Avg:" + wForecast[i].avgtemp_c + "°C"}catch{};
 		try{document.getElementById("weatherCard" + desiredLocation).getElementsByClassName("Day" + i)[0].getElementsByClassName("MaxTemp")[0].innerHTML = "Max:" + wForecast[i].maxtemp_c + "°C"}catch{};
@@ -92,6 +94,7 @@ function cardBuild(desiredLocation){
 		document.getElementById("weatherCard" + desiredLocation).innerHTML+=`
 		<div class="Day Day${i}">
 			<p class="DoW"></p>
+			<p class="DoWL2"></p>
 			<img src="" class="Icon temp">
 			<p class="Temp temp"></p>
 			<p class="MaxTemp temp"></p>

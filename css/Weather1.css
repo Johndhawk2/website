@@ -74,8 +74,8 @@ header{
       border: 0px;
       margin: 0px;
       cursor: pointer;
-      height: 15%;
-      width: 5%;
+      height: 55px;
+      width: 55px;
       transition-duration: 0.4s;
       display: inline-block;
       position: absolute;
