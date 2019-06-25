@@ -1,0 +1,82 @@
+*{
+	margin: 0;
+	border: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+header{
+	background-color: rgb(5, 188, 194);
+	padding: 20px 30px;
+	font-family: Georgia;
+	font-size: 20px;
+	width: 100%;
+	position: fixed;
+	color: white;
+	z-index: 1000;
+}
+
+#refresh{
+	background-color: transparent;
+	position: fixed;
+	top: 15px;
+	right: 40px;
+	z-index: 1000;
+	padding: 5px;
+	border-radius: 2px;
+}
+
+#refresh:hover {
+	background-color: rgb(5, 163, 168);
+}
+
+.weatherCards{
+	position: absolute;
+	left: 0px;
+	right: 0px;
+	top: 100px;
+}
+
+.weatherCard{
+	position: relative;
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+	grid-row-gap: 10px;
+	margin: 0px 10px;
+	padding: 10px 10px;
+	background-color: rgb(8, 83, 245);
+	border-radius: 5px;
+	font-family: Georgia;
+	color: white;
+}
+
+#Header{
+	background-color: rgb(22, 55, 126);
+	padding: 10px;
+	border-radius: 5px;
+	margin: 0px 5px;
+	grid-column-start: 1;
+	grid-column-end: -1;
+}
+
+#Header > h1{
+	color: white;
+}
+
+#Header > p{
+	color: white;
+	text-align: left;
+}
+
+.Day{
+	margin: 0px 5px;
+	padding: 10px;
+	background-color: rgb(22, 55, 126);
+	border-radius: 5px;
+	text-align: center;
+}
+
+.temp{
+	text-align: left;
+	font-size: 18px;
+}
