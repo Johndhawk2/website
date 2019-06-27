@@ -1,6 +1,6 @@
 const weatherKey = '3b74fe5b0c7443428c1125904192406';
 const locCheck  = 'Bromley';
-const DoWList = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+const DoWList = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 const MonList = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 /*const locList = ["Br4 R", "Amsterdam", "Barcelona", "Belfast", "Bordeaux", 
 				 "Brighton", "Bristol", "Bromley", "California",
@@ -50,8 +50,8 @@ async function addCard(){
 		cardBuild(location);
 		locForecast.push(location);
 		locRegStore.push(locReg);
-		console.log(locForecast);
-		console.log(locRegStore);
+//		console.log(locForecast);
+//		console.log(locRegStore);
 	}
 }
 
@@ -64,11 +64,11 @@ async function checkLoc(location){
 	const response = await fetch(`https://api.apixu.com/v1/forecast.json?key=${weatherKey}&q=${location}&days=7`);
 	const jsonResponse = await response.json();
 	if(locForecast.indexOf(jsonResponse.location.name) == -1 && locRegStore.indexOf(jsonResponse.location.region) == -1){
-		console.log(jsonResponse.location.name);
+//		console.log(jsonResponse.location.name);
 		return jsonResponse.location.name;
 	}
 	else{
-		console.log(0);
+//		console.log(0);
 		return 0;
 	}
 }
@@ -87,10 +87,11 @@ async function getWeatherForecast(desiredLocation){
 		try{document.getElementById("weatherCard" + desiredLocation).getElementsByClassName("Day" + i)[0].getElementsByClassName("MinTemp")[0].innerHTML = "Min:" + wForecast[i].mintemp_c + "°C"}catch{};
 		try{document.getElementById("weatherCard" + desiredLocation).getElementsByClassName("Day" + i)[0].getElementsByClassName("Text")[0].innerHTML = wForecast[i].text}catch{};
 	}
-	document.getElementById("weatherCard" + desiredLocation).getElementsByClassName("Date")[0].innerHTML = "Weekly forecast: " + dateInvert(wForecast[0].date);
+	document.getElementById("weatherCard" + desiredLocation).getElementsByClassName("Date")[0].innerHTML = "Weekly forecast: ";
+	document.getElementById("weatherCard" + desiredLocation).getElementsByClassName("DateL2")[0].innerHTML = dateInvert(wForecast[0].date);
 	document.getElementById("weatherCard" + desiredLocation).getElementsByClassName("Place")[0].innerHTML = wForecast[0].place;
-	console.log(wForecast);
-	console.log(jsonResponse);
+//	console.log(wForecast);
+//	console.log(jsonResponse);
 	return jsonResponse;
 }
 
@@ -106,25 +107,26 @@ function cardBuild(desiredLocation){
 	document.getElementById("weatherCard" + desiredLocation).innerHTML=`
 	<div class="Header">
 		<h1 class="Date"></h1>
+		<h1 class="DateL2"></h1>
 		<p class="Place"></p>
 		<img src="./Images/Close.png" class="close" onClick="deleteCard(${locTest})">
 	</div>`
 	for(i=0;i<7;i++){
 		document.getElementById("weatherCard" + desiredLocation).innerHTML+=`
 		<div class="Day Day${i}">
-			<p class="DoW"></p>
-			<p class="DoWL2"></p>
-			<img src="" class="Icon temp">
-			<p class="Temp temp"></p>
-			<p class="MaxTemp temp"></p>
-			<p class="MinTemp temp"></p>
-			<br/>
-			<p class="Text temp"></p>
+			<div class="Top">
+				<p class="DoW"></p>
+				<p class="DoWL2"></p>
+				<img src="" class="Icon temp">
+			</div>
+			<div class="Bottom">
+				<p class="Temp temp"></p>
+				<p class="MaxTemp temp"></p>
+				<p class="MinTemp temp"></p>
+				<br/>
+				<p class="Text temp"></p>
+			</div>
 		</div>`
 	}
 	getWeatherForecast(desiredLocation);
 }
-
-
-/////////////////////////// Service Worker Code ///////////////////////////
-

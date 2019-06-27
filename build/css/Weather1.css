@@ -19,13 +19,13 @@ header{
 #refresh{
 	background-color: transparent;
 	position: fixed;
-    cursor: pointer;
+	cursor: pointer;
 	top: 15px;
 	right: 40px;
 	z-index: 1000;
 	padding: 5px;
 	border-radius: 2px;
-    transition-duration: 0.1s;
+	transition-duration: 0.1s;
 }
 
 #refresh:hover {
@@ -40,10 +40,10 @@ header{
 }
 
 .weatherCard{
-	position: absolute;
+/*	position: relative;
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-	grid-row-gap: 10px;
+	grid-row-gap: 10px;*/
 	margin: 0px 10px 10px 10px;
 	padding: 10px 10px;
 	background-color: rgb(8, 83, 245);
@@ -71,21 +71,21 @@ header{
 }
 
 .close{
-      border: 0px;
-      margin: 0px;
-      cursor: pointer;
-      height: 55px;
-      width: 55px;
-      transition-duration: 0.1s;
-      display: inline-block;
-      position: absolute;
-      border-radius: 5px;
-      top: 20px;
-      right: 25px;
+	  border: 0px;
+	  margin: 0px;
+	  cursor: pointer;
+	  height: 55px;
+	  width: 55px;
+	  transition-duration: 0.1s;
+	  display: inline-block;
+	  position: absolute;
+	  border-radius: 5px;
+	  top: 20px;
+	  right: 25px;
 }
 
 .close:hover {
-    background-color: rgb(8, 83, 245);
+	background-color: rgb(8, 83, 245);
 }
 
 .Day{
@@ -101,6 +101,45 @@ header{
 	font-size: 18px;
 }
 
+.Icon{
+	width: auto;
+	height: auto;
+}
+
 .DoW{
 	font-size: 22px;
+}
+
+.DateL2{
+	display: inline-block;
+	vertical-align: top;
+}
+
+@media screen and (min-width: 481px){
+	.weatherCard{
+		position: relative;
+		display: grid;
+		grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+		grid-row-gap: 10px;
+	}
+
+	.Day{
+		display: grid;
+		grid-template-rows: 1fr 1fr;
+	}
+}
+
+
+@media screen and (max-width: 481px){
+	.weatherCard{
+		position: relative;
+		display: grid;
+		grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+		grid-row-gap: 10px;
+	}
+
+	.Day{
+		display: grid;
+		grid-template-columns: auto auto;
+	}
 }
