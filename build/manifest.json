@@ -1,7 +1,7 @@
 {
   "name": "JHawk Weather Services",
   "short_name": "Weather",
-  "theme_color": "#0853fe",
+  "theme_color": "#05a3a8",
   "background_color": "#ffffff",
   "display": "standalone",
   "Scope": "/",
