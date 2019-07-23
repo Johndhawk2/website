@@ -133,7 +133,7 @@ function cardBuild(desiredLocation){
 
 function onButtonClick() {
 	console.log('Requesting Bluetooth Device...');
-	/*navigator.bluetooth.requestDevice(
+	navigator.bluetooth.requestDevice(
 	  {filters: [{services: ['battery_service']}]})
 	.then(device => {
 		console.log('Connecting to GATT Server...');
@@ -158,6 +158,6 @@ function onButtonClick() {
 	.catch(error => {
 		console.log('Argh! ' + error);
 	});
-	*/
+	
 	console.log(navigator);
   }
