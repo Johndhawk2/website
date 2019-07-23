@@ -1,14 +1,14 @@
-const weatherKey = '3b74fe5b0c7443428c1125904192406';
+/*const weatherKey = '3b74fe5b0c7443428c1125904192406';
 const locCheck  = 'Bromley';
 const DoWList = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-const MonList = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+const MonList = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];*/
 /*const locList = ["Br4 R", "Amsterdam", "Barcelona", "Belfast", "Bordeaux", 
 				 "Brighton", "Bristol", "Bromley", "California",
 				 "Cannes", "Córdoba", "Durham", "Dublin",
 				 "Edinburgh", "Glasgow", "Leeds", "Lille",
 				 "Liverpool", "Marseilles", "Manchester", "Newcastle",
 				 "New york", "Paris", "Seville", "Southampton"];*/
-
+/*
 var wForecast = [];
 var locForecast = [];
 var locRegStore = [];
@@ -129,4 +129,35 @@ function cardBuild(desiredLocation){
 		</div>`
 	}
 	getWeatherForecast(desiredLocation);
-}
+}*/
+
+function onButtonClick() {
+	console.log('Requesting Bluetooth Device...');
+	/*navigator.bluetooth.requestDevice(
+	  {filters: [{services: ['battery_service']}]})
+	.then(device => {
+		console.log('Connecting to GATT Server...');
+	  return device.gatt.connect();
+	})
+	.then(server => {
+		console.log('Getting Battery Service...');
+	  return server.getPrimaryService('battery_service');
+	})
+	.then(service => {
+		console.log('Getting Battery Level Characteristic...');
+	  return service.getCharacteristic('battery_level');
+	})
+	.then(characteristic => {
+		console.log('Reading Battery Level...');
+	  return characteristic.readValue();
+	})
+	.then(value => {
+	  let batteryLevel = value.getUint8(0);
+	  console.log('> Battery Level is ' + batteryLevel + '%');
+	})
+	.catch(error => {
+		console.log('Argh! ' + error);
+	});
+	*/
+	console.log(navigator);
+  }
