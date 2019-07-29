@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>JHawk Bluetooth Test</title>
+		<meta charset="UTF-8" />
+		<meta name="Description" content="JHawk Web Weather Services">
+        <meta name="theme-color" content="#0853fe">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel = "stylesheet" href = "./css/Bluetooth.css"/>
+		<script src="./js/jquery-3.4.1.min.js"></script>
+		<script src="./js/Bluetooth.js"></script>
+	</head>
+	<body onLoad='setPos()'>
+		<header>
+			<h1 id="webTitle">Bluetooth</h1>
+			<div id="headButtons">
+				<button onClick='bluetoothPairing()' class="headerButton">Bluetooth Pair</button>
+				<button onClick='batteryLevelGet()' class="headerButton">Battery Get</button>
+				<!--<button onClick='bluetoothConnect()'>Connect</button>-->
+				<button onClick='bluetoothDisconnect()' class="headerButton">Disconnect</button>
+			</div>
+			<div id="connectedDevice">
+				<p>No Device Connected</p>
+			</div>
+		</header>
+		<div class="content">
+			<div id="bCard">
+				<h1>Battery Level is:</h1>
+				<p id="batteryLevel">Waiting...</p>
+			</div>
+		</div>
+	</body>
+</html>
