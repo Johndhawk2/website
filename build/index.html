@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>JHawk Weather Services</title>
+		<meta name="Description" content="JHawk Web Weather Services">
+        <meta name="theme-color" content="#0853fe">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel = "stylesheet" href = "./css/Weather1.css"/>
+        <script>
+            if ('serviceWorker' in navigator) {
+                window.addEventListener('load', () => {
+                    navigator.serviceWorker.register('./sw.js');
+                });
+            }
+        </script>
+		<link rel="manifest" href="./manifest.json">
+        <script src="./js/Weather1.js"></script>
+        </script>
+	</head>
+	<body onload="load()">
+		<header>
+			<h1>Weather</h1>
+			<button id = "refresh" type="button" onclick="refresh()"><img src="./Images/Refresh.png" height = 50></button>
+			<input type="text" id = "locationSearch" name="locInput" placeholder="Search for location here">
+			<button onclick='addCard()'>New place</button>
+		</header>
+		<div class="weatherCards">
+			<!-- JS Inserts cards here -->
+		</div>
+	</body>
+</html>
