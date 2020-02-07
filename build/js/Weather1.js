@@ -42,7 +42,7 @@ function refresh(){
 async function addCard(){
 	var location = document.getElementById("locationSearch").value;
 	document.getElementById("locationSearch").value = null;
-	const response = await fetch(`http://api.weatherstack.com/current ? access_key = YOUR_ACCESS_KEY & query = New York`);
+	const response = await fetch(`http://api.weatherstack.com/current?access_key=${weatherKey}&query=New York`);
 	const jsonResponse = await response.json();
 	var locReg = jsonResponse.location.region;
 	var locName = await checkLoc(location);
