@@ -1,4 +1,4 @@
-const weatherKey = '3b74fe5b0c7443428c1125904192406';
+const weatherKey = 'fb699aae23df03484234740cb40141fc';
 const locCheck  = 'Bromley';
 const DoWList = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 const MonList = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
@@ -42,7 +42,7 @@ function refresh(){
 async function addCard(){
 	var location = document.getElementById("locationSearch").value;
 	document.getElementById("locationSearch").value = null;
-	const response = await fetch(`https://api.apixu.com/v1/forecast.json?key=${weatherKey}&q=${location}&days=7`);
+	const response = await fetch(`http://api.weatherstack.com/current ? access_key = YOUR_ACCESS_KEY & query = New York`);
 	const jsonResponse = await response.json();
 	var locReg = jsonResponse.location.region;
 	var locName = await checkLoc(location);
