@@ -4,7 +4,7 @@ google.charts.setOnLoadCallback(drawChartA);
 
 var IDType = [256];
 var IDName = [256];
-var IDCount = [1,3,2,254];
+var IDCount = [1,2,252,253,254,255];
 var cardTypeArray = [];
 var graphArray = [];
 
@@ -21,15 +21,15 @@ IDName[0] = "Time";
 IDName[1] = "Step Counter";
 IDName[2] = "Heart Rate";
 IDName[3] = "Test Data";
-IDName[252] = "User Input";
+IDName[252] = "Custom Event";
 IDName[253] = "Button A";
 IDName[254] = "Button B";
 IDName[255] = "Button C";
 
 function bluetoothConnect(){
-	console.log("Test");
+//	console.log("Test");
 	IDCount.forEach((element) => {
-		console.log(element);
+//		console.log(element);
 		document.getElementById("buttonHolder").innerHTML +=`
 		<button type="button" class="btn text-left pr-0" onclick="cardCreation('${element}')">
 			${IDName[element]}
@@ -79,8 +79,26 @@ function cardHTML(cardType){
 		</div>
 	</div>`;
 	$("#"+IDType[cardType]).fadeIn(300,"swing",function(){
-		drawChart(IDType[cardType], data, cardType);
+		if(cardType != 252)drawChart(IDType[cardType], data, cardType);
+		else formCreate(cardType);
 	});
+}
+
+function formCreate(cardType){
+	document.getElementById(IDType[cardType]).innerHTML+=`
+	<form id="InputForm" class="mx-2 mb-5">
+		<div class="form-group">
+			<label for="datatInput"> Data Input </label>
+			<textarea class="form-control" id="dataInput" placeholder="Enter Event"></textarea>
+		</div>
+		<button type="button" class="btn btn-primary" onClick="formSubmit()">Submit</button>
+	</form>
+	`;
+}
+
+function formSubmit(){
+	console.log($("#dataInput").val());
+	$("#dataInput").val('');
 }
 
 function closeCard(element){
