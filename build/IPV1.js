@@ -27,8 +27,10 @@ IDName[254] = "Button B";
 IDName[255] = "Button C";
 
 function bluetoothConnect(){
-//	console.log("Test");
-	navigator.bluetooth.requestDevice
+	console.log("Test");
+	navigator.bluetooth.requestDevice({
+		acceptAllDevices: true,
+	});
 	IDCount.forEach((element) => {
 //		console.log(element);
 		document.getElementById("buttonHolder").innerHTML +=`
