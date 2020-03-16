@@ -31,6 +31,11 @@ function bluetoothConnect(){
 	navigator.bluetooth.requestDevice({
 		acceptAllDevices: true,
 	});
+//		console.log(element);
+		document.getElementById("buttonHolder").innerHTML +=`
+		<button type="button" class="btn text-left pr-0" onclick="cardCreation('Test')">
+			Test
+		</button>`;
 	IDCount.forEach((element) => {
 //		console.log(element);
 		document.getElementById("buttonHolder").innerHTML +=`
