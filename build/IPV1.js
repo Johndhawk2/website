@@ -1,34 +1,46 @@
 google.charts.load('current', {'packages':['corechart','line']});
-var cardTypeArray = [];
+// Set a callback to run when the Google Visualization API is loaded.
+google.charts.setOnLoadCallback(drawChartA);
 
-function test(){
+var IDType = [256];
+var IDName = [256];
+var IDCount = [1,3,2,254];
+var cardTypeArray = [];
+var graphArray = [];
+
+IDType[0] = "Time";
+IDType[1] = "Step";
+IDType[2] = "HR";
+IDType[3] = "TD";
+IDType[252] = "Inp";
+IDType[253] = "BtA";
+IDType[254] = "BtB";
+IDType[255] = "BtC";
+
+IDName[0] = "Time";
+IDName[1] = "Step Counter";
+IDName[2] = "Heart Rate";
+IDName[3] = "Test Data";
+IDName[252] = "User Input";
+IDName[253] = "Button A";
+IDName[254] = "Button B";
+IDName[255] = "Button C";
+
+function bluetoothConnect(){
 	console.log("Test");
+	IDCount.forEach((element) => {
+		console.log(element);
+		document.getElementById("buttonHolder").innerHTML +=`
+		<button type="button" class="btn text-left pr-0" onclick="cardCreation('${element}')">
+			${IDName[element]}
+		</button>`});
+//	editChart();
 }
 
 function cardCreation(cardType){
-	if(cardType == "Step"){
-		if(cardTypeArray.indexOf("Step") == -1){
-			cardTypeArray.push("Step");
-//			console.log("Step Count Card");
-//			console.log(cardTypeArray);
-			cardHTML("Step", "Step Counter");
-		}
-	}
-	if(cardType == "HR"){
-		if(cardTypeArray.indexOf("HR") == -1){
-			cardTypeArray.push("HR");
-//			console.log("Heart Rate Card");
-//			console.log(cardTypeArray);
-			cardHTML("HR", "Heart Rate");
-		}
-	}
-	if(cardType == "TD"){
-		if(cardTypeArray.indexOf("TD") == -1){
-			cardTypeArray.push("TD");
-//			console.log("Test Data Card");
-//			console.log(cardTypeArray);
-			cardHTML("TD", "Test Data");
-		}
+	if(cardTypeArray.indexOf(IDType[cardType]) == -1){
+		cardTypeArray.push(IDType[cardType]);
+		cardHTML(cardType);
 	}
 }
 
@@ -39,13 +51,13 @@ function epochConvert(dayTime){
 	return [Hours,Minutes,Seconds];
 }
 
-function cardHTML(cardType, text){
+function cardHTML(cardType){
 	var randData = [];
 	for(i=0; i<5; i++)randData.push(Math.random());
 	// Create the data table.
 	var data = new google.visualization.DataTable();
 	data.addColumn('timeofday', 'Time');
-	data.addColumn('number', 'Steps');
+	data.addColumn('number', IDName[cardType]);
 	data.addRows([
 	[epochConvert(10000), randData[0]],
 	[epochConvert(25000), randData[1]],
@@ -55,19 +67,19 @@ function cardHTML(cardType, text){
 	]);
 
 	document.getElementById("cardContainer").innerHTML += `
-	<div class="card mb-3" id="${cardType}" style="display:none">
+	<div class="card mb-3" id="${IDType[cardType]}" style="display:none">
 		<div class="card-header">
-			${text}
+			${IDName[cardType]}
 			<button type="button" class="close py-0" aria-label="Close" onclick="closeCard(this)">
 				<span aria-hidden="true"><i class="material-icons">close</i></span>
 			</button>
 		</div>
-		<div class="card-body px-0" id="${cardType} body">
+		<div class="card-body px-0" id="${IDType[cardType]} body">
 
 		</div>
 	</div>`;
-	$("#"+cardType).fadeIn(300,"swing",function(){
-		drawChart(cardType, data);
+	$("#"+IDType[cardType]).fadeIn(300,"swing",function(){
+		drawChart(IDType[cardType], data, cardType);
 	});
 }
 
@@ -79,14 +91,11 @@ function closeCard(element){
 	});
 }
 
-// Set a callback to run when the Google Visualization API is loaded.
-google.charts.setOnLoadCallback(drawChartA);
-
 function drawChartA(){
 	// Create the data table.
 	var data = new google.visualization.DataTable();
 	data.addColumn('timeofday', 'Time');
-	data.addColumn('number', 'Steps');
+	data.addColumn('number', 'Test');
 	data.addRows([
 	[[1,0,0], 3],
 	[[4,0,0], 1],
@@ -97,25 +106,28 @@ function drawChartA(){
 	drawChart("Test", data);
 }
 
-function drawChart(elem, data) {
-	var elemId = elem + " body"
+function drawChart(elem, data, idNum) {
+	var elemId = elem + " body";
 	var elemWidth = document.getElementById(elemId).offsetWidth;
 
 	// Set chart options
 	var chartOptions = {	legend: {position: 'none'},
 					chartArea: {left: 50, right: 20, top: 10, bottom: 30},
-					hAxis: {title: data.getColumnLabel(0), baseline: 0},
+					hAxis: {title: data.getColumnLabel(0), baseline: 0, viewWindow: {min: [0,0,0], max: [24,0,0]}},
 					vAxis: {title: data.getColumnLabel(1)},
 //					curveType: 'function',
-					explorer: {axis: 'horizontal', keepInBounds: true},
+//					explorer: {axis: 'horizontal', keepInBounds: true},
 					'width': elemWidth,
 					'height': 2*elemWidth/3};
-
+	var graphType = idNum >= 253 ? 'ColumnChart':'LineChart';
 	var wrapper = new google.visualization.ChartWrapper({
-		chartType: 'LineChart',
+		chartType: graphType,
 		dataTable: data,
 		options: chartOptions,
 		containerId: 'visualisation'
 	});
+	if (idNum >=253) wrapper.setOption('bar.groupWidth',5);
+
+	graphArray.push(wrapper);
 	wrapper.draw(document.getElementById(elemId));
 }
