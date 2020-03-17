@@ -8,6 +8,10 @@ var IDCount = [1,2,252,253,254,255];
 var cardTypeArray = [];
 var graphArray = [];
 
+var bleOptions = {
+	acceptAllDevices: true,
+	};
+
 IDType[0] = "Time";
 IDType[1] = "Step";
 IDType[2] = "HR";
@@ -26,16 +30,14 @@ IDName[253] = "Button A";
 IDName[254] = "Button B";
 IDName[255] = "Button C";
 
-function bluetoothConnect(){
+async function bluetoothConnect(){
 	console.log("Test");
-	navigator.bluetooth.requestDevice({
-		acceptAllDevices: true,
-	});
-//		console.log(element);
-		document.getElementById("buttonHolder").innerHTML +=`
-		<button type="button" class="btn text-left pr-0" onclick="cardCreation('Test')">
-			Test
-		</button>`;
+	var PAM = await navigator.bluetooth.requestDevice(bleOptions);
+	var PAMDevice = await PAM.gatt.connect();
+	var PAMService = await PAMDevice.getPrimaryService();
+	var PAMServer = await PAMService.getCharacteristic();
+	console.log(PAM);
+	console.log(PAMServer);
 	IDCount.forEach((element) => {
 //		console.log(element);
 		document.getElementById("buttonHolder").innerHTML +=`
