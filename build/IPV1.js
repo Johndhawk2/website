@@ -8,8 +8,13 @@ var IDCount = [1,2,252,253,254,255];
 var cardTypeArray = [];
 var graphArray = [];
 
+var TransparentService = "49535343-fe7d-4ae5-8fa9-9fafd205e455";
+var TXCharacteristic = "49535343-1e4d-4bd9-ba61-23c647249616";
+var RXCharacteristic = "49535343-8841-43f4-a8d4-ecbe34729bb3";
+
 var bleOptions = {
 	acceptAllDevices: true,
+	optionalServices: [TransparentService]
 	};
 
 IDType[0] = "Time";
@@ -30,14 +35,31 @@ IDName[253] = "Button A";
 IDName[254] = "Button B";
 IDName[255] = "Button C";
 
+var PAM = new Object()
+	PAM.Main;
+	PAM.Device;
+	PAM.Service;
+	PAM.ServerRX;
+	PAM.ServerTX;
+
 async function bluetoothConnect(){
-	console.log("Test");
-	var PAM = await navigator.bluetooth.requestDevice(bleOptions);
-	var PAMDevice = await PAM.gatt.connect();
-	var PAMService = await PAMDevice.getPrimaryService();
-	var PAMServer = await PAMService.getCharacteristic();
-	console.log(PAM);
-	console.log(PAMServer);
+	PAM.Main = await navigator.bluetooth.requestDevice(bleOptions);
+	PAM.Device = await PAM.Main.gatt.connect();
+	PAM.Service = await PAM.Device.getPrimaryService("49535343-fe7d-4ae5-8fa9-9fafd205e455");
+	PAM.ServerRX = await PAM.Service.getCharacteristic(RXCharacteristic);
+	PAM.ServerTX = await PAM.Service.getCharacteristic(TXCharacteristic);
+	PAM.ServerTX.startNotifications().then(_ => {
+		PAM.ServerTX.addEventListener('characteristicvaluechanged',
+		handleNotifications);
+	});
+	var enc = new TextEncoder();
+	PAM.ServerRX.writeValue(enc.encode("Test"));
+//	var send = new ArrayBuffer(8);
+//	send = "H";
+//	PAMServerRX.writeValue(send);
+	console.log(PAM.Main);
+	console.log(PAM.ServerRX);
+	console.log(PAM.ServerTX);
 	IDCount.forEach((element) => {
 //		console.log(element);
 		document.getElementById("buttonHolder").innerHTML +=`
@@ -45,6 +67,12 @@ async function bluetoothConnect(){
 			${IDName[element]}
 		</button>`});
 //	editChart();
+}
+
+function handleNotifications(event){
+	let value = event.target.value.buffer;
+	var enc = new TextDecoder("utf-8");
+	console.log(enc.decode(value));
 }
 
 function cardCreation(cardType){
@@ -108,6 +136,8 @@ function formCreate(cardType){
 
 function formSubmit(){
 	console.log($("#dataInput").val());
+	var enc = new TextEncoder();
+	PAM.ServerRX.writeValue(enc.encode($("#dataInput").val()));
 	$("#dataInput").val('');
 }
 
