@@ -4,7 +4,8 @@ google.charts.setOnLoadCallback(drawChartA);
 
 var IDType = [256];
 var IDName = [256];
-var IDCount = [1,2,252,253,254,255];
+var IDCount = [];//[1,2,252,253,254,255];
+var IDCountFlag = 0;
 var cardTypeArray = [];
 var graphArray = [];
 
@@ -13,7 +14,8 @@ var TXCharacteristic = "49535343-1e4d-4bd9-ba61-23c647249616";
 var RXCharacteristic = "49535343-8841-43f4-a8d4-ecbe34729bb3";
 
 var bleOptions = {
-	acceptAllDevices: true,
+//	acceptAllDevices: true,
+	filters: [{name: " P.A.M"}],
 	optionalServices: [TransparentService]
 	};
 
@@ -43,36 +45,51 @@ var PAM = new Object()
 	PAM.ServerTX;
 
 async function bluetoothConnect(){
-	PAM.Main = await navigator.bluetooth.requestDevice(bleOptions);
-	PAM.Device = await PAM.Main.gatt.connect();
-	PAM.Service = await PAM.Device.getPrimaryService("49535343-fe7d-4ae5-8fa9-9fafd205e455");
-	PAM.ServerRX = await PAM.Service.getCharacteristic(RXCharacteristic);
-	PAM.ServerTX = await PAM.Service.getCharacteristic(TXCharacteristic);
-	PAM.ServerTX.startNotifications().then(_ => {
-		PAM.ServerTX.addEventListener('characteristicvaluechanged',
-		handleNotifications);
-	});
-	var enc = new TextEncoder();
-	PAM.ServerRX.writeValue(enc.encode("Test"));
-//	var send = new ArrayBuffer(8);
-//	send = "H";
-//	PAMServerRX.writeValue(send);
-	console.log(PAM.Main);
-	console.log(PAM.ServerRX);
-	console.log(PAM.ServerTX);
-	IDCount.forEach((element) => {
-//		console.log(element);
-		document.getElementById("buttonHolder").innerHTML +=`
-		<button type="button" class="btn text-left pr-0" onclick="cardCreation('${element}')">
-			${IDName[element]}
-		</button>`});
-//	editChart();
+	$("#overlay").css("display","block");
+	try{
+		PAM.Main = await navigator.bluetooth.requestDevice(bleOptions);
+		PAM.Device = await PAM.Main.gatt.connect();
+		PAM.Service = await PAM.Device.getPrimaryService("49535343-fe7d-4ae5-8fa9-9fafd205e455");
+		PAM.ServerRX = await PAM.Service.getCharacteristic(RXCharacteristic);
+		PAM.ServerTX = await PAM.Service.getCharacteristic(TXCharacteristic);
+		PAM.ServerTX.startNotifications().then(_ => {
+			PAM.ServerTX.addEventListener('characteristicvaluechanged',
+			handleNotifications);
+		});
+		var enc = new TextEncoder();
+		await PAM.ServerRX.writeValue(enc.encode("connecting" + '\n'));
+		await PAM.ServerRX.writeValue(enc.encode("cardReq" + '\n'));
+		console.log(PAM.Main);
+		console.log(PAM.ServerRX);
+		console.log(PAM.ServerTX);
+	}
+	catch(err){
+		$("#overlay").css("display","none");
+		console.log(err);
+	}
 }
 
 function handleNotifications(event){
 	let value = event.target.value.buffer;
-	var enc = new TextDecoder("utf-8");
-	console.log(enc.decode(value));
+	if(IDCountFlag == 0){
+		var testVal = new Uint8Array(value);
+		testVal.forEach((element) => {
+			IDCount.push(element);
+		});
+		IDCount.forEach((element) => {
+			document.getElementById("buttonHolder").innerHTML +=`
+			<button type="button" class="btn text-left pr-0" onclick="cardCreation('${element}')">
+				${IDName[element]}
+			</button>`});
+		$("#overlay").css("display","none");
+		IDCountFlag = 1;
+		console.log(testVal);
+		console.log(IDCount);
+	}
+	if(IDCountFlag == 1){
+		var enc = new TextDecoder("utf-8");
+		console.log(enc.decode(value));
+	}
 }
 
 function cardCreation(cardType){
@@ -137,7 +154,8 @@ function formCreate(cardType){
 function formSubmit(){
 	console.log($("#dataInput").val());
 	var enc = new TextEncoder();
-	PAM.ServerRX.writeValue(enc.encode($("#dataInput").val()));
+	var test = enc.encode($("#dataInput").val() + '\n');
+	PAM.ServerRX.writeValue(test);
 	$("#dataInput").val('');
 }
 
