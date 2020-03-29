@@ -1,4 +1,5 @@
 google.charts.load('current', {'packages':['corechart','line']});
+google.load("visualization", "1", {packages:["corechart"]});
 // Set a callback to run when the Google Visualization API is loaded.
 google.charts.setOnLoadCallback(drawChartA);
 
@@ -18,6 +19,8 @@ var bleOptions = {
 	filters: [{name: " P.A.M"}],
 	optionalServices: [TransparentService]
 	};
+
+var dataArray = [];
 
 IDType[0] = "Time";
 IDType[1] = "Step";
@@ -44,7 +47,12 @@ var PAM = new Object()
 	PAM.ServerRX;
 	PAM.ServerTX;
 
+function sleep(ms) {
+	return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 async function bluetoothConnect(){
+	$("#overlay").css("background-color","rgba(0,0,0,0.5)");
 	$("#overlay").css("display","block");
 	try{
 		PAM.Main = await navigator.bluetooth.requestDevice(bleOptions);
@@ -64,6 +72,8 @@ async function bluetoothConnect(){
 		console.log(PAM.ServerTX);
 	}
 	catch(err){
+		$("#overlay").css("background-color","rgba(255,0,0,0.5)");
+		await sleep(200);
 		$("#overlay").css("display","none");
 		console.log(err);
 	}
@@ -88,7 +98,26 @@ function handleNotifications(event){
 	}
 	if(IDCountFlag == 1){
 		var enc = new TextDecoder("utf-8");
-		console.log(enc.decode(value));
+		//console.log(enc.decode(value));
+		var testVal = new Uint8Array(value);
+		console.log(testVal);
+		if(testVal[0]==100){
+			dataArray.push(new  google.visualization.DataTable());
+			dataArray[0].addColumn('timeofday','Time');
+			dataArray[0].addColumn('number',IDName[1]);
+			dataArray[0].addRows([
+			[epochConvert(1000), testVal[4]],
+			[epochConvert(12000), testVal[8]],
+			[epochConvert(23000), testVal[12]],
+			[epochConvert(34000), testVal[16]],
+			[epochConvert(45000), testVal[20]],
+			[epochConvert(55000), testVal[24]],
+			[epochConvert(60000), testVal[28]],
+			[epochConvert(69000), testVal[32]],
+			[epochConvert(76000), testVal[36]],
+			[epochConvert(86000), testVal[40]]
+			]);
+		}
 	}
 }
 
@@ -107,20 +136,20 @@ function epochConvert(dayTime){
 }
 
 function cardHTML(cardType){
-	var randData = [];
-	for(i=0; i<5; i++)randData.push(Math.random());
-	// Create the data table.
-	var data = new google.visualization.DataTable();
-	data.addColumn('timeofday', 'Time');
-	data.addColumn('number', IDName[cardType]);
-	data.addRows([
-	[epochConvert(10000), randData[0]],
-	[epochConvert(25000), randData[1]],
-	[epochConvert(40204), randData[2]],
-	[epochConvert(60660), randData[3]],
-	[epochConvert(80000), randData[4]]
-	]);
-
+//	var randData = [];
+//	for(i=0; i<5; i++)randData.push(Math.random());
+//	// Create the data table.
+//	var data = new google.visualization.DataTable();
+//	data.addColumn('timeofday', 'Time');
+//	data.addColumn('number', IDName[cardType]);
+//	data.addRows([
+//	[epochConvert(10000), randData[0]],
+//	[epochConvert(25000), randData[1]],
+//	[epochConvert(40204), randData[2]],
+//	[epochConvert(60660), randData[3]],
+//	[epochConvert(80000), randData[4]]
+//	]);
+	var data = dataArray[0];
 	document.getElementById("cardContainer").innerHTML += `
 	<div class="card mb-3" id="${IDType[cardType]}" style="display:none">
 		<div class="card-header">
