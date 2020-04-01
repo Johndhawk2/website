@@ -1,26 +1,27 @@
 google.charts.load('current', {'packages':['corechart','line']});
-google.load("visualization", "1", {packages:["corechart"]});
 // Set a callback to run when the Google Visualization API is loaded.
 google.charts.setOnLoadCallback(drawChartA);
 
 var IDType = [256];
 var IDName = [256];
-var IDCount = [];//[1,2,252,253,254,255];
+var IDCount = [];
 var IDCountFlag = 0;
 var cardTypeArray = [];
 var graphArray = [];
+
+var tempTest = [];
 
 var TransparentService = "49535343-fe7d-4ae5-8fa9-9fafd205e455";
 var TXCharacteristic = "49535343-1e4d-4bd9-ba61-23c647249616";
 var RXCharacteristic = "49535343-8841-43f4-a8d4-ecbe34729bb3";
 
 var bleOptions = {
-//	acceptAllDevices: true,
 	filters: [{name: " P.A.M"}],
 	optionalServices: [TransparentService]
 	};
 
 var dataArray = [];
+var dataArraySorted = [];
 
 IDType[0] = "Time";
 IDType[1] = "Step";
@@ -51,6 +52,18 @@ function sleep(ms) {
 	return new Promise(resolve => setTimeout(resolve, ms));
 }
 
+function dataSort(){
+	for(var i=0; i<dataArray.length; i++){
+		var tempArr = [];
+		for(var j=0; j<dataArraySorted[0].length; j++){
+			tempArr.push(0);
+			if(dataArraySorted[0].indexOf(dataArray[i][2*j]) != -1)tempArr[j] = dataArray[i][2*dataArraySorted[0].indexOf(dataArray[i][2*j])+1];
+		}
+		dataArraySorted.push(tempArr);
+	}
+	console.log(dataArraySorted);
+}
+
 async function bluetoothConnect(){
 	$("#overlay").css("background-color","rgba(0,0,0,0.5)");
 	$("#overlay").css("display","block");
@@ -67,9 +80,13 @@ async function bluetoothConnect(){
 		var enc = new TextEncoder();
 		await PAM.ServerRX.writeValue(enc.encode("connecting" + '\n'));
 		await PAM.ServerRX.writeValue(enc.encode("cardReq" + '\n'));
-		console.log(PAM.Main);
-		console.log(PAM.ServerRX);
-		console.log(PAM.ServerTX);
+//		console.log(PAM.Main);
+//		console.log(PAM.ServerRX);
+//		console.log(PAM.ServerTX);
+		while(IDCountFlag == 0){
+			await sleep(200);
+			await PAM.ServerRX.writeValue(enc.encode("cardReq" + '\n'));
+		}
 	}
 	catch(err){
 		$("#overlay").css("background-color","rgba(255,0,0,0.5)");
@@ -77,6 +94,7 @@ async function bluetoothConnect(){
 		$("#overlay").css("display","none");
 		console.log(err);
 	}
+	await PAM.ServerRX.writeValue(enc.encode("datReq" + '\n'));
 }
 
 function handleNotifications(event){
@@ -91,8 +109,14 @@ function handleNotifications(event){
 			<button type="button" class="btn text-left pr-0" onclick="cardCreation('${element}')">
 				${IDName[element]}
 			</button>`});
-		$("#overlay").css("display","none");
+//		$("#overlay").css("display","none");
 		IDCountFlag = 1;
+		var temp = []
+		temp.push(0);
+		IDCount.forEach(element => {
+			temp.push(element);
+		});
+		dataArraySorted[0]=temp;
 		console.log(testVal);
 		console.log(IDCount);
 	}
@@ -100,23 +124,43 @@ function handleNotifications(event){
 		var enc = new TextDecoder("utf-8");
 		//console.log(enc.decode(value));
 		var testVal = new Uint8Array(value);
-		console.log(testVal);
-		if(testVal[0]==100){
-			dataArray.push(new  google.visualization.DataTable());
-			dataArray[0].addColumn('timeofday','Time');
-			dataArray[0].addColumn('number',IDName[1]);
-			dataArray[0].addRows([
-			[epochConvert(1000), testVal[4]],
-			[epochConvert(12000), testVal[8]],
-			[epochConvert(23000), testVal[12]],
-			[epochConvert(34000), testVal[16]],
-			[epochConvert(45000), testVal[20]],
-			[epochConvert(55000), testVal[24]],
-			[epochConvert(60000), testVal[28]],
-			[epochConvert(69000), testVal[32]],
-			[epochConvert(76000), testVal[36]],
-			[epochConvert(86000), testVal[40]]
-			]);
+//		console.log(testVal);
+		switch(testVal[0]){
+			case 100:											////Receiving Data////
+				$("#overlay").css("background-color","rgba(0,0,0,0.5)");
+				$("#overlay").css("display","block");
+				var datNum = testVal[1];
+	//			dataArray.push(new  google.visualization.DataTable());
+	//			dataArray[0].addColumn('timeofday','Time');
+	//			dataArray[0].addColumn('number',IDName[1]);
+				var testData = [];
+				for(var i=0; i<36; i++){
+					var recData = (testVal[4*i+2]<<24) + (testVal[4*i+3]<<16) + (testVal[4*i+4]<<8) + (testVal[4*i+5]);
+	//				console.log(testVal[4*i+2] + "," + testVal[4*i+3] + "," + testVal[4*i+4] + "," + testVal[4*i+5]);
+					testData.push(recData);
+	//				console.log(testData[i]);
+				}
+	//			console.log(Math.floor(153/(datNum*8)));
+				for(var i=0; i<Math.floor(153/(datNum*8)); i++){
+					var out = "";
+					var testArr = [];
+					for(var j=0; j<datNum*2; j++){
+						testArr.push(testData[i*datNum*2+j]);
+						out += testData[i*datNum*2+j];
+						out += ",";
+					}
+					if(isNaN(testData[i*datNum]) == 0){
+						dataArray.push(testArr);
+					}
+				}
+				break;
+			case 200:										////End of Data////
+				console.log(dataArray);
+				dataSort();
+				$("#overlay").css("display","none");
+				break;
+			default:
+				break;
 		}
 	}
 }
@@ -136,20 +180,12 @@ function epochConvert(dayTime){
 }
 
 function cardHTML(cardType){
-//	var randData = [];
-//	for(i=0; i<5; i++)randData.push(Math.random());
-//	// Create the data table.
-//	var data = new google.visualization.DataTable();
-//	data.addColumn('timeofday', 'Time');
-//	data.addColumn('number', IDName[cardType]);
-//	data.addRows([
-//	[epochConvert(10000), randData[0]],
-//	[epochConvert(25000), randData[1]],
-//	[epochConvert(40204), randData[2]],
-//	[epochConvert(60660), randData[3]],
-//	[epochConvert(80000), randData[4]]
-//	]);
-	var data = dataArray[0];
+	var randData = [];
+	for(i=0; i<5; i++)randData.push(Math.random());
+	var data = new google.visualization.DataTable();
+	data.addColumn('timeofday', 'Time');
+	data.addColumn('number', IDName[cardType]);
+	for(var i=1; i<dataArraySorted.length; i++)data.addRows([[epochConvert(dataArraySorted[i][0]), dataArraySorted[i][dataArraySorted[0].indexOf(parseInt(cardType))]]]);
 	document.getElementById("cardContainer").innerHTML += `
 	<div class="card mb-3" id="${IDType[cardType]}" style="display:none">
 		<div class="card-header">
