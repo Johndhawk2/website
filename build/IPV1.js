@@ -55,9 +55,14 @@ function sleep(ms) {
 function dataSort(){
 	for(var i=0; i<dataArray.length; i++){
 		var tempArr = [];
+		var done = [];
 		for(var j=0; j<dataArraySorted[0].length; j++){
 			tempArr.push(0);
-			if(dataArraySorted[0].indexOf(dataArray[i][2*j]) != -1)tempArr[j] = dataArray[i][2*dataArraySorted[0].indexOf(dataArray[i][2*j])+1];
+			var location = dataArraySorted[0].indexOf(dataArray[i][2*j]);
+			if(location != -1 && done.indexOf(dataArraySorted[0][location]) == -1){
+				tempArr[j] = dataArray[i][2*location+1];
+				done.push(dataArraySorted[0][location]);
+			}
 		}
 		dataArraySorted.push(tempArr);
 	}
@@ -121,41 +126,22 @@ function handleNotifications(event){
 		console.log(IDCount);
 	}
 	if(IDCountFlag == 1){
-		var enc = new TextDecoder("utf-8");
+		//var enc = new TextDecoder("utf-8");
 		//console.log(enc.decode(value));
 		var testVal = new Uint8Array(value);
-//		console.log(testVal);
 		switch(testVal[0]){
 			case 100:											////Receiving Data////
 				$("#overlay").css("background-color","rgba(0,0,0,0.5)");
 				$("#overlay").css("display","block");
 				var datNum = testVal[1];
-	//			dataArray.push(new  google.visualization.DataTable());
-	//			dataArray[0].addColumn('timeofday','Time');
-	//			dataArray[0].addColumn('number',IDName[1]);
 				var testData = [];
-				for(var i=0; i<36; i++){
+				for(var i=0; i<datNum*2; i++){
 					var recData = (testVal[4*i+2]<<24) + (testVal[4*i+3]<<16) + (testVal[4*i+4]<<8) + (testVal[4*i+5]);
-	//				console.log(testVal[4*i+2] + "," + testVal[4*i+3] + "," + testVal[4*i+4] + "," + testVal[4*i+5]);
 					testData.push(recData);
-	//				console.log(testData[i]);
 				}
-	//			console.log(Math.floor(153/(datNum*8)));
-				for(var i=0; i<Math.floor(153/(datNum*8)); i++){
-					var out = "";
-					var testArr = [];
-					for(var j=0; j<datNum*2; j++){
-						testArr.push(testData[i*datNum*2+j]);
-						out += testData[i*datNum*2+j];
-						out += ",";
-					}
-					if(isNaN(testData[i*datNum]) == 0){
-						dataArray.push(testArr);
-					}
-				}
+				dataArray.push(testData);
 				break;
 			case 200:										////End of Data////
-				console.log(dataArray);
 				dataSort();
 				$("#overlay").css("display","none");
 				break;
