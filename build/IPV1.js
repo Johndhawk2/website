@@ -60,7 +60,8 @@ function dataSort(){
 			tempArr.push(0);
 			var location = dataArraySorted[0].indexOf(dataArray[i][2*j]);
 			if(location != -1 && done.indexOf(dataArraySorted[0][location]) == -1){
-				tempArr[j] = dataArray[i][2*location+1];
+				if(dataArraySorted[0][location] != 1 || i == 0)tempArr[j] = dataArray[i][2*location+1];
+				else tempArr[j] = dataArray[i][2*location+1] + dataArraySorted[i][j];
 				done.push(dataArraySorted[0][location]);
 			}
 		}
@@ -71,6 +72,8 @@ function dataSort(){
 
 async function bluetoothConnect(){
 	$("#overlay").css("background-color","rgba(0,0,0,0.5)");
+	$("#text").css("left","calc(50% - 45px)");
+	document.getElementById("text").innerHTML="Connecting";
 	$("#overlay").css("display","block");
 	try{
 		PAM.Main = await navigator.bluetooth.requestDevice(bleOptions);
@@ -84,10 +87,9 @@ async function bluetoothConnect(){
 		});
 		var enc = new TextEncoder();
 		await PAM.ServerRX.writeValue(enc.encode("connecting" + '\n'));
+		$("#text").css("left","calc(50% - 60px)");
+		document.getElementById("text").innerHTML="Requesting Data";
 		await PAM.ServerRX.writeValue(enc.encode("cardReq" + '\n'));
-//		console.log(PAM.Main);
-//		console.log(PAM.ServerRX);
-//		console.log(PAM.ServerTX);
 		while(IDCountFlag == 0){
 			await sleep(200);
 			await PAM.ServerRX.writeValue(enc.encode("cardReq" + '\n'));
@@ -95,6 +97,8 @@ async function bluetoothConnect(){
 	}
 	catch(err){
 		$("#overlay").css("background-color","rgba(255,0,0,0.5)");
+		$("#text").css("left","calc(50% - 65px)");
+		document.getElementById("text").innerHTML="Failed to Connect";
 		await sleep(200);
 		$("#overlay").css("display","none");
 		console.log(err);
@@ -114,7 +118,6 @@ function handleNotifications(event){
 			<button type="button" class="btn text-left pr-0" onclick="cardCreation('${element}')">
 				${IDName[element]}
 			</button>`});
-//		$("#overlay").css("display","none");
 		IDCountFlag = 1;
 		var temp = []
 		temp.push(0);
@@ -126,12 +129,12 @@ function handleNotifications(event){
 		console.log(IDCount);
 	}
 	if(IDCountFlag == 1){
-		//var enc = new TextDecoder("utf-8");
-		//console.log(enc.decode(value));
 		var testVal = new Uint8Array(value);
 		switch(testVal[0]){
 			case 100:											////Receiving Data////
 				$("#overlay").css("background-color","rgba(0,0,0,0.5)");
+				$("#text").css("left","calc(50% - 55px)");
+				document.getElementById("text").innerHTML="Receiving Data";
 				$("#overlay").css("display","block");
 				var datNum = testVal[1];
 				var testData = [];
@@ -142,6 +145,8 @@ function handleNotifications(event){
 				dataArray.push(testData);
 				break;
 			case 200:										////End of Data////
+				$("#text").css("left","calc(50% - 60px)");
+				document.getElementById("text").innerHTML="Processing Data";
 				dataSort();
 				$("#overlay").css("display","none");
 				break;

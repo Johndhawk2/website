@@ -23,18 +23,23 @@
 				bottom: 0;
 				background-color: rgba(0,0,0,0.5);
 				z-index: 2;}
-			#test{
+			#spin{
 				position: absolute;
 				top: calc(50% - 20px);
 				left: calc(50% - 20px);}
+			#text{
+				position: absolute;
+				top: calc(50% + 10px);
+				left: calc(50% - 45px);}
 		</style>
     </head>
 	<body style="background-color:lightgrey;">
 		<div class="overlaySection">
 			<div id="overlay">
-				<div id="test" class="spinner-border text-primary" role="status">
+				<div id="spin" class="spinner-border text-primary" role="status">
 					<span class="sr-only">Connecting...</span>
 				</div>
+				<p id="text" class="text-primary">Connecting</p>
 			</div>
 		</div>
 		<div class="mainBody">
