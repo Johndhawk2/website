@@ -53,15 +53,29 @@ function sleep(ms) {
 }
 
 function dataSort(){
+	var cardTypesData = [];
 	for(var i=0; i<dataArray.length; i++){
-		var tempArr = [];
+		for(var j=0; j<dataArray[i].length; j+=2){
+			if(cardTypesData.indexOf(dataArray[i][j]) == -1 && dataArray[i][j] < 256)cardTypesData.push(dataArray[i][j]);
+		}
+	}
+	cardTypeArray = cardTypesData.sort();
+	for(var i=1; i<cardTypeArray.length; i++){
+		document.getElementById("buttonHolder").innerHTML +=`
+		<button type="button" class="btn text-left pr-0" onclick="cardCreation('${cardTypeArray[i]}')">
+			${IDName[cardTypeArray[i]]}
+		</button>`
+	}
+	dataArraySorted[0] = cardTypeArray;
+	console.log(cardTypeArray);
+	for(var i=0; i<dataArray.length; i++){
+		var tempArr = new Array(dataArraySorted[0].length).fill(0);
 		var done = [];
 		for(var j=0; j<dataArraySorted[0].length; j++){
-			tempArr.push(0);
 			var location = dataArraySorted[0].indexOf(dataArray[i][2*j]);
 			if(location != -1 && done.indexOf(dataArraySorted[0][location]) == -1){
-				if(dataArraySorted[0][location] != 1 || i == 0)tempArr[j] = dataArray[i][2*location+1];
-				else tempArr[j] = dataArray[i][2*location+1] + dataArraySorted[i][j];
+				if(dataArraySorted[0][location] != 1 || i == 0)tempArr[location] = dataArray[i][2*j+1];
+				else tempArr[location] = dataArray[i][2*j+1] + dataArraySorted[i][j];
 				done.push(dataArraySorted[0][location]);
 			}
 		}
@@ -82,18 +96,17 @@ async function bluetoothConnect(){
 		PAM.ServerRX = await PAM.Service.getCharacteristic(RXCharacteristic);
 		PAM.ServerTX = await PAM.Service.getCharacteristic(TXCharacteristic);
 		PAM.ServerTX.startNotifications().then(_ => {
-			PAM.ServerTX.addEventListener('characteristicvaluechanged',
-			handleNotifications);
+			PAM.ServerTX.addEventListener('characteristicvaluechanged',	handleNotifications);
 		});
+		PAM.Main.addEventListener('gattserverdisconnected',bluetoothDisconnect);
 		var enc = new TextEncoder();
 		await PAM.ServerRX.writeValue(enc.encode("connecting" + '\n'));
 		$("#text").css("left","calc(50% - 60px)");
 		document.getElementById("text").innerHTML="Requesting Data";
-		await PAM.ServerRX.writeValue(enc.encode("cardReq" + '\n'));
-		while(IDCountFlag == 0){
-			await sleep(200);
-			await PAM.ServerRX.writeValue(enc.encode("cardReq" + '\n'));
-		}
+		document.getElementById("connection").innerHTML = `
+			<button type="button" class="btn text-left pr-0" onclick="bluetoothDisconnect()">
+				Disonnect Bluetooth
+			</button>`;
 	}
 	catch(err){
 		$("#overlay").css("background-color","rgba(255,0,0,0.5)");
@@ -106,53 +119,62 @@ async function bluetoothConnect(){
 	await PAM.ServerRX.writeValue(enc.encode("datReq" + '\n'));
 }
 
+async function bluetoothDisconnect(){
+	await PAM.Main.gatt.disconnect();
+	dataArray = [];
+	dataArraySorted = [];
+	IDCount = [];
+	IDCountFlag = 0;
+	cardTypeArray = [];
+	graphArray = [];
+	tempTest = [];
+	document.getElementById("cardContainer").innerHTML = `
+		<div class="card mb-3" id="Test">
+			<div class="card-header">
+				Test
+				<button type="button" class="close py-0" aria-label="Close" onclick="closeCard(this)">
+					<span aria-hidden="true"><i class="material-icons">close</i></span>
+				</button>
+			</div>
+			<div class="card-body px-0" id="Test body">
+
+			</div>
+		</div>`;
+		drawChartA();
+	document.getElementById("buttonHolder").innerHTML = '';
+	document.getElementById("connection").innerHTML = `
+		<button type="button" class="btn text-left pr-0" onclick="bluetoothConnect()">
+			Connect Bluetooth
+		</button>`;
+	console.log("Bluetooth device disconnected");
+}
+
 function handleNotifications(event){
 	let value = event.target.value.buffer;
-	if(IDCountFlag == 0){
-		var testVal = new Uint8Array(value);
-		testVal.forEach((element) => {
-			IDCount.push(element);
-		});
-		IDCount.forEach((element) => {
-			document.getElementById("buttonHolder").innerHTML +=`
-			<button type="button" class="btn text-left pr-0" onclick="cardCreation('${element}')">
-				${IDName[element]}
-			</button>`});
-		IDCountFlag = 1;
-		var temp = []
-		temp.push(0);
-		IDCount.forEach(element => {
-			temp.push(element);
-		});
-		dataArraySorted[0]=temp;
-		console.log(testVal);
-		console.log(IDCount);
-	}
-	if(IDCountFlag == 1){
-		var testVal = new Uint8Array(value);
-		switch(testVal[0]){
-			case 100:											////Receiving Data////
-				$("#overlay").css("background-color","rgba(0,0,0,0.5)");
-				$("#text").css("left","calc(50% - 55px)");
-				document.getElementById("text").innerHTML="Receiving Data";
-				$("#overlay").css("display","block");
-				var datNum = testVal[1];
-				var testData = [];
-				for(var i=0; i<datNum*2; i++){
-					var recData = (testVal[4*i+2]<<24) + (testVal[4*i+3]<<16) + (testVal[4*i+4]<<8) + (testVal[4*i+5]);
-					testData.push(recData);
-				}
-				dataArray.push(testData);
-				break;
-			case 200:										////End of Data////
-				$("#text").css("left","calc(50% - 60px)");
-				document.getElementById("text").innerHTML="Processing Data";
-				dataSort();
-				$("#overlay").css("display","none");
-				break;
-			default:
-				break;
-		}
+//	console.log(value);
+	var testVal = new Uint8Array(value);
+	switch(testVal[0]){
+		case 100:											////Receiving Data////
+			$("#overlay").css("background-color","rgba(0,0,0,0.5)");
+			$("#text").css("left","calc(50% - 55px)");
+			document.getElementById("text").innerHTML="Receiving Data";
+			$("#overlay").css("display","block");
+			var datNum = (testVal.length-1)/8;
+			var testData = [];
+			for(var i=0; i<datNum*2; i++){
+				var recData = (testVal[4*i+1]<<24) + (testVal[4*i+2]<<16) + (testVal[4*i+3]<<8) + (testVal[4*i+4]);
+				testData.push(recData);
+			}
+			dataArray.push(testData);
+			break;
+		case 200:										////End of Data////
+			$("#text").css("left","calc(50% - 60px)");
+			document.getElementById("text").innerHTML="Processing Data";
+			dataSort();
+			$("#overlay").css("display","none");
+			break;
+		default:
+			break;
 	}
 }
 
