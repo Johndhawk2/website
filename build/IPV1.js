@@ -54,6 +54,7 @@ function sleep(ms) {
 
 function dataSort(){
 	var cardTypesData = [];
+//	console.log(dataArray);
 	for(var i=0; i<dataArray.length; i++){
 		for(var j=0; j<dataArray[i].length; j+=2){
 			if(cardTypesData.indexOf(dataArray[i][j]) == -1 && dataArray[i][j] < 256)cardTypesData.push(dataArray[i][j]);
@@ -67,21 +68,43 @@ function dataSort(){
 		</button>`
 	}
 	dataArraySorted[0] = cardTypeArray;
-	console.log(cardTypeArray);
+//	console.log(cardTypeArray);
+	var k = 0;
+	var maxErr = 5;
+	var errLim = 0;
 	for(var i=0; i<dataArray.length; i++){
 		var tempArr = new Array(dataArraySorted[0].length).fill(0);
 		var done = [];
-		for(var j=0; j<dataArraySorted[0].length; j++){
-			var location = dataArraySorted[0].indexOf(dataArray[i][2*j]);
-			if(location != -1 && done.indexOf(dataArraySorted[0][location]) == -1){
-				if(dataArraySorted[0][location] != 1 || i == 0)tempArr[location] = dataArray[i][2*j+1];
-				else tempArr[location] = dataArray[i][2*j+1] + dataArraySorted[i][j];
-				done.push(dataArraySorted[0][location]);
+//		console.log("Test: " + dataArray[i][1] + ", Comp: " + dataArraySorted[k][0]);
+		if((dataArray[i][1] > dataArraySorted[k][0] || i==0 || errLim > maxErr) && dataArray[i][1] <= 86400){
+			for(var j=0; j<dataArraySorted[0].length; j++){
+				var location = dataArraySorted[0].indexOf(dataArray[i][2*j]);
+				if(location != -1 && done.indexOf(dataArraySorted[0][location]) == -1){
+					if(dataArraySorted[0][location] != 1 || i == 0)tempArr[location] = dataArray[i][2*j+1];
+					else tempArr[location] = dataArray[i][2*j+1] + dataArraySorted[k][j];
+					done.push(dataArraySorted[0][location]);
+				}
 			}
+			dataArraySorted.push(tempArr);
+			k++
+			errLim=0;
 		}
-		dataArraySorted.push(tempArr);
+		else{
+			console.log("Error Caught");
+			errLim++;
+		}
 	}
+	dataArraySorted.sort(sortFunction);
 	console.log(dataArraySorted);
+}
+
+function sortFunction(a, b) {
+    if (a[0] === b[0]) {
+        return 0;
+    }
+    else {
+        return (a[0] < b[0]) ? -1 : 1;
+    }
 }
 
 async function bluetoothConnect(){
@@ -100,7 +123,7 @@ async function bluetoothConnect(){
 		});
 		PAM.Main.addEventListener('gattserverdisconnected',bluetoothDisconnect);
 		var enc = new TextEncoder();
-		await PAM.ServerRX.writeValue(enc.encode("connecting" + '\n'));
+		await PAM.ServerRX.writeValue(enc.encode("connecting" + '\n' + '\n'));
 		$("#text").css("left","calc(50% - 60px)");
 		document.getElementById("text").innerHTML="Requesting Data";
 		document.getElementById("connection").innerHTML = `
@@ -158,6 +181,7 @@ function handleNotifications(event){
 			$("#overlay").css("background-color","rgba(0,0,0,0.5)");
 			$("#text").css("left","calc(50% - 55px)");
 			document.getElementById("text").innerHTML="Receiving Data";
+//			console.log(testVal[1]);
 			$("#overlay").css("display","block");
 			var datNum = (testVal.length-1)/8;
 			var testData = [];
@@ -165,7 +189,9 @@ function handleNotifications(event){
 				var recData = (testVal[4*i+1]<<24) + (testVal[4*i+2]<<16) + (testVal[4*i+3]<<8) + (testVal[4*i+4]);
 				testData.push(recData);
 			}
-			dataArray.push(testData);
+			document.getElementById("textNum").innerHTML=`${testData[1]}`;
+			if(testData.length%2==0 && testData.length>2)dataArray.push(testData);
+			else console.log("Not Valid Data");
 			break;
 		case 200:										////End of Data////
 			$("#text").css("left","calc(50% - 60px)");
@@ -263,11 +289,10 @@ function drawChartA(){
 function drawChart(elem, data, idNum) {
 	var elemId = elem + " body";
 	var elemWidth = document.getElementById(elemId).offsetWidth;
-
 	// Set chart options
 	var chartOptions = {	legend: {position: 'none'},
 					chartArea: {left: 50, right: 20, top: 10, bottom: 30},
-					hAxis: {title: data.getColumnLabel(0), baseline: 0, viewWindow: {min: [0,0,0], max: [24,0,0]}},
+					hAxis: {title: data.getColumnLabel(0)},// baseline: 0, viewWindow: {min: [0,0,0], max: [24,0,0]}},
 					vAxis: {title: data.getColumnLabel(1)},
 //					curveType: 'function',
 //					explorer: {axis: 'horizontal', keepInBounds: true},
