@@ -1,6 +1,6 @@
 google.charts.load('current', {'packages':['corechart','line']});
 // Set a callback to run when the Google Visualization API is loaded.
-google.charts.setOnLoadCallback(drawChartA);
+//google.charts.setOnLoadCallback(drawChartA);
 
 var IDType = [256];
 var IDName = [256];
