@@ -1,16 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-		<title>Personal At-Home Monitoring</title>
-        <meta charset="utf-8">
+		<title>Personal At-Home Monitoring</title>																<!-- Set name of site -->
+        <meta charset="utf-8">																					<!-- Set up the site -->
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">	<!-- Include necessary files -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 		<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 		<script src="IPV1.js"></script>
+		<!-- Setup style for loading overlay -->
 		<style>
 			#overlay {
 				position: fixed;
@@ -33,9 +34,9 @@
 				left: calc(50% - 45px);}
 		</style>
     </head>
-	<body style="background-color:lightgrey;">
-		<div class="overlaySection">
-			<div id="overlay">
+	<body style="background-color:lightgrey;">																		  <!-- Set background colour -->
+		<div class="overlaySection">																				  	<!-- Loading Overlay -->
+			<div id="overlay">	
 				<div id="spin" class="spinner-border text-primary" role="status">
 					<span class="sr-only">Connecting...</span>
 				</div>
@@ -43,46 +44,36 @@
 				<p id="textNum" class="text-primary"></p>
 			</div>
 		</div>
-		<div class="mainBody">
-			<div class="navbar bg-dark text-white navbar-static-top">
+		<div class="mainBody">																							<!-- Container for everything -->
+			<div class="navbar bg-dark text-white navbar-static-top">													<!-- Nav Bar at top of screen -->
 				<h1 class="display-4 d-inline">P.A.M<sub class="h6">V 1.6.2 by John Hawk</sub></h1>
-				<div class="dropdown d-inline">
-					<button type="button" class="btn py-4 px-4 dropdown my-auto shadow-none" data-toggle="dropdown">
+				<div class="dropdown d-inline">																			<!-- Dropdown Menu Container -->
+					<button type="button" class="btn py-4 px-4 dropdown my-auto shadow-none" data-toggle="dropdown">	<!-- Dropdown icon -->
 						<i class="material-icons" style="color:white">menu</i>
 					</button>
-					<div class="dropdown-menu dropdown-menu-right">
+					<div class="dropdown-menu dropdown-menu-right">														<!-- Dropdown options -->
 						<div class="btn-group-vertical align-right">
 							<div id="connection">
 								<button type="button" class="btn text-left pr-0" onclick="bluetoothConnect()">
 									Connect Bluetooth
 								</button>
 							</div>
-							<div class="dropdown-divider">Lorem, ipsum dolor sit amet consectetur adipisicing elit.</div>
-							<div  class="btn-group-vertical align-right" id="buttonHolder">
+							<div class="dropdown-divider">Lorem, ipsum dolor sit amet consectetur adipisicing elit.</div> <!-- Adds line between connect/disconnect and cards -->
+							<div  class="btn-group-vertical align-right" id="buttonHolder">								<!-- Card options inserted here by js-->
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-			<div class="container px-3 pt-3" id="cardContainer">
-<!--				<div class="card mb-3" id="Test">
-					<div class="card-header">
-						Test
-						<button type="button" class="close py-0" aria-label="Close" onclick="closeCard(this)">
-							<span aria-hidden="true"><i class="material-icons">close</i></span>
-						</button>
-					</div>
-					<div class="card-body px-0" id="Test body">
-
-					</div>-->
-				<div class="card mb-3" id="Welcome">
+			<div class="container px-3 pt-3" id="cardContainer">														<!-- Cards are inserted here -->
+				<div class="card mb-3" id="Welcome">																	<!-- Welcome card to show instructions upon accessing the site -->
 					<div class="card-header">
 						Welcome
-						<button type="button" class="close py-0" aria-label="Close" onclick="closeCard(this)">
+						<button type="button" class="close py-0" aria-label="Close" onclick="closeCard(this)">			<!-- Close Button -->
 							<span aria-hidden="true"><i class="material-icons">close</i></span>
 						</button>
 					</div>
-					<div class="card-body px-4" id="Welcome body">
+					<div class="card-body px-4" id="Welcome body">														<!-- Where graphs usually go, text used for the welcome card -->
 						<p class="lead">Welcome to your P.A.M device.<br></p>
 						<p>To begin, click on the dropdown menu in the top left and select <mark>Connect Bluetooth</mark>.</p>
 						<p>Ensure both bluetooth and location are enabled, and select your P.A.M device from the menu.</p>
