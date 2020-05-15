@@ -176,7 +176,7 @@ async function bluetoothDisconnect(){								// Handles BLE disconnections
 
 function handleNotifications(event){								// Called when new data is received
 	let value = event.target.value.buffer;							// Store received data
-//	console.log(value);
+	console.log(value);
 	var testVal = new Uint8Array(value);							// Convert from bufferArray, to Uint8Array
 	switch(testVal[0]){
 		case 100:													// Receiving new data
