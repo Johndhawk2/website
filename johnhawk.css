@@ -9,22 +9,52 @@ body{
 a.active.nav-link{
 	background-color: transparent!important;
 	color: #ffffff!important;
-	border-color: #444444 !important;
+	border-color: #444444!important;
 	border-bottom-color: transparent!important;
 }
 
 ul.nav > li > a.active:hover{
-	border-color: #444444 !important;
+	border-color: #444444!important;
 	border-bottom: none;
 }
 
 ul.nav > li > a:hover{
 	color: white!important;
-	border-bottom-color: #444444 !important;
+	border-bottom-color: #444444!important;
 	border-color: transparent!important;
 }
 
 #dropdownIcon{
 	background-color: transparent;
 	border-color: transparent;
+}
+
+#menu{
+	color: #FFFFFF;
+	font-size: 30pt;
+}
+
+#close{
+	font-size: 40px;
+	color: #444444;
+	font-weight: bold;
+}
+
+.navigation{
+	width: 100%!important;
+}
+
+.sidenav{
+	height: 100%;
+	width: 0;
+	position: fixed;
+	z-index: 1;
+	top: 0;
+	left: 0;
+	background-color: rgba(0,0,0,0.5);
+	overflow-x: hidden;
+	padding-top: 60px;
+	transition: 0.5s;
+	font-size: 30px;
+	font-weight: bold;
 }

@@ -17,8 +17,8 @@
 			  <span class="navbar-toggler-icon"></span>
 			</button>
 			<div class="collapse navbar-collapse" id="navbarToggler">--><!-- Nav tabs -->
-		<nav  class="d-none d-sm-inline">
-			<div class="px-3 pt-3">
+		<nav  class="d-none d-sm-inline static-top">
+			<div class="px-3 pt-3 navigation">
 				<ul class="nav nav-tabs bg-black px-2" id="myTab" role="tablist">
 				  <li class="nav-item">
 					<a class="nav-link active text-secondary" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Home</a>
@@ -35,12 +35,35 @@
 				</ul>
 			</div>
 		</nav>
-		<nav class="d-inline d-sm-none">
-			<button type="button" id="dropdownIcon" >	<!-- Dropdown icon -->
-				<i class="material-icons" style="color:white">menu</i>
-			</button>
-		</nav>
-		<!-- Tab panes -->
+
+		<div class="d-sm-none container-fullwidth navigation">
+			<nav class="navbar">
+				<button class="navbar-toggler" onclick="openNav()" type="button" aria-expanded="false" aria-label="Toggle navigation">
+					<i class="material-icons" id="menu">menu</i>
+				</button>
+			</nav>
+		</div>
+				
+		<div class="sidenav" id="navbarSide">
+			<ul class="nav flex-column my-0" onclick="closeNav()">
+				<li class="nav-item active mx-auto">
+					<a class="nav-link active text-secondary" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Home</a>
+				</li>
+				<li class="nav-item mx-auto">
+					<a class="nav-link text-secondary" id="about-tab" data-toggle="tab" href="#about" role="tab" aria-controls="about" aria-selected="false">About</a>
+				</li>
+				<li class="nav-item mx-auto">
+					<a class="nav-link text-secondary" id="project-tab" data-toggle="tab" href="#projects" role="tab" aria-controls="projects" aria-selected="false">Projects</a>
+				</li>
+				<li class="nav-item mx-auto">
+					<a class="nav-link text-secondary" id="project-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Contact</a>
+				</li>
+				<li class="nav-item mx-auto">
+					<i class="material-icons" id="close" onclick="closeNav()">close</i>
+				</li>
+			</ul>
+		</div>
+
 		<div class="tab-content px-3">
 			<div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
 				<h1>This is the start</h1>
@@ -54,6 +77,6 @@
 			<div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
 				<h1>How to reach me</h1>
 			</div>
-		</div>
+		</div>		  
     </body>
 </html>
