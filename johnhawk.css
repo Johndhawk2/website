@@ -2,6 +2,13 @@ body{
 	background-color: #000000;
 }
 
+.nav-tabs{
+	border-color: #444444 !important;
+}
+
 a.active.nav-link{
 	background-color: #000000!important;
+	color: #ffffff!important;
+	border-color: #444444 !important;
+	border-bottom-color: transparent!important;
 }
