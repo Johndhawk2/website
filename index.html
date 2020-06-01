@@ -6,6 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
         <link rel="stylesheet" href="johnhawk.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 		<script src="johnhawk.js"></script>
@@ -16,7 +17,7 @@
 			  <span class="navbar-toggler-icon"></span>
 			</button>
 			<div class="collapse navbar-collapse" id="navbarToggler">--><!-- Nav tabs -->
-		<nav>
+		<nav  class="d-none d-sm-inline">
 			<div class="px-3 pt-3">
 				<ul class="nav nav-tabs bg-black px-2" id="myTab" role="tablist">
 				  <li class="nav-item">
@@ -33,6 +34,11 @@
 				  </li>
 				</ul>
 			</div>
+		</nav>
+		<nav class="d-inline d-sm-none">
+			<button type="button" id="dropdownIcon" >	<!-- Dropdown icon -->
+				<i class="material-icons" style="color:white">menu</i>
+			</button>
 		</nav>
 		<!-- Tab panes -->
 		<div class="tab-content px-3">

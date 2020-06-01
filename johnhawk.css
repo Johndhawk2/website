@@ -23,3 +23,8 @@ ul.nav > li > a:hover{
 	border-bottom-color: #444444 !important;
 	border-color: transparent!important;
 }
+
+#dropdownIcon{
+	background-color: transparent;
+	border-color: transparent;
+}
