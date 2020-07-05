@@ -242,4 +242,8 @@ a.active.nav-link.contact{
 		background-image: url('Images/Backgrounds/ContactMobile.jpg');
 		background-position: 50% 65%;
 	}
+	
+	a.active.nav-link.contact{
+		color: #62BAF4!important;
+	}
 }

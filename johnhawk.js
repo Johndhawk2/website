@@ -20,6 +20,8 @@ $(document).ready(function(){
 		var newTag = $(event.target).get()[0].hash	// active tab
 		$('#pageLabel').text($(event.target).text()); // change page text
 		imgFade(oldTag,newTag,500);
+		$(`.${newTag.substring(1)}`).addClass("active");
+		$(`.${oldTag.substring(1)}`).removeClass("active");
 	});
 
 	$('li>a[data-toggle="tab"]').on('click', function (e) {
@@ -65,3 +67,9 @@ function imgFade(oldImg, newImg, fadeTime){
 	$(`${oldImgID}`).fadeOut(fadeTime);
 	$(`${newImgID}`).fadeIn(fadeTime);
 }
+
+$(window).resize(function() {
+	if ($(window).width() > 768) {
+	   closeNav();
+	}
+});
