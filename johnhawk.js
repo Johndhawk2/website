@@ -3,11 +3,11 @@ function dropdownCollapse(){
 }
 
 function openNav() {
-	document.getElementById("navbarSide").style.width = "100%";
+	document.getElementById("navbarSide").style.left = "0";
 }
 
 function closeNav() {
-	document.getElementById("navbarSide").style.width = "0";
+	document.getElementById("navbarSide").style.left = "100%";
 }
 
 $(document).ready(function(){
@@ -18,7 +18,8 @@ $(document).ready(function(){
 	$('.navSelector a').on('shown.bs.tab', function(event){
 		var oldTag = $(event.relatedTarget).get()[0].hash	// previous tab
 		var newTag = $(event.target).get()[0].hash	// active tab
-		imgFade(oldTag,newTag);
+		$('#pageLabel').text($(event.target).text()); // change page text
+		imgFade(oldTag,newTag,500);
 	});
 
 	$('li>a[data-toggle="tab"]').on('click', function (e) {

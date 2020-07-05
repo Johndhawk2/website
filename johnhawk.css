@@ -52,25 +52,20 @@ a.active.nav-link.contact{
 	border-radius: 20px;
 }
 
-#home-tab{
-	padding-left: 0px;
-	margin-left: 1vw;
-}
-
 #dropdownIcon{
 	background-color: transparent;
 	border-color: transparent;
 }
 
 #menu{
-	color: #FFFFFF;
-	font-size: 30pt;
+	color: #199BF1;
+	padding: 0 0;
+	font-size: 35pt;
 }
 
 #close{
-	font-size: 40px;
-	color: #444444;
-	font-weight: bold;
+	font-size: 80px;
+	color: #199BF1;
 }
 
 .navigation{
@@ -79,11 +74,11 @@ a.active.nav-link.contact{
 
 .sidenav{
 	height: 100%;
-	width: 0;
+	width: 100%;
 	position: fixed;
 	z-index: 1;
 	top: 0;
-	left: 0;
+	left: 100%;
 	background-color: rgba(0,0,0,0.5);
 	overflow-x: hidden;
 	padding-top: 60px;
@@ -92,37 +87,70 @@ a.active.nav-link.contact{
 	font-weight: bold;
 }
 
+#home-tab-side{
+	font-size: 50px!important;
+	font-weight: bold;
+}
+
+.sideMenu{
+	font-family: 'Roboto';
+	font-size: 30px!important;
+	color: #ffffff;
+}
+
+#menuButton{
+	align-self: flex-start;
+}
+
 #navbarLarge{
 	background-color: rgba(0, 0, 0, 0.85)!important;
 	color: white!important;
 	height: 120px;
 }
 
+#pageLabel{
+	font-family: 'Roboto';
+	font-size: 30px!important;
+	color: #ffffff;
+	align-self: center;
+}
+
+#navbarSmall{
+	background-color: rgba(0, 0, 0, 0.85)!important;
+	color: white!important;
+	height: 60px;
+}
+
 #homeBackground {
 	background-image: url('Images/Backgrounds/Home.jpg');
-	background-size: 100%;
+	/*background-size: 100%;*/
+	background-size: cover;
 	background-repeat: no-repeat;
-	background-position: 0% 25%;
+	background-attachment: fixed;
+	background-position: center 25%;
 	display: block;
 }
 
 #aboutBackground {
 	background-image: url('Images/Backgrounds/About.jpg');
-	background-size: 100%;
+	/*background-size: 100%;*/
+	background-size: cover;
 	background-repeat: no-repeat;
-	background-position: 0% 45%;
+	background-position: center 45%;
 }
 
 #projectsBackground {
 	background-image: url('Images/Backgrounds/Projects.jpg');
-	background-size: 100%;
+	/*background-size: 100%;*/
+	background-size: cover;
 	background-repeat: no-repeat;
 	background-position: 0% 45%;
 }
 
 #contactBackground {
 	background-image: url('Images/Backgrounds/Contact.jpg');
-	background-size: 130%;
+	/*background-size: 130%;*/
+	background-size: cover;
 	background-repeat: no-repeat;
 	background-position: 50% 65%;
 }
@@ -137,6 +165,12 @@ a.active.nav-link.contact{
 	height: 100%!important;
 }
 
+.closeButton{
+	width: 100%;
+	position: relative;
+	top: 30%;
+}
+
 .bgImgOverlay{
 	background-color: rgba(0,0,0,0.35);
 	position: absolute;
@@ -147,14 +181,65 @@ a.active.nav-link.contact{
 	height: calc(100% - 120px)!important;
 }
 
-@media only screen and (max-width: 992px){
+@media only screen and (max-width: 1200px){
+	#contactButton{
+		padding: 5px 20px;
+		margin-right: 2vw;
+		border-radius: 20px;
+	}
+
+	#navbarLarge{
+		height: 80px;
+	}
+
 	.bgImgOverlay{
-		background-color: rgba(0,0,0,0.35);
-		position: absolute;
-		z-index:-1;
+		top: 80px;
+		height: calc(100% - 80px)!important;
+	}
+
+	#home-tab{
+		margin-left: 2vw;
+		font-size: 35px!important;
+	}
+	
+	#about-tab{
+		font-size: 22px!important;
+	}
+	
+	#project-tab{
+		font-size: 22px!important;
+	}
+	
+	#contact-tab{
+		font-size: 25px!important;
+	}
+}
+
+@media only screen and (max-width: 768px){
+	.bgImgOverlay{
 		top: 0;
 		left: 0;
 		width: 100%!important;
 		height: 100%!important;
+	}
+
+	#homeBackground {
+		background-image: url('Images/Backgrounds/HomeMobile.jpg');
+		background-position: center 25%;
+	}
+	
+	#aboutBackground {
+		background-image: url('Images/Backgrounds/AboutMobile.jpg');
+		background-position: center 45%;
+	}
+	
+	#projectsBackground {
+		background-image: url('Images/Backgrounds/ProjectsMobile.jpg');
+		background-position: 0% 45%;
+	}
+	
+	#contactBackground {
+		background-image: url('Images/Backgrounds/ContactMobile.jpg');
+		background-position: 50% 65%;
 	}
 }
