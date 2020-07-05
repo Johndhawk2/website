@@ -1,27 +1,60 @@
-body{
-	background-color: #000000;
-}
-
-.nav-tabs{
-	border-color: #444444 !important;
-}
-
 a.active.nav-link{
 	background-color: transparent!important;
-	color: #ffffff!important;
-	border-color: #444444!important;
-	border-bottom-color: transparent!important;
+	color: #62BAF4!important;
 }
 
-ul.nav > li > a.active:hover{
-	border-color: #444444!important;
-	border-bottom: none;
-}
-
-ul.nav > li > a:hover{
+a.active.nav-link.contact{
 	color: white!important;
-	border-bottom-color: #444444!important;
-	border-color: transparent!important;
+}
+
+#home-tab{
+	margin-left: 2vw;
+	font-family: 'Roboto';
+	font-size: 50px!important;
+	font-weight: bold;
+	color: #ffffff;
+}
+
+#about-tab{
+	font-family: 'Roboto';
+	font-size: 30px!important;
+	color: #ffffff;
+}
+
+#project-tab{
+	font-family: 'Roboto';
+	font-size: 30px!important;
+	color: #ffffff;
+}
+
+#contact-tab{
+	font-family: 'Roboto';
+	font-size: 33px!important;
+	font-weight: bold;
+	color: #ffffff;
+}
+
+.headerOptions{
+	width: 100%!important;
+	display: flex;
+}
+
+.headerButton{
+	align-self: center;
+	margin-left: 2vw;
+}
+
+#contactButton{
+	padding: 15px 30px;
+	margin-right: 2vw;
+	color: white!important;
+	background-color: #199BF1;
+	border-radius: 20px;
+}
+
+#home-tab{
+	padding-left: 0px;
+	margin-left: 1vw;
 }
 
 #dropdownIcon{
@@ -57,4 +90,71 @@ ul.nav > li > a:hover{
 	transition: 0.5s;
 	font-size: 30px;
 	font-weight: bold;
+}
+
+#navbarLarge{
+	background-color: rgba(0, 0, 0, 0.85)!important;
+	color: white!important;
+	height: 120px;
+}
+
+#homeBackground {
+	background-image: url('Images/Backgrounds/Home.jpg');
+	background-size: 100%;
+	background-repeat: no-repeat;
+	background-position: 0% 25%;
+	display: block;
+}
+
+#aboutBackground {
+	background-image: url('Images/Backgrounds/About.jpg');
+	background-size: 100%;
+	background-repeat: no-repeat;
+	background-position: 0% 45%;
+}
+
+#projectsBackground {
+	background-image: url('Images/Backgrounds/Projects.jpg');
+	background-size: 100%;
+	background-repeat: no-repeat;
+	background-position: 0% 45%;
+}
+
+#contactBackground {
+	background-image: url('Images/Backgrounds/Contact.jpg');
+	background-size: 130%;
+	background-repeat: no-repeat;
+	background-position: 50% 65%;
+}
+
+.bgImg{
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: -2;
+	display: none;
+	width: 100%!important;
+	height: 100%!important;
+}
+
+.bgImgOverlay{
+	background-color: rgba(0,0,0,0.35);
+	position: absolute;
+	z-index:-1;
+	top: 120px;
+	left: 0;
+	width: 100%!important;
+	height: calc(100% - 120px)!important;
+}
+
+@media only screen and (max-width: 992px){
+	.bgImgOverlay{
+		background-color: rgba(0,0,0,0.35);
+		position: absolute;
+		z-index:-1;
+		top: 0;
+		left: 0;
+		width: 100%!important;
+		height: 100%!important;
+	}
 }
