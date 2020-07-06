@@ -284,7 +284,7 @@ a.active.nav-link.contact{
 	#profile{
 		position: absolute;
 		left: 50%;
-		top: calc(var(--vh,1vh) * 15);
+		top: calc(var(--vh,1vh) * 8);
 		transform: translateX(-50%);
 		height: 27vw;
 		width: 27vw;
