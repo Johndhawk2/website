@@ -1,5 +1,15 @@
-.scrolling{
+html, body{
+	height: 100%;
+	overflow: hidden!important;
+}
+
+.scroll{
 	background-color: green;
+	height:100%;
+	top: 0;
+	left: 0;
+	position: fixed;
+	overflow: scroll!important;
 }
 
 a.active.nav-link{
