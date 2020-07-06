@@ -6,6 +6,7 @@ html, body{
 .scroll{
 	background-color: green;
 	height:100%;
+	width: 100%;
 	top: 0;
 	left: 0;
 	position: fixed;
