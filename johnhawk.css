@@ -2,6 +2,10 @@
 	overflow-y: scroll;
 }
 
+body.noScroll { /* ...or body.dialogShowing */
+	overflow: hidden;
+}
+
 a.active.nav-link{
 	background-color: transparent!important;
 	color: #62BAF4!important;
