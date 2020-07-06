@@ -1,12 +1,5 @@
-.tab-pane{
-	overflow-y: scroll;
-}
-
-html, body{ /* ...or body.dialogShowing */
-	overflow: hidden;
-	position: fixed;
-	width: 100%;
-	height: 100%;
+.scrolling{
+	background-color: green;
 }
 
 a.active.nav-link{
@@ -130,6 +123,8 @@ a.active.nav-link.contact{
 	background-color: rgba(0, 0, 0, 0.85)!important;
 	color: white!important;
 	height: 60px;
+	position: fixed;
+	width: 100%;
 }
 
 #homeBackground {
