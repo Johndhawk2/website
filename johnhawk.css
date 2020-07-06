@@ -13,8 +13,9 @@ body{
 	display: block;
 	width: 100%;
 	top: 120px;
-	height: calc(100vh - 121px)!important;
+	height: calc(100vh - 120px)!important;
 	overflow: auto!important;
+	background-color: green;
 }
 
 a.active.nav-link{
@@ -278,7 +279,7 @@ a.active.nav-link.contact{
 @media only screen and (max-width: 1200px){
 	.scroll{
 		top: 80px;
-		height: calc(100vh - 81px)!important;
+		height: calc(100vh - 80px)!important;
 	}
 
 	#profile{
@@ -383,7 +384,7 @@ a.active.nav-link.contact{
 @media only screen and (max-width: 768px){
 	.scroll{
 		top: 60px;
-		height: calc(100vh - 61px)!important;
+		height: calc(100vh - 62px)!important;
 	}
 
 	#home{
