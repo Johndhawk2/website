@@ -384,7 +384,7 @@ a.active.nav-link.contact{
 @media only screen and (max-width: 768px){
 	.scroll{
 		top: 60px;
-		height: calc(100vh - 62px)!important;
+		height: calc(100vh - 80px)!important;
 	}
 
 	#home{
