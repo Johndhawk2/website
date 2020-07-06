@@ -14,86 +14,84 @@
 		<script src="johnhawk.js"></script>
     </head>
 	<body>
-		<div id="scrollable">
-			<div class="bgImg" id="homeBackground"></div>
-			<div class="bgImg" id="aboutBackground"></div>
-			<div class="bgImg" id="projectsBackground"></div>
-			<div class="bgImg" id="contactBackground"></div>
-			<div class="bgImgOverlay"></div>
+		<div class="bgImg" id="homeBackground"></div>
+		<div class="bgImg" id="aboutBackground"></div>
+		<div class="bgImg" id="projectsBackground"></div>
+		<div class="bgImg" id="contactBackground"></div>
+		<div class="bgImgOverlay"></div>
 
-			<!-- Nav Bar for larger screens -->
-			<div class="d-none d-md-block navbar navbar-static-top sticky-top" id="navbarLarge">
-				<div class="nav nav-pills navSelector headerOptions">
-					<a class="headerButton nav-link active home" id="home-tab" data-toggle="tab" href="#home">Home</a>
-					<a class="headerButton nav-link about" id="about-tab" data-toggle="tab" href="#about">About me</a>
-					<a class="headerButton nav-link projects" id="project-tab" data-toggle="tab" href="#projects">My projects</a>
-					<a class="headerButton nav-link ml-auto contact" id="contact-tab" data-toggle="tab" href="#contact"><div id="contactButton">Contact me</div></a>
+		<!-- Nav Bar for larger screens -->
+		<div class="d-none d-md-block navbar navbar-static-top sticky-top" id="navbarLarge">
+			<div class="nav nav-pills navSelector headerOptions">
+				<a class="headerButton nav-link active home" id="home-tab" data-toggle="tab" href="#home">Home</a>
+				<a class="headerButton nav-link about" id="about-tab" data-toggle="tab" href="#about">About me</a>
+				<a class="headerButton nav-link projects" id="project-tab" data-toggle="tab" href="#projects">My projects</a>
+				<a class="headerButton nav-link ml-auto contact" id="contact-tab" data-toggle="tab" href="#contact"><div id="contactButton">Contact me</div></a>
+			</div>
+		</div>
+		<!-- /Nav Bar for larger screens -->
+
+		<!-- Nav Bar for smaller screens -->
+		<div class="d-block d-md-none navbar navbar-static-top sticky-top" id="navbarSmall">
+				<div class="headerOptions">
+					<h1 id="pageLabel">Home</h1>
+					<i class="navbar-toggler ml-auto menuButton material-icons-round" onclick="openNav()" id="menu">menu</i>
+				</div>
+		</div>
+				
+		<div class="sidenav" id="navbarSide">
+			<ul class="nav navSelector flex-column my-0" onclick="closeNav()">
+				<li class="nav-item active mx-auto">
+					<a class="nav-link active text-secondary sideMenu home" id="home-tab-side" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Home</a>
+				</li>
+				<li class="nav-item mx-auto">
+					<a class="nav-link text-secondary sideMenu about" id="about-tab-side" data-toggle="tab" href="#about" role="tab" aria-controls="about" aria-selected="false">About me</a>
+				</li>
+				<li class="nav-item mx-auto">
+					<a class="nav-link text-secondary sideMenu projects" id="project-tab-side" data-toggle="tab" href="#projects" role="tab" aria-controls="projects" aria-selected="false">My projects</a>
+				</li>
+				<li class="nav-item mx-auto">
+					<a class="nav-link text-secondary sideMenu contact" id="contact-tab-side" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Contact me</a>
+				</li>
+			</ul>
+			<div class="closeButton text-center">
+				<i class="material-icons-round mx-auto" id="close" onclick="closeNav()">close</i>
+			</div>
+		</div>
+		<!-- /Nav Bar for smaller screens -->
+
+		<!-- Tabs -->
+		<div class="tab-content">
+			<div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+				<div class="homeContent">
+					<h1 class="pageTitle" id="homeTitle">Title for Home</h1>
+					<p class="pageText" id="homeText">
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis condimentum felis nisi, ut imperdiet neque tempor in. Nam enim risus, elementum a est vestibulum, mattis rutrum diam. Fusce feugiat ut arcu sed consequat. Cras ornare justo eget aliquam pellentesque. Morbi vestibulum fermentum semper. Sed a turpis id nunc maximus interdum id et ex. Sed id diam dictum, fringilla neque ac, mollis magna. Ut ultrices iaculis est, non fermentum ex. Nullam tortor purus, ornare nec luctus vitae, maximus et enim. Aenean fringilla aliquet dignissim. Sed consectetur nisl felis, a vestibulum odio ultrices ut. Suspendisse potenti. Nulla elementum nisl sit amet tristique volutpat.
+					</p>
 				</div>
 			</div>
-			<!-- /Nav Bar for larger screens -->
-
-			<!-- Nav Bar for smaller screens -->
-			<div class="d-block d-md-none navbar navbar-static-top sticky-top" id="navbarSmall">
-					<div class="headerOptions">
-						<h1 id="pageLabel">Home</h1>
-						<i class="navbar-toggler ml-auto menuButton material-icons-round" onclick="openNav()" id="menu">menu</i>
+			<div class="tab-pane fade" id="about" role="tabpanel" aria-labelledby="about-tab">
+				<div class="aboutContent">
+					<div id="topContent">
+						<h1 class="pageTitle" id="aboutTitle">Title for About</h1>
+						<div class="ml-auto" id="profile"></div>
 					</div>
-			</div>
-					
-			<div class="sidenav" id="navbarSide">
-				<ul class="nav navSelector flex-column my-0" onclick="closeNav()">
-					<li class="nav-item active mx-auto">
-						<a class="nav-link active text-secondary sideMenu home" id="home-tab-side" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Home</a>
-					</li>
-					<li class="nav-item mx-auto">
-						<a class="nav-link text-secondary sideMenu about" id="about-tab-side" data-toggle="tab" href="#about" role="tab" aria-controls="about" aria-selected="false">About me</a>
-					</li>
-					<li class="nav-item mx-auto">
-						<a class="nav-link text-secondary sideMenu projects" id="project-tab-side" data-toggle="tab" href="#projects" role="tab" aria-controls="projects" aria-selected="false">My projects</a>
-					</li>
-					<li class="nav-item mx-auto">
-						<a class="nav-link text-secondary sideMenu contact" id="contact-tab-side" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Contact me</a>
-					</li>
-				</ul>
-				<div class="closeButton text-center">
-					<i class="material-icons-round mx-auto" id="close" onclick="closeNav()">close</i>
-				</div>
-			</div>
-			<!-- /Nav Bar for smaller screens -->
-
-			<!-- Tabs -->
-			<div class="tab-content">
-				<div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-					<div class="homeContent">
-						<h1 class="pageTitle" id="homeTitle">Title for Home</h1>
-						<p class="pageText" id="homeText">
-							Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis condimentum felis nisi, ut imperdiet neque tempor in. Nam enim risus, elementum a est vestibulum, mattis rutrum diam. Fusce feugiat ut arcu sed consequat. Cras ornare justo eget aliquam pellentesque. Morbi vestibulum fermentum semper. Sed a turpis id nunc maximus interdum id et ex. Sed id diam dictum, fringilla neque ac, mollis magna. Ut ultrices iaculis est, non fermentum ex. Nullam tortor purus, ornare nec luctus vitae, maximus et enim. Aenean fringilla aliquet dignissim. Sed consectetur nisl felis, a vestibulum odio ultrices ut. Suspendisse potenti. Nulla elementum nisl sit amet tristique volutpat.
+					<div id="bottomContent">
+						<p class="pageText" id="aboutText">
+							Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis condimentum felis nisi, ut imperdiet neque tempor in. Nam enim risus, elementum a est vestibulum, mattis rutrum diam. Fusce feugiat ut arcu sed consequat. Cras ornare justo eget aliquam pellentesque. Morbi vestibulum fermentum semper. Sed a turpis id nunc maximus interdum id et ex. Sed id diam dictum, fringilla neque ac, mollis magna. Ut ultrices iaculis est, non fermentum ex. Nullam tortor purus, ornare nec luctus vitae, maximus et enim. 
+							<br><br>
+							Nunc ultrices justo ex. Donec malesuada mollis ante convallis aliquam. Cras nec lectus ac eros vulputate facilisis in vitae mi. Etiam mollis eu magna eget tempor. Suspendisse euismod mi urna, et vulputate ex consequat id. Morbi in mi in diam euismod hendrerit.
 						</p>
 					</div>
 				</div>
-				<div class="tab-pane fade" id="about" role="tabpanel" aria-labelledby="about-tab">
-					<div class="aboutContent">
-						<div id="topContent">
-							<h1 class="pageTitle" id="aboutTitle">Title for About</h1>
-							<div class="ml-auto" id="profile"></div>
-						</div>
-						<div id="bottomContent">
-							<p class="pageText" id="aboutText">
-								Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis condimentum felis nisi, ut imperdiet neque tempor in. Nam enim risus, elementum a est vestibulum, mattis rutrum diam. Fusce feugiat ut arcu sed consequat. Cras ornare justo eget aliquam pellentesque. Morbi vestibulum fermentum semper. Sed a turpis id nunc maximus interdum id et ex. Sed id diam dictum, fringilla neque ac, mollis magna. Ut ultrices iaculis est, non fermentum ex. Nullam tortor purus, ornare nec luctus vitae, maximus et enim. 
-								<br><br>
-								Nunc ultrices justo ex. Donec malesuada mollis ante convallis aliquam. Cras nec lectus ac eros vulputate facilisis in vitae mi. Etiam mollis eu magna eget tempor. Suspendisse euismod mi urna, et vulputate ex consequat id. Morbi in mi in diam euismod hendrerit.
-							</p>
-						</div>
-					</div>
-				</div>
-				<div class="tab-pane fade" id="projects" role="tabpanel" aria-labelledby="projects-tab">
-					Projects
-				</div>
-				<div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
-					Contact
-				</div>
 			</div>
-			<!-- /Tabs -->
+			<div class="tab-pane fade" id="projects" role="tabpanel" aria-labelledby="projects-tab">
+				Projects
+			</div>
+			<div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+				Contact
+			</div>
 		</div>
+		<!-- /Tabs -->
     </body>
 </html>

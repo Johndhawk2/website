@@ -1,5 +1,4 @@
-#scrollable{
-	height: 100%;
+.tab-pane{
 	overflow-y: scroll;
 }
 
