@@ -339,6 +339,8 @@ a.active.nav-link.contact{
 	}
 
 	.homeContent{
+		top:10vh;
+		transform: translateX(-50%);
 		flex-wrap: wrap;
 		justify-content: flex-end;
 	}
@@ -386,9 +388,40 @@ a.active.nav-link.contact{
 	}
 }
 
-@media only screen and (max-width: 600px){
+@media only screen and (max-height: 750px){
 	.homeContent{
-		top: 10vh;
+		flex-wrap: wrap;
+		justify-content: flex-end;
+		top:25vh;
+		left:50%;
 		transform: translateX(-50%);
+	}
+
+	#homeTitle{
+		max-width: 95vw;
+		min-width: 70vw;
+	}
+
+	#homeText{
+		text-align: left;
+		max-width: 1000px;
+		min-width: 400px;
+	}
+}
+
+@media only screen and (max-height: 600px){
+	.homeContent{
+		top:15vh;
+		transform: translateX(-50%);
+	}
+
+	#profile{
+		left: 50%;
+		top: 25vh;
+		transform: translateX(-50%);
+	}
+	
+	.aboutContent{
+		margin: 65vh 10vw 10vh 10vw;
 	}
 }
