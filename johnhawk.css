@@ -12,8 +12,8 @@ body{
 	position: fixed;
 	display: block;
 	width: 100%;
-	top: 60px;
-	height: calc(100vh - 60px)!important;
+	top: 120px;
+	height: calc(100vh - 121px)!important;
 	overflow: auto!important;
 }
 
@@ -176,7 +176,7 @@ a.active.nav-link.contact{
 	background-position: 50% 65%;
 }
 
-/*.bgImg{
+.bgImg{
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -184,7 +184,7 @@ a.active.nav-link.contact{
 	display: none;
 	width: 100%!important;
 	height: 100%!important;
-}*/
+}
 
 .closeButton{
 	width: 100%;
@@ -276,6 +276,11 @@ a.active.nav-link.contact{
 }
 
 @media only screen and (max-width: 1200px){
+	.scroll{
+		top: 80px;
+		height: calc(100vh - 81px)!important;
+	}
+
 	#profile{
 		position: absolute;
 		left: 50%;
@@ -376,6 +381,11 @@ a.active.nav-link.contact{
 }
 
 @media only screen and (max-width: 768px){
+	.scroll{
+		top: 60px;
+		height: calc(100vh - 61px)!important;
+	}
+
 	#home{
 		height: calc(100vh - 60px)!important;
 	}

@@ -14,15 +14,15 @@ $(document).ready(function(){
 	$('.nav-tabs a:first').tab('show')
 	imgFade();
 	addLoadEvent(preloader);
-	$("html, body, .scroll").css({
+	/*$("html, body, .scroll").css({
 		height: $(window).height()
-	});
+	});*/
 
 	$('.navSelector a').on('shown.bs.tab', function(event){
 		var oldTag = $(event.relatedTarget).get()[0].hash	// previous tab
 		var newTag = $(event.target).get()[0].hash	// active tab
 		$('#pageLabel').text($(event.target).text()); // change page text
-		imgFade(oldTag, newTag);
+		imgFade(oldTag,newTag,500);
 		$(`.${newTag.substring(1)}`).addClass("active");
 		$(`.${oldTag.substring(1)}`).removeClass("active");
 	});
@@ -64,13 +64,11 @@ function addLoadEvent(func) {
 // End of preload
 
 // Fade background when tabs changed
-function imgFade(oldImg, newImg){
-	if(oldImg != undefined){
-		var newImgTag = newImg + "Background";
-		var newImgID = newImgTag.substring(1);
-		$(document.body).removeAttr('id');
-		$(document.body).attr('id', newImgID);
-	}
+function imgFade(oldImg, newImg, fadeTime){
+	var oldImgID = oldImg + "Background";
+	var newImgID = newImg + "Background";
+	$(`${oldImgID}`).fadeOut(fadeTime);
+	$(`${newImgID}`).fadeIn(fadeTime);
 }
 
 $(window).resize(function() {
