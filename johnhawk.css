@@ -425,3 +425,10 @@ a.active.nav-link.contact{
 		margin: 65vh 10vw 10vh 10vw;
 	}
 }
+
+@media only screen and (max-height: 400px){
+	.homeContent{
+		top:25vh;
+		transform: translateX(-50%);
+	}
+}
