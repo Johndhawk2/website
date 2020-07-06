@@ -131,7 +131,7 @@ a.active.nav-link.contact{
 	display: block;
 }
 
-#aboutBackground {
+#aboutBackground{
 	background-image: url('Images/Backgrounds/About.jpg');
 	/*background-size: 100%;*/
 	background-size: cover;
@@ -139,7 +139,7 @@ a.active.nav-link.contact{
 	background-position: center 45%;
 }
 
-#projectsBackground {
+#projectsBackground{
 	background-image: url('Images/Backgrounds/Projects.jpg');
 	/*background-size: 100%;*/
 	background-size: cover;
@@ -147,7 +147,7 @@ a.active.nav-link.contact{
 	background-position: 0% 45%;
 }
 
-#contactBackground {
+#contactBackground{
 	background-image: url('Images/Backgrounds/Contact.jpg');
 	/*background-size: 130%;*/
 	background-size: cover;
@@ -173,7 +173,7 @@ a.active.nav-link.contact{
 
 .bgImgOverlay{
 	background-color: rgba(0,0,0,0.35);
-	position: absolute;
+	position: fixed;
 	z-index:-1;
 	top: 120px;
 	left: 0;
@@ -181,11 +181,81 @@ a.active.nav-link.contact{
 	height: calc(100% - 120px)!important;
 }
 
+.pageTitle{
+	font-size: 108px;
+	font-family: 'Montserrat';
+	font-weight: bold;
+	line-height: 120px;
+}
+
+.pageText{
+	margin-left: 3vw;
+	font-size: 20px;
+	font-family: 'Roboto';
+	font-weight: lighter;
+	line-height: 35px;
+	background-color: rgba(0,0,0,0.4);
+	padding: 10px 20px;
+}
+
+#homeText{
+	max-width: 700px;
+	min-width: 500px;
+}
+
+#homeTitle{
+	max-width: 400px;
+}
+
+#home{
+	height: calc(100vh - 120px)!important;
+}
+
+.homeContent{
+	color: #ffffff;
+	top:50%;
+	left:50%;
+	transform: translate(-45%, -60%);
+	position: absolute;
+	display: inline-flex;
+	text-align: right;
+	align-items: center;
+	justify-content: center;
+	flex-wrap: nowrap;
+	max-width: 1200px;
+}
+
 @media only screen and (max-width: 1200px){
+	.pageTitle{
+		font-size: 72px;
+		font-family: 'Montserrat';
+		font-weight: bold;
+		line-height: 80px;
+	}
+	
+	.pageText{
+		font-size: 16px;
+		line-height: 25px;
+		background-color: rgba(0,0,0,0.4);
+		padding: 10px 20px;
+	}
+
+	#homeText{
+		min-width: 400px;
+	}
+
+	.homeContent{
+		max-width:768px;
+	}
+
 	#contactButton{
 		padding: 5px 20px;
 		margin-right: 2vw;
 		border-radius: 20px;
+	}
+
+	#home{
+		height: calc(100vh - 80px)!important;
 	}
 
 	#navbarLarge{
@@ -216,11 +286,31 @@ a.active.nav-link.contact{
 }
 
 @media only screen and (max-width: 768px){
+	#home{
+		height: calc(100vh - 60px)!important;
+	}
+
+	.homeContent{
+		flex-wrap: wrap;
+		justify-content: flex-end;
+	}
+
+	#homeTitle{
+		max-width: 95vw;
+		min-width: 70vw;
+	}
+
+	#homeText{
+		text-align: left;
+		max-width: 95vw;
+		min-width: 70vw;
+	}
+
 	.bgImgOverlay{
-		top: 0;
+		top: 60px;
 		left: 0;
 		width: 100%!important;
-		height: 100%!important;
+		height: calc(100% - 60px)!important;
 	}
 
 	#homeBackground {
@@ -245,5 +335,12 @@ a.active.nav-link.contact{
 	
 	a.active.nav-link.contact{
 		color: #62BAF4!important;
+	}
+}
+
+@media only screen and (max-width: 600px){
+	.homeContent{
+		top: 10vh;
+		transform: translateX(-50%);
 	}
 }

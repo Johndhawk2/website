@@ -69,7 +69,10 @@ function imgFade(oldImg, newImg, fadeTime){
 }
 
 $(window).resize(function() {
-	if ($(window).width() > 768) {
+	var vh = $(window).height();
+	var vw = $(window).width();
+	
+	if (vw > 768) {
 	   closeNav();
 	}
 });

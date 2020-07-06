@@ -32,7 +32,7 @@
 		<!-- /Nav Bar for larger screens -->
 
 		<!-- Nav Bar for smaller screens -->
-		<div class="d-block d-md-none navbar navbar-static-top" id="navbarSmall">
+		<div class="d-block d-md-none navbar navbar-static-top sticky-top" id="navbarSmall">
 				<div class="headerOptions">
 					<h1 id="pageLabel">Home</h1>
 					<i class="navbar-toggler ml-auto menuButton material-icons-round" onclick="openNav()" id="menu">menu</i>
@@ -61,9 +61,14 @@
 		<!-- /Nav Bar for smaller screens -->
 
 		<!-- Tabs -->
-		<div class="tab-content px-3">
+		<div class="tab-content">
 			<div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-				Home
+				<div class="homeContent">
+					<h1 class="pageTitle" id="homeTitle">Title for Home</h1>
+					<p class="pageText" id="homeText">
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis condimentum felis nisi, ut imperdiet neque tempor in. Nam enim risus, elementum a est vestibulum, mattis rutrum diam. Fusce feugiat ut arcu sed consequat. Cras ornare justo eget aliquam pellentesque. Morbi vestibulum fermentum semper. Sed a turpis id nunc maximus interdum id et ex. Sed id diam dictum, fringilla neque ac, mollis magna. Ut ultrices iaculis est, non fermentum ex. Nullam tortor purus, ornare nec luctus vitae, maximus et enim. Aenean fringilla aliquet dignissim. Sed consectetur nisl felis, a vestibulum odio ultrices ut. Suspendisse potenti. Nulla elementum nisl sit amet tristique volutpat.
+					</p>
+				</div>
 			</div>
 			<div class="tab-pane fade" id="about" role="tabpanel" aria-labelledby="about-tab">
 				About
