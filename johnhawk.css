@@ -185,20 +185,22 @@ a.active.nav-link.contact{
 	font-size: 108px;
 	font-family: 'Montserrat';
 	font-weight: bold;
+	color: #ffffff;
 	line-height: 120px;
 }
 
 .pageText{
-	margin-left: 3vw;
 	font-size: 20px;
 	font-family: 'Roboto';
 	font-weight: lighter;
 	line-height: 35px;
+	color: #ffffff;
 	background-color: rgba(0,0,0,0.4);
 	padding: 10px 20px;
 }
 
 #homeText{
+	margin-left: 3vw;
 	max-width: 700px;
 	min-width: 500px;
 }
@@ -212,7 +214,6 @@ a.active.nav-link.contact{
 }
 
 .homeContent{
-	color: #ffffff;
 	top:50%;
 	left:50%;
 	transform: translate(-45%, -60%);
@@ -225,7 +226,54 @@ a.active.nav-link.contact{
 	max-width: 1200px;
 }
 
+.aboutContent{
+	margin: 20vh 20vw 10vh 20vw;
+}
+
+#profile{
+	position: relative;
+	background-image: url('Images/Profile/harold.jpg');
+	border-radius: 50%;
+	height: 15vw;
+	width: 15vw;
+	min-height: 350px;
+	min-width: 350px;
+	background-size: 120%;
+	background-repeat: no-repeat;
+	background-position: 0% 10%;
+}
+
+#aboutTitle{
+	max-width: 30vw;
+}
+
+#topContent{
+	width: 100%;
+	display: flex;
+	align-items: flex-end;
+	margin-bottom: 3vh;
+}
+
 @media only screen and (max-width: 1200px){
+	#profile{
+		position: absolute;
+		left: 50%;
+		top: 15vh;
+		transform: translateX(-50%);
+		height: 27vw;
+		width: 27vw;
+		min-height: 200px;
+		min-width: 200px;
+	}
+
+	#aboutTitle{
+		max-width: 100vw;
+	}
+
+	.aboutContent{
+		margin: 40vh 10vw 10vh 10vw;
+	}
+
 	.pageTitle{
 		font-size: 72px;
 		font-family: 'Montserrat';
