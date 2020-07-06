@@ -2,7 +2,7 @@
 	overflow-y: scroll;
 }
 
-body.noScroll { /* ...or body.dialogShowing */
+html, body{ /* ...or body.dialogShowing */
 	overflow: hidden;
 }
 
