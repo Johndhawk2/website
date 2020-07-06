@@ -1,7 +1,7 @@
-html, body{
+/*html, body{
 	height: 100%;
 	overflow: hidden!important;
-}
+}*/
 
 .scroll{
 	background-color: green;
@@ -10,8 +10,24 @@ html, body{
 	top: 0;
 	left: 0;
 	position: fixed;
-	overflow: scroll!important;
+/*	overflow: scroll!important;*/
 }
+
+html {
+	background-color: red;
+	overflow: hidden;
+	width: 100%;
+  }
+  
+  body {
+	height: 100%;
+	position: fixed;
+	/* prevent overscroll bounce*/
+	background-color: lightgreen;
+	overflow-y: scroll;
+	-webkit-overflow-scrolling: touch;
+	/* iOS velocity scrolling */
+  }
 
 a.active.nav-link{
 	background-color: transparent!important;
