@@ -3,7 +3,7 @@ html{
 }
 
 body{
-	height: 100vh;
+	height: calc(var(--vh, 1vh) * 100);
 	overflow: hidden;
 	background-attachment: fixed;
 }
@@ -13,9 +13,8 @@ body{
 	display: block;
 	width: 100%;
 	top: 120px;
-	height: calc(100vh - 120px)!important;
+	height: calc(calc(var(--vh,1vh) * 100) - 120px)!important;
 	overflow: auto!important;
-	background-color: green;
 }
 
 a.active.nav-link{
@@ -232,7 +231,7 @@ a.active.nav-link.contact{
 }
 
 #home{
-	height: calc(100vh - 120px)!important;
+	height: calc(calc(var(--vh,1vh) * 100) - 120px)!important;
 }
 
 .homeContent{
@@ -249,7 +248,7 @@ a.active.nav-link.contact{
 }
 
 .aboutContent{
-	margin: 20vh 20vw 10vh 20vw;
+	margin: calc(var(--vh,1vh) * 20) 20vw calc(var(--vh,1vh) * 10) 20vw;
 }
 
 #profile{
@@ -273,19 +272,19 @@ a.active.nav-link.contact{
 	width: 100%;
 	display: flex;
 	align-items: flex-end;
-	margin-bottom: 3vh;
+	margin-bottom: calc(var(--vh,1vh) * 3);
 }
 
 @media only screen and (max-width: 1200px){
 	.scroll{
 		top: 80px;
-		height: calc(100vh - 80px)!important;
+		height: calc(calc(var(--vh,1vh) * 100) - 80px)!important;
 	}
 
 	#profile{
 		position: absolute;
 		left: 50%;
-		top: 15vh;
+		top: calc(var(--vh,1vh) * 15);
 		transform: translateX(-50%);
 		height: 27vw;
 		width: 27vw;
@@ -298,7 +297,7 @@ a.active.nav-link.contact{
 	}
 
 	.aboutContent{
-		margin: 40vh 10vw 10vh 10vw;
+		margin: calc(var(--vh,1vh) * 40) 10vw calc(var(--vh,1vh) * 10) 10vw;
 	}
 
 	.pageTitle{
@@ -330,7 +329,7 @@ a.active.nav-link.contact{
 	}
 
 	#home{
-		height: calc(100vh - 80px)!important;
+		height: calc(calc(var(--vh,1vh) * 100) - 80px)!important;
 	}
 
 	#navbarLarge{
@@ -364,7 +363,7 @@ a.active.nav-link.contact{
 	.homeContent{
 		flex-wrap: wrap;
 		justify-content: flex-end;
-		top:25vh;
+		top:calc(var(--vh,1vh) * 25);
 		left:50%;
 		transform: translateX(-50%);
 	}
@@ -384,15 +383,15 @@ a.active.nav-link.contact{
 @media only screen and (max-width: 768px){
 	.scroll{
 		top: 60px;
-		height: calc(100vh - 80px)!important;
+		height: calc(calc(var(--vh,1vh) * 100) - 60px)!important;
 	}
 
 	#home{
-		height: calc(100vh - 60px)!important;
+		height: calc(calc(var(--vh,1vh) * 100) - 60px)!important;
 	}
 
 	.homeContent{
-		top:10vh;
+		top:calc(var(--vh,1vh) * 10);
 		transform: translateX(-50%);
 		flex-wrap: wrap;
 		justify-content: flex-end;
@@ -443,24 +442,24 @@ a.active.nav-link.contact{
 
 @media only screen and (max-height: 600px){
 	.homeContent{
-		top:15vh;
+		top: calc(var(--vh,1vh) * 15);
 		transform: translateX(-50%);
 	}
 
 	#profile{
 		left: 50%;
-		top: 25vh;
+		top: calc(var(--vh,1vh) * 25);
 		transform: translateX(-50%);
 	}
 	
 	.aboutContent{
-		margin: 65vh 10vw 10vh 10vw;
+		margin: calc(var(--vh,1vh) * 65) 10vw calc(var(--vh,1vh) * 10) 10vw;
 	}
 }
 
 @media only screen and (max-height: 400px){
 	.homeContent{
-		top:25vh;
+		top: calc(var(--vh,1vh) * 25);
 		transform: translateX(-50%);
 	}
 }
