@@ -14,6 +14,9 @@ $(document).ready(function(){
 	$('.nav-tabs a:first').tab('show')
 	imgFade();
 	addLoadEvent(preloader);
+	$("html, body, .scroll").css({
+		height: $(window).height()
+	});
 
 	$('.navSelector a').on('shown.bs.tab', function(event){
 		var oldTag = $(event.relatedTarget).get()[0].hash	// previous tab
