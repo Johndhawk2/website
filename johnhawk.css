@@ -1,34 +1,3 @@
-/*html, body{
-	height: 100%;
-	overflow: hidden!important;
-}*/
-
-.scroll{
-	background-color: green;
-	height:100%;
-	width: 100%;
-	top: 0;
-	left: 0;
-/*	position: fixed;
-	overflow: scroll!important;*/
-}
-
-html {
-	background-color: red;
-	overflow: hidden;
-	width: 100%;
-  }
-  
-  body {
-	height: 100%;
-	position: fixed;
-	/* prevent overscroll bounce*/
-	background-color: lightgreen;
-	overflow-y: scroll;
-	-webkit-overflow-scrolling: touch;
-	/* iOS velocity scrolling */
-  }
-
 a.active.nav-link{
 	background-color: transparent!important;
 	color: #62BAF4!important;
@@ -188,7 +157,7 @@ a.active.nav-link.contact{
 	background-position: 50% 65%;
 }
 
-.bgImg{
+/*.bgImg{
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -196,7 +165,7 @@ a.active.nav-link.contact{
 	display: none;
 	width: 100%!important;
 	height: 100%!important;
-}
+}*/
 
 .closeButton{
 	width: 100%;
