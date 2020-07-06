@@ -95,7 +95,7 @@ a.active.nav-link.contact{
 .sideMenu{
 	font-family: 'Roboto';
 	font-size: 30px!important;
-	color: #ffffff;
+	color: #ffffff!important;
 }
 
 #menuButton{
@@ -333,6 +333,27 @@ a.active.nav-link.contact{
 	}
 }
 
+@media only screen and (max-height: 750px){
+	.homeContent{
+		flex-wrap: wrap;
+		justify-content: flex-end;
+		top:25vh;
+		left:50%;
+		transform: translateX(-50%);
+	}
+
+	#homeTitle{
+		max-width: 95vw;
+		min-width: 70vw;
+	}
+
+	#homeText{
+		text-align: left;
+		max-width: 1000px;
+		min-width: 400px;
+	}
+}
+
 @media only screen and (max-width: 768px){
 	#home{
 		height: calc(100vh - 60px)!important;
@@ -385,27 +406,6 @@ a.active.nav-link.contact{
 	
 	a.active.nav-link.contact{
 		color: #62BAF4!important;
-	}
-}
-
-@media only screen and (max-height: 750px){
-	.homeContent{
-		flex-wrap: wrap;
-		justify-content: flex-end;
-		top:25vh;
-		left:50%;
-		transform: translateX(-50%);
-	}
-
-	#homeTitle{
-		max-width: 95vw;
-		min-width: 70vw;
-	}
-
-	#homeText{
-		text-align: left;
-		max-width: 1000px;
-		min-width: 400px;
 	}
 }
 
