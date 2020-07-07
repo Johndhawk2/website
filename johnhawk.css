@@ -275,7 +275,124 @@ a.active.nav-link.contact{
 	margin-bottom: calc(var(--vh,1vh) * 3);
 }
 
+.projectContent{
+	height: calc(calc(var(--vh,1vh) * 100) - 120px);
+	margin: 0 10vw 0 10vw;
+	display: block;
+}
+
+.projectTable{
+	position: relative;
+	top: calc(var(--vh,1vh) * 10);
+	width: 100%;
+	justify-items: center;
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	row-gap: 120px;
+	padding-bottom: 120px;
+}
+
+.projectItem{
+	background-color: rgba(0,0,0,0.4);
+	width: 18vw;
+	height: 36vw;
+}
+
+.projectHeader{
+	color: #ffffff;
+	align-self: center;
+	font-family: "Montserrat";
+	font-size: 2vw!important;
+	font-weight: bold;
+	text-align: center;
+}
+
+.projectImage{
+	width: 16vw;
+	height: 16vw;
+	margin: 1vw 1vw;
+}
+
+.projectSeparator{
+	background-color: #0B4973;
+	border: 3px solid #0B4973;
+	width: 85%;
+}
+
+.projectText{
+	color: white;
+	margin: 0.5vw 1vw;
+	font-weight: 100!important;
+	font-family: "Montserrat";
+	font-size: 1vw;
+	line-height: 2vw;
+	text-align: center;
+}
+
+#project-website{
+	background-image: url("Images/Projects/website.png");
+	background-position: 50% 50%;
+	background-size: cover;
+}
+
+#project-pam{
+	background-image: url("Images/Projects/pam.png");
+	background-position: 50% 50%;
+	background-size: cover;
+}
+
+#project-lfr{
+	background-image: url("Images/Projects/lineRobot.png");
+	background-position: 45% 50%;
+	background-size: cover;
+}
+
+#project-eos{
+	background-image: url("Images/Projects/ETC.jpg");
+	background-position: 50% 50%;
+	background-size: cover;
+}
+
+#project-sniffer{
+	background-image: url("Images/Projects/DMX.jpg");
+	background-position: 0% 50%;
+	background-size: cover;
+}
+
+#project-led{
+	background-image: url("Images/Projects/LED.jpg");
+	background-position: 50% 50%;
+	background-size: cover;
+}
+
 @media only screen and (max-width: 1200px){
+	.projectTable{
+		top: calc(var(--vh,1vh) * 10);
+		grid-template-columns: repeat(2, 1fr);
+		row-gap: 120px;
+		padding-bottom: 120px;
+	}
+
+	.projectItem{
+		width: 24vw;
+		height: 48vw;
+	}
+
+	.projectHeader{
+		font-size: 3vw!important;
+	}
+	
+	.projectImage{
+		width: 21vw;
+		height: 21vw;
+		margin: 1.5vw 1.5vw;
+	}
+	
+	.projectText{
+		font-size: 1.5vw;
+		line-height: 2.5vw;
+	}
+
 	.scroll{
 		top: 80px;
 		height: calc(calc(var(--vh,1vh) * 100) - 80px)!important;
@@ -381,6 +498,33 @@ a.active.nav-link.contact{
 }
 
 @media only screen and (max-width: 768px){
+	.projectTable{
+		top: calc(var(--vh,1vh) * 10);
+		grid-template-columns: 1fr;
+		row-gap: 120px;
+		padding-bottom: 120px;
+	}
+
+	.projectItem{
+		width: 60vw;
+		height: 120vw;
+	}
+
+	.projectHeader{
+		font-size: 6vw!important;
+	}
+	
+	.projectImage{
+		width: 54vw;
+		height: 54vw;
+		margin: 3vw 3vw;
+	}
+	
+	.projectText{
+		font-size: 4vw;
+		line-height: 6vw;
+	}
+
 	.scroll{
 		top: 60px;
 		height: calc(calc(var(--vh,1vh) * 100) - 60px)!important;
