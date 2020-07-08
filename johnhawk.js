@@ -31,6 +31,23 @@ $(document).ready(function(){
 		var bodyBgClass = $(this).attr("href").replace("#", "") + "-Background";
 		$("body").removeClass().addClass(bodyBgClass);
 	});
+	
+	$("#myform").on("submit", function(e) {
+		console.log("Sending");
+		e.preventDefault();
+		$.ajax({
+			url: $(this).attr("action"),
+			type: 'POST',
+			data: $(this).serialize(),
+			beforeSend: function() {
+				$("#message").html("sending...");
+			},
+			success: function(data) {
+				$("#message").hide();
+				$("#response").html(data);
+			}
+		});
+	});
 });
 
 // Preload images
@@ -126,20 +143,4 @@ function SubForm (){
 }*/
 
 $(function() {
-	$("#myform").on("submit", function(e) {
-		console.log("Sending");
-		e.preventDefault();
-		$.ajax({
-			url: $(this).attr("action"),
-			type: 'POST',
-			data: $(this).serialize(),
-			beforeSend: function() {
-				$("#message").html("sending...");
-			},
-			success: function(data) {
-				$("#message").hide();
-				$("#response").html(data);
-			}
-		});
-	});
 });
