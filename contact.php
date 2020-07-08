@@ -13,3 +13,4 @@ if(isset($POST['fSubmit'])){
     mail($sendTo,$subject,$text,$header);
     header("Location: index.html?mailsend");
 }
+?>
