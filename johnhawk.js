@@ -43,8 +43,17 @@ $(document).ready(function(){
 					 }
 		});
 	});*/
-	$('input#submit').click(function(event) {
+	$('form').submit(function() {
 		console.log("Test");
+		$.ajax({
+			data: $(this).serialize(),
+			type: $(this).attr('method'),
+			url: $(this).attr('action'),
+			success: function(varX){
+				console.log(varX);
+			}
+
+		});
 	});
 });
 
