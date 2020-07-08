@@ -420,6 +420,7 @@ a.active.nav-link.contact #contactButton{
 
 #formName, #formEmail, #formSubmit{
 	height: calc(var(--vh,1vh) * 4);
+	min-height: 60px;
 }
 
 #formSubmit{
