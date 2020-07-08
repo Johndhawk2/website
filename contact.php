@@ -16,7 +16,7 @@ $mail = new PHPMailer();
     $message = $_POST['fMessage'];
 
     $sendTo = "contact@johnhawk.tech";
-    $header = "From: ".$email;
+    $header = "You received a message from: ".$email;
     $subject = "Website contact form";
     $text = "You have received a message from ".$name.".\n\n".$message;
 
@@ -37,8 +37,8 @@ $mail->Username   = "sending@johnhawk.tech"; // SMTP account username example
 $mail->Password   = "CRSKhqw6qm4s4m";        // SMTP account password example
 
 // Content
-$mail->isHTML(true);                                  // Set email format to HTML
-$mail->Subject = 'Here is the subject';
+//$mail->isHTML(true);                                  // Set email format to HTML
+$mail->Subject = $header;
 //$mail->Body    = 'This is the HTML message body <b>in bold!</b>';
 $mail->Body = $message;
 $mail->addAddress('contact@johnhawk.tech');
