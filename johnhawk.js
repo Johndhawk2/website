@@ -101,7 +101,7 @@ $(window).resize(function() {
 	}
 });
 
-$('#myForm').submit(function(e){
+/*$('#myForm').submit(function(e){
     e.preventDefault();
     $.ajax({
         url:'contact.php',
@@ -111,4 +111,15 @@ $('#myForm').submit(function(e){
             //whatever you wanna do after the form is successfully submitted
         }
     });
-});
+});*/
+
+function SubForm (){
+    $.ajax({
+        url:'/Person/Edit/@Model.Id/',
+        type:'post',
+        data:$('#myForm').serialize(),
+        success:function(){
+            alert("worked");
+        }
+    });
+}
