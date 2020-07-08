@@ -100,3 +100,15 @@ $(window).resize(function() {
 	   closeNav();
 	}
 });
+
+$('#myForm').submit(function(e){
+    e.preventDefault();
+    $.ajax({
+        url:'contact.php',
+        type:'post',
+        data:$('#myForm').serialize(),
+        success:function(){
+            //whatever you wanna do after the form is successfully submitted
+        }
+    });
+});

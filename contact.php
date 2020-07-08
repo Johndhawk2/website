@@ -23,7 +23,7 @@ $mail->Password   = "CRSKhqw6qm4s4m";					// SMTP account password example
 $name = $_POST['fName'];
 $email = $_POST['fEmail'];
 $message = $_POST['fMessage'];
-$header = "Contact form";
+$header = "You received a message from ".$name;
 $text = "You have received a message from ".$name.":\n".$email.".\n\n".$message;
 
 //    mail($sendTo,$subject,$text,$header);
