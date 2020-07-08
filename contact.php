@@ -14,6 +14,7 @@ if(isset($POST['fSubmit'])){
     $name = $_POST['fName'];
     $email = $_POST['fEmail'];
     $message = $_POST['fMessage'];
+    $mail->Body    = $message;
 
     $sendTo = "contact@johnhawk.tech";
     $header = "From: ".$email;
@@ -39,8 +40,6 @@ $mail->Password   = "CRSKhqw6qm4s4m";        // SMTP account password example
 // Content
 $mail->isHTML(true);                                  // Set email format to HTML
 $mail->Subject = 'Here is the subject';
-$mail->Body    = 'This is the HTML message body <b>in bold!</b>';
-$mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
 $mail->addAddress('contact@johnhawk.tech');
 $mail->setFrom('sending@johnhawk.tech');
 $mail->send();
