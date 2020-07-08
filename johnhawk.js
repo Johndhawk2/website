@@ -40,6 +40,7 @@ $(document).ready(function(){
 			url: $(this).attr('action'),
 			success: function(){
 				$('form').trigger("reset");
+				$('.formDisplay').show();
 			}
 
 		});

@@ -520,6 +520,22 @@ a.active.nav-link.contact #contactButton{
 	width: 85%;
 }
 
+.formDisplay{
+	background-color: rgba(0,0,0,0.8);
+	color: white;
+	position: absolute;
+	top: calc(var(--vh, 1vh) * 10);
+	display: none;
+	z-index: 100;
+	width: 50%;
+	left: 50%;
+	transform: translateX(-50%);
+	text-align: center;
+	border-radius: 20pt;
+	padding: 0pt 20pt;
+	font-size: 2vw;
+}
+
 @media only screen and (max-width: 2000px){
 	#contactText{
 		font-size: 1.5vw;
@@ -543,6 +559,10 @@ a.active.nav-link.contact #contactButton{
 }
 
 @media only screen and (max-width: 1200px){
+	.formDisplay{
+		font-size: 3vw;
+	}
+
 	#formName, #formEmail, #formMessage{
 		font-size: 20px;
 	}
@@ -733,6 +753,10 @@ a.active.nav-link.contact #contactButton{
 }
 
 @media only screen and (max-width: 768px){
+	.formDisplay{
+		font-size: 4vw;
+	}
+
 	#formName, #formEmail, #formMessage{
 		font-size: calc(var(--vh,1vh) * 2);
 	}
