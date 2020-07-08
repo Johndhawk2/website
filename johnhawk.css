@@ -520,12 +520,14 @@ a.active.nav-link.contact #contactButton{
 	width: 85%;
 }
 
-.formDisplay{
+#formDisplay{
 	background-color: rgba(0,0,0,0.8);
+	font-family: "Montserrat";
 	color: white;
 	position: absolute;
 	top: calc(var(--vh, 1vh) * 10);
 	display: none;
+	opacity: 0;
 	z-index: 100;
 	width: 50%;
 	left: 50%;
@@ -534,6 +536,7 @@ a.active.nav-link.contact #contactButton{
 	border-radius: 20pt;
 	padding: 0pt 20pt;
 	font-size: 2vw;
+	transition-duration: 1s;
 }
 
 @media only screen and (max-width: 2000px){
@@ -559,7 +562,7 @@ a.active.nav-link.contact #contactButton{
 }
 
 @media only screen and (max-width: 1200px){
-	.formDisplay{
+	#formDisplay{
 		font-size: 3vw;
 	}
 
@@ -753,7 +756,7 @@ a.active.nav-link.contact #contactButton{
 }
 
 @media only screen and (max-width: 768px){
-	.formDisplay{
+	#formDisplay{
 		font-size: 4vw;
 	}
 

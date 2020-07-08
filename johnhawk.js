@@ -40,9 +40,8 @@ $(document).ready(function(){
 			url: $(this).attr('action'),
 			success: function(){
 				$('form').trigger("reset");
-				$('.formDisplay').show();
+				toastPopup();
 			}
-
 		});
 	});
 });
@@ -114,3 +113,14 @@ $(window).resize(function() {
 	   closeNav();
 	}
 });
+
+function toastPopup(){
+	document.getElementById("formDisplay").style.display = "block";
+	document.getElementById("formDisplay").style.opacity = "1";
+	setTimeout(() => {
+		document.getElementById("formDisplay").style.opacity = "0";
+	}, 5000);
+	setTimeout(() =>{
+		document.getElementById("formDisplay").style.display = "none";
+	},6000);
+}
