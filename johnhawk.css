@@ -287,7 +287,7 @@ a.active.nav-link.contact #contactButton{
 
 .projectTable{
 	position: relative;
-	top: calc(var(--vh,1vh) * 10);
+	top: calc(var(--vh,1vh) * 7);
 	width: 100%;
 	justify-items: center;
 	display: grid;
@@ -331,6 +331,12 @@ a.active.nav-link.contact #contactButton{
 	font-size: 1vw;
 	line-height: 2vw;
 	text-align: center;
+}
+
+.projectExplain{
+	position: relative;
+	top: calc(var(--vh,1vh) * 4);
+	padding: 0 4.5vw;
 }
 
 #project-website{
@@ -576,6 +582,7 @@ a.active.nav-link.contact #contactButton{
 		width: 65%;
 		text-align: right;
 		font-size: 100px;
+		line-height: 100px;
 	}
 
 	#contactText{
@@ -726,6 +733,66 @@ a.active.nav-link.contact #contactButton{
 }
 
 @media only screen and (max-width: 768px){
+	#formName, #formEmail, #formMessage{
+		font-size: calc(var(--vh,1vh) * 2);
+	}
+
+	.contactContent{
+		width: 85vw;
+		display: grid;
+		position: absolute;
+		top: 60px;
+		transform: translateX(-50%);
+		grid-template-columns: 1fr;
+		justify-items: center;
+		row-gap: calc(var(--vh,1vh) * 2);
+	}
+
+	.contactMe{
+		width: 100%;
+		min-width: 0px;
+		margin-bottom: 20px;
+	}
+
+	#formMessage{
+		height: calc(var(--vh,1vh) * 15);
+		min-height: 100px;
+	}
+
+	#contactWriting{
+		min-width: 0px;
+		width: 100%;
+	}
+
+	#contentDivider{
+		display: block;
+	}
+
+	#contactTitle{
+		width: 100%;
+		text-align: right;
+		font-size: 20vw;
+		line-height: 20vw;
+		min-width: 0px;
+	}
+
+	#contactText{
+		font-size: 4vw;
+		line-height: 6vw;
+		min-width: 0px;
+	}
+
+	.contactInfo{
+		font-size: 5vw;
+		font-weight: 100;
+		height: calc(var(--vh,1vh) * 4);
+	}
+
+	.contactIcon{
+		height: 100%;
+		width: calc(var(--vh,1vh) * 4);
+	}
+
 	.projectTable{
 		top: calc(var(--vh,1vh) * 10);
 		grid-template-columns: 1fr;
@@ -812,7 +879,40 @@ a.active.nav-link.contact #contactButton{
 	}
 }
 
+@media only screen and (max-height: 800px){
+	#profile{
+		top: calc(var(--vh,1vh) * 3)!important;
+	}
+}
+
 @media only screen and (max-height: 600px){
+	#formName, #formEmail, #formMessage{
+		font-size: 20px;
+	}
+
+	.contactInfo{
+		font-size: 4vw;
+		height: calc(var(--vh,1vh) * 14);
+	}
+
+	.contactIcon{
+		width: calc(var(--vh,1vh) * 14);
+	}
+
+	#contactTitle{
+		font-size: 13vw;
+		line-height: 13vw;
+	}
+
+	#contactText{
+		font-size: 3vw;
+		line-height: 5vw;
+	}
+
+	#profile{
+		top: calc(var(--vh,1vh) * 5)!important;
+	}
+
 	.homeContent{
 		top: calc(var(--vh,1vh) * 15);
 		transform: translateX(-50%);
@@ -830,8 +930,46 @@ a.active.nav-link.contact #contactButton{
 }
 
 @media only screen and (max-height: 400px){
+	#profile{
+		top: calc(var(--vh,1vh) * 6);
+	}
+
+	.contactInfo{
+		font-size: 4vw;
+		height: calc(var(--vh,1vh) * 10);
+	}
+
+	.contactIcon{
+		width: calc(var(--vh,1vh) * 10);
+	}
+
 	.homeContent{
 		top: calc(var(--vh,1vh) * 25);
 		transform: translateX(-50%);
+	}
+}
+
+@media only screen and (max-width: 350px){
+	#formName, #formEmail, #formMessage{
+		font-size: calc(var(--vh,1vh) * 2);
+	}
+
+	#contactTitle{
+		font-size: 20vw;
+		line-height: 20vw;
+	}
+
+	#contactText{
+		font-size: 4vw;
+		line-height: 6vw;
+	}
+
+	.contactInfo{
+		font-size: 5vw;
+		height: calc(var(--vh,1vh) * 4);
+	}
+
+	.contactIcon{
+		width: calc(var(--vh,1vh) * 4);
 	}
 }

@@ -62,7 +62,7 @@
 
 		<!-- Tabs -->
 		<div class="tab-content">
-			<div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+			<div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">	<!-- Home -->
 				<div class="scroll">
 					<div class="homeContent">
 						<h1 class="pageTitle" id="homeTitle">Title for Home</h1>
@@ -71,8 +71,8 @@
 						</p>
 					</div>
 				</div>
-			</div>
-			<div class="tab-pane fade" id="about" role="tabpanel" aria-labelledby="about-tab">
+			</div>																						<!-- /Home -->
+			<div class="tab-pane fade" id="about" role="tabpanel" aria-labelledby="about-tab">			<!-- About me-->
 				<div class="scroll">
 					<div class="aboutContent">
 						<div id="topContent">
@@ -88,10 +88,16 @@
 						</div>
 					</div>
 				</div>
-			</div>
-			<div class="tab-pane fade" id="projects" role="tabpanel" aria-labelledby="projects-tab">
+			</div>																						<!-- /About me -->
+			<div class="tab-pane fade" id="projects" role="tabpanel" aria-labelledby="projects-tab">	<!-- My projects-->
 				<div class="scroll">
 					<div class="projectContent">
+						<div class="projectExplain">
+							<h1 class="pageTitle" id="projectTitle">Title for Projects</h1>
+							<p class="pageText" id="projectText">
+								Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis condimentum felis nisi, ut imperdiet neque tempor in. Nam enim risus, elementum a est vestibulum, mattis rutrum diam. Fusce feugiat ut arcu sed consequat. Cras ornare justo eget aliquam pellentesque. Morbi vestibulum fermentum semper. Sed a turpis id nunc maximus interdum id et ex. Sed id diam dictum, fringilla neque ac, mollis magna. Ut ultrices iaculis est, non fermentum ex. Nullam tortor purus, ornare nec luctus vitae, maximus et enim. 
+							</p>
+						</div>
 						<div class="projectTable">
 							<div class="projectItem card">
 								<div class="projectImage" id="project-website"></div>
@@ -144,17 +150,17 @@
 						</div>
 					</div>
 				</div>
-			</div>
-			<div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+			</div>																						<!-- /My projects -->
+			<div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">		<!-- Contact me -->
 				<div class="scroll">
 					<div class="contactContent" id="contCont">
 						<div class="contactMe"  id="contMe">
 							<div class="pageTitle" id="contactTitle">Get in touch</div>
 							<div class="contactForm">
-								<input type="text" id="formName" placeholder="Name">
-								<input type="email" id="formEmail" placeholder="Email">
-								<textarea id="formMessage" placeholder="Message"></textarea>
-								<input id="formSubmit" type="submit" value="Submit">
+								<input type="text" name="fName" id="formName" placeholder="Name">
+								<input type="email" name="fEmail" id="formEmail" placeholder="Email">
+								<textarea name="fMessage" id="formMessage" placeholder="Message"></textarea>
+								<input  name="fSubmit" id="formSubmit" type="submit" value="Submit">
 							</div>
 						</div>
 						<div class="pageText" id="contactWriting">
@@ -185,7 +191,7 @@
 						</div>
 					</div>
 				</div>
-			</div>
+			</div>																						<!-- /Contact me -->
 		</div>
 		<!-- /Tabs -->
     </body>
