@@ -39,7 +39,7 @@ $(document).ready(function(){
 			dataType: 'json',
 			data: $('form#myForm').serialize(),
 			success: function(data) {
-					   // ... do something with the data...
+					   console.log(data);
 					 }
 		});
 	});
@@ -111,31 +111,4 @@ $(window).resize(function() {
 	if (vw > 768) {
 	   closeNav();
 	}
-});
-
-/*$('#myForm').submit(function(e){
-    e.preventDefault();
-    $.ajax({
-        url:'contact.php',
-        type:'post',
-        data:$('#myForm').serialize(),
-        success:function(){
-            //whatever you wanna do after the form is successfully submitted
-        }
-    });
-});
-
-
-function SubForm (){
-    $.ajax({
-        url:'/Person/Edit/@Model.Id/',
-        type:'post',
-        data:$('#myForm').serialize(),
-        success:function(){
-            alert("worked");
-        }
-    });
-}*/
-
-$(function() {
 });
