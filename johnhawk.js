@@ -31,11 +31,11 @@ $(document).ready(function(){
 		var bodyBgClass = $(this).attr("href").replace("#", "") + "-Background";
 		$("body").removeClass().addClass(bodyBgClass);
 	});
-	
-	$("#myform").on("submit", function(e) {
+
+	$("#myForm").on("submit", function(e) {
 		console.log("Sending");
 		e.preventDefault();
-		$.ajax({
+		/*$.ajax({
 			url: $(this).attr("action"),
 			type: 'POST',
 			data: $(this).serialize(),
@@ -46,7 +46,7 @@ $(document).ready(function(){
 				$("#message").hide();
 				$("#response").html(data);
 			}
-		});
+		});*/
 	});
 });
 
