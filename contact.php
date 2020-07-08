@@ -16,9 +16,9 @@ $mail = new PHPMailer();
     $message = $_POST['fMessage'];
 
     $sendTo = "contact@johnhawk.tech";
-    $header = "You received a message from: ".$email;
+    $header = "Contact form";
     $subject = "Website contact form";
-    $text = "You have received a message from ".$name.".\n\n".$message;
+    $text = "You have received a message from ".$name."; ".$email.".\n\n".$message;
 
 //    mail($sendTo,$subject,$text,$header);
 //   header("Location: index.html?mailsend");
@@ -40,7 +40,7 @@ $mail->Password   = "CRSKhqw6qm4s4m";        // SMTP account password example
 //$mail->isHTML(true);                                  // Set email format to HTML
 $mail->Subject = $header;
 //$mail->Body    = 'This is the HTML message body <b>in bold!</b>';
-$mail->Body = $message;
+$mail->Body = $text;
 $mail->addAddress('contact@johnhawk.tech');
 $mail->setFrom('sending@johnhawk.tech');
 $mail->send();
