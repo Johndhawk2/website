@@ -15,6 +15,8 @@ $(document).ready(function(){
 	imgFade();
 	addLoadEvent(preloader);
 	getViewportSize();
+	var vw = $(window).width();
+	getelemPos(vw);
 
 	$('.navSelector a').on('shown.bs.tab', function(event){
 		var oldTag = $(event.relatedTarget).get()[0].hash	// previous tab
@@ -74,11 +76,25 @@ function getViewportSize(){
 	document.documentElement.style.setProperty('--vh', `${vh}px`);
 }
 
+function getelemPos(vw){
+	if(vw <= 1200){
+		$("#contactTitle").remove();
+		$("#contCont").prepend(`<div class="pageTitle" id="contactTitle">Get in touch</div>`);
+		$("#contactWriting").insertBefore("#contMe");
+	}
+	else{
+		$("#contactTitle").remove();
+		$("#contMe").prepend(`<div class="pageTitle" id="contactTitle">Get in touch</div>`);
+		$("#contMe").insertBefore("#contactWriting");
+	}
+}
+
 $(window).resize(function() {
 	var vh = $(window).height();
 	var vw = $(window).width();
 	
 	getViewportSize();
+	getelemPos(vw);
 
 	if (vw > 768) {
 	   closeNav();

@@ -26,6 +26,10 @@ a.active.nav-link.contact{
 	color: white!important;
 }
 
+a.active.nav-link.contact #contactButton{
+	background-color: #62BAF4!important;
+}
+
 #home-tab{
 	margin-left: 2vw;
 	font-family: 'Roboto';
@@ -365,7 +369,230 @@ a.active.nav-link.contact{
 	background-size: cover;
 }
 
+.contactContent{
+	top:50%;
+	left:50%;
+	transform: translate(-50%, -50%);
+	position: absolute;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	flex-wrap: nowrap;
+}
+
+#contactTitle{
+	font-size: 80px;
+}
+
+.contactMe{
+	background-color: rgba(0,0,0,0.4);
+	display: grid;
+	margin-right: 5vw;
+	width: 20vw;
+	min-width: 400px;
+	padding: 0 1vw var(--vh,1vh) 1vw;
+}
+
+.contactForm{
+	display: grid;
+	grid-template-columns: 1fr;
+	row-gap: 30px;
+}
+
+#formName, #formEmail, #formMessage{
+	background-color: rgb(255, 255, 255, 0.65)!important;
+	border: none;
+	border-radius: 10px;
+	color: #000000;
+	width: 100%;
+	font-size: 20px;
+	padding-left: 20px;
+	padding-right: 20px;
+}
+
+#formMessage{
+	padding-top: 10px;
+}
+
+#formName, #formEmail, #formMessage, #formSubmit, textarea, select { 
+    outline: none;
+}
+
+#formName, #formEmail, #formSubmit{
+	height: calc(var(--vh,1vh) * 4);
+}
+
+#formSubmit{
+	font-family: "Roboto";
+	font-size: 33px;
+	font-weight: bold;
+	border: none;
+	border-radius: 10px;
+	background-color: #199BF1;
+	color: white;
+}
+
+#formMessage{
+	height: 6vw;
+}
+
+#contactWriting{
+	display: flex;
+	width:  35vw;
+	min-width: 600px;
+}
+
+#contactLeft{
+	margin-right: calc(var(--vh,1vh) * 2);
+	display: flex;
+	align-items: center;
+}
+
+#contactText{
+	font-size: 0.9vw;
+	line-height: 2vw;
+	font-weight: 100;
+}
+
+#contactTitle{
+	margin-bottom: 10px;
+}
+
+#contactRight{
+	display: grid;
+	grid-template-columns: 1fr;
+	row-gap: var(--vh,1vh);
+}
+
+.click{
+	height:100%;
+	width: 100%;
+	display: block;
+}
+
+#github{
+	background-image: url("Images/Icons/github.svg");
+}
+
+#linkedin{
+	background-image: url("Images/Icons/linkedin.svg");
+}
+
+#email{
+	background-image: url("Images/Icons/email.svg");
+}
+
+#phone{
+	background-image: url("Images/Icons/phone.svg");
+}
+
+.contactInfo{
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+	height: calc(var(--vh,1vh) * 4);
+	font-size: 1vw;
+}
+
+.contactInfo a{
+	color: white!important;
+	text-decoration: none!important;
+}
+
+.contactIcon{
+	height:100%;
+	width: calc(var(--vh,1vh) * 4);
+	background-size: cover;
+	margin-left: var(--vh,1vh);
+}
+
+#contentDivider{
+	display: none;
+	background-color: #0B4973;
+	border: 3px solid #0B4973;
+	width: 85%;
+}
+
+@media only screen and (max-width: 2000px){
+	#contactText{
+		font-size: 1.5vw;
+		line-height: 2.2vw;
+	}
+
+	.contactInfo{
+		font-size: 1.7vw;
+		height: calc(var(--vh,1vh) * 3);
+	}
+
+	#contactWriting{
+		width:  45vw;
+		min-width: 600px;
+	}
+
+	.contactIcon{
+		height:100%;
+		width: calc(var(--vh,1vh) * 3);
+	}
+}
+
 @media only screen and (max-width: 1200px){
+	#formName, #formEmail, #formMessage{
+		font-size: 20px;
+	}
+
+	.contactContent{
+		width: 90vw;
+		display: grid;
+		position: absolute;
+		top: 100px;
+		transform: translateX(-50%);
+		grid-template-columns: 1fr;
+		justify-items: center;
+		row-gap: calc(var(--vh,1vh) * 2);
+	}
+
+	.contactMe{
+		width: 65%;
+		margin-right: 0;
+		padding: calc(var(--vh,1vh) * 2) 2vw;
+		min-width: 600px;
+	}
+
+	#formMessage{
+		height: calc(var(--vh,1vh) * 15);
+	}
+
+	#contactWriting{
+		display: block;
+		width: 65%;
+	}
+
+	#contentDivider{
+		display: block;
+	}
+
+	#contactTitle{
+		width: 65%;
+		text-align: right;
+		font-size: 100px;
+	}
+
+	#contactText{
+		font-size: 30px;
+		line-height: 40px;
+	}
+
+	.contactInfo{
+		font-size: 36px;
+		font-weight: 100;
+		height: calc(var(--vh,1vh) * 4);
+	}
+
+	.contactIcon{
+		height:100%;
+		width: calc(var(--vh,1vh) * 4);
+	}
+
 	.projectTable{
 		top: calc(var(--vh,1vh) * 10);
 		grid-template-columns: repeat(2, 1fr);
