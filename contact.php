@@ -10,20 +10,19 @@ require 'vendor/autoload.php';
 
 $mail = new PHPMailer();
 
-if(isset($POST['fSubmit'])){
+//if(isset($POST['fSubmit'])){
     $name = $_POST['fName'];
     $email = $_POST['fEmail'];
     $message = $_POST['fMessage'];
-    $mail->Body    = $message;
 
     $sendTo = "contact@johnhawk.tech";
     $header = "From: ".$email;
     $subject = "Website contact form";
     $text = "You have received a message from ".$name.".\n\n".$message;
 
-    mail($sendTo,$subject,$text,$header);
-    header("Location: index.html?mailsend");
-}
+//    mail($sendTo,$subject,$text,$header);
+//   header("Location: index.html?mailsend");
+//}
 
 // Settings
 $mail->IsSMTP();
@@ -40,6 +39,8 @@ $mail->Password   = "CRSKhqw6qm4s4m";        // SMTP account password example
 // Content
 $mail->isHTML(true);                                  // Set email format to HTML
 $mail->Subject = 'Here is the subject';
+//$mail->Body    = 'This is the HTML message body <b>in bold!</b>';
+$mail->Body = $message;
 $mail->addAddress('contact@johnhawk.tech');
 $mail->setFrom('sending@johnhawk.tech');
 $mail->send();
