@@ -111,7 +111,8 @@ $(window).resize(function() {
             //whatever you wanna do after the form is successfully submitted
         }
     });
-});*/
+});
+
 
 function SubForm (){
     $.ajax({
@@ -122,4 +123,22 @@ function SubForm (){
             alert("worked");
         }
     });
-}
+}*/
+
+$(function() {
+	$("#myform").on("submit", function(e) {
+		e.preventDefault();
+		$.ajax({
+			url: $(this).attr("action"),
+			type: 'POST',
+			data: $(this).serialize(),
+			beforeSend: function() {
+				$("#message").html("sending...");
+			},
+			success: function(data) {
+				$("#message").hide();
+				$("#response").html(data);
+			}
+		});
+	});
+});
