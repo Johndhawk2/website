@@ -127,6 +127,7 @@ function SubForm (){
 
 $(function() {
 	$("#myform").on("submit", function(e) {
+		console.log("Sending");
 		e.preventDefault();
 		$.ajax({
 			url: $(this).attr("action"),
