@@ -32,21 +32,16 @@ $(document).ready(function(){
 		$("body").removeClass().addClass(bodyBgClass);
 	});
 
-	$("#myForm").on("submit", function(e) {
-		console.log("Sending");
-		e.preventDefault();
-		/*$.ajax({
-			url: $(this).attr("action"),
-			type: 'POST',
-			data: $(this).serialize(),
-			beforeSend: function() {
-				$("#message").html("sending...");
-			},
+	$('input#submit').click( function() {
+		$.ajax({
+			url: 'contact.php',
+			type: 'post',
+			dataType: 'json',
+			data: $('form#myForm').serialize(),
 			success: function(data) {
-				$("#message").hide();
-				$("#response").html(data);
-			}
-		});*/
+					   // ... do something with the data...
+					 }
+		});
 	});
 });
 
