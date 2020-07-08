@@ -34,7 +34,7 @@ $(document).ready(function(){
 
 	$('input#submit').click( function() {
 		$.ajax({
-			url: 'contact.php',
+			url: 'https://www.johnhawk.tech/contact.php',
 			type: 'post',
 			dataType: 'json',
 			data: $('form#myForm').serialize(),
