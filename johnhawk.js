@@ -32,7 +32,7 @@ $(document).ready(function(){
 		$("body").removeClass().addClass(bodyBgClass);
 	});
 
-	$('input#submit').click( function() {
+	/*$('input#submit').click( function() {
 		$.ajax({
 			url: 'https://www.johnhawk.tech/contact.php',
 			type: 'post',
@@ -42,6 +42,9 @@ $(document).ready(function(){
 					   console.log(data);
 					 }
 		});
+	});*/
+	$('input#submit').click(function(event) {
+		console.log("Test");
 	});
 });
 
