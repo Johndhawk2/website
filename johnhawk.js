@@ -43,7 +43,9 @@ $(document).ready(function(){
 					 }
 		});
 	});*/
-	$('form').submit(function() {
+
+	$('form').submit(function(e) {
+		e.preventDefault();
 		console.log("Test");
 		$.ajax({
 			data: $(this).serialize(),
