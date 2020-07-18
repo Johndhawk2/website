@@ -17,6 +17,10 @@ body{
 	overflow: auto!important;
 }
 
+.hyperlink{
+	color: #62BAF4!important;
+}
+
 a.active.nav-link{
 	background-color: transparent!important;
 	color: #62BAF4!important;
@@ -226,8 +230,8 @@ a.active.nav-link.contact #contactButton{
 
 #homeText{
 	margin-left: 3vw;
-	max-width: 700px;
-	min-width: 500px;
+	max-width: 500px;
+	min-width: 400px;
 }
 
 #homeTitle{

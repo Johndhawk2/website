@@ -10,6 +10,10 @@ function closeNav() {
 	document.getElementById("navbarSide").style.left = "100%";
 }
 
+function changeTab(){
+	
+}
+
 $(document).ready(function(){
 	$('.nav-tabs a:first').tab('show')
 	imgFade();
