@@ -261,15 +261,16 @@ a.active.nav-link.contact #contactButton{
 
 #profile{
 	position: relative;
-	background-image: url('Images/Profile/harold.jpg');
+	background-image: url('Images/Profile/John.jpg');
 	border-radius: 50%;
 	height: 15vw;
 	width: 15vw;
 	min-height: 350px;
 	min-width: 350px;
-	background-size: 120%;
+	background-color: black;
+	background-size: cover;
 	background-repeat: no-repeat;
-	background-position: 0% 10%;
+	background-position: 0% 30%;
 }
 
 #aboutTitle{
