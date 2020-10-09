@@ -352,12 +352,15 @@ a.active.nav-link.contact #contactButton{
 
 #project-pam{
 	background-image: url("Images/Projects/pam.png");
+	background-color: rgba(41, 69, 100, 0.603);
+	border-radius: 25%;
 	background-position: 50% 50%;
-	background-size: cover;
+	background-repeat: no-repeat;
+	background-size: contain;
 }
 
 #project-lfr{
-	background-image: url("Images/Projects/lineRobot.png");
+	background-image: url("Images/Projects/LFR.jpeg");
 	background-position: 45% 50%;
 	background-size: cover;
 }
