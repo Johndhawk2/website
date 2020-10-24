@@ -80,3 +80,7 @@ html{
 .underline{
 	border: 1px solid black;
 }
+
+img{
+	display: inline-block;
+}
