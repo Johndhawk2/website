@@ -15,6 +15,13 @@ body{
 	top: 120px;
 	height: calc(calc(var(--vh,1vh) * 100) - 120px)!important;
 	overflow: auto!important;
+	-ms-overflow-style: none;  /* IE and Edge */
+	scrollbar-width: none;  /* Firefox */
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.scroll::-webkit-scrollbar {
+	display: none;
 }
 
 .hyperlink{

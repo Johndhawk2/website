@@ -1,0 +1,82 @@
+html{
+    background-color: #CDCDCD;
+}
+
+#pageLabel{
+	font-family: 'Roboto';
+	font-size: 30px!important;
+	color: #ffffff;
+	margin-bottom: 0;
+}
+
+#navbarSimple{
+	background-color: rgba(0, 0, 0, 0.85)!important;
+	color: white!important;
+	height: 70px;
+	position: fixed;
+    width: 100%;
+	align-items: center;
+	padding: 0.5vw 1vw;
+	z-index: 10 !important;
+}
+
+.headerOptions{
+	width: 100%!important;
+	display: flex;
+	align-items: center;
+}
+
+#contactButton{
+	color: white!important;
+	background-color: #199BF1;
+	border-radius: 20px;
+	box-sizing: unset;
+	padding: 10px 20px;
+	font-size: 20px;
+	font-weight: bold;
+}
+
+.contact{
+	padding: 0;
+}
+
+.pageContainer{
+	height: 100%;
+	width: 100%;
+	box-sizing: border-box;
+	z-index: -1;
+	position: absolute;
+	top: 0;
+	left: 0;
+	padding: 0 15vw;
+}
+
+.pageContent{
+	background-color: white;
+	z-index: -1;
+	height: 100%;
+	box-sizing: border-box;
+	padding: 80px 50px 0 50px;
+	overflow: auto;
+	-ms-overflow-style: none;  /* IE and Edge */
+	scrollbar-width: none;  /* Firefox */
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.pageContent::-webkit-scrollbar {
+	display: none;
+}
+
+.pageHeaders{
+	font-family: 'Montserrat';
+	font-weight: bold;
+}
+
+.pageText{
+	font-family: 'Montserrat';
+	padding-bottom: 30pt;
+}
+
+.underline{
+	border: 1px solid black;
+}
