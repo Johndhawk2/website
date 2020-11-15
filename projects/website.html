@@ -1,54 +1,143 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<title>John Hawk</title>
-		<meta name="description" content="My Website"/>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-		<link rel="stylesheet" href="projects.css">
-		<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons|Material+Icons+Round">
-		<link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
-		<link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-	</head>
-	<body>
-		<div class="navbar navbar-static-top sticky-top" id="navbarSimple">
-			<div class="headerOptions">
-				<h1 id="pageLabel">My Website</h1>
-				<a class="headerButton nav-link ml-auto contact" href="../index.html"><div id="contactButton">Back</div></a>
+
+<head>
+	<title>John Hawk</title>
+	<meta name="description" content="My Website" />
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+	<link rel="stylesheet" href="projects.css">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons|Material+Icons+Round">
+	<link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+	<link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+	<div class="navbar navbar-static-top sticky-top" id="navbarSimple">
+		<div class="headerOptions">
+			<h1 id="pageLabel">My Website</h1>
+			<a class="headerButton nav-link ml-auto contact" href="../index.html">
+				<div id="contactButton">Back</div>
+			</a>
+		</div>
+	</div>
+	<div class="pageContainer">
+		<div class="pageContent">
+			<h1 class="pageHeaders">
+				Overview
+			</h1>
+			<hr class="underline">
+			<div class="pageText">
+				<p>
+					In the modern, technological age, every advisor will tell you that you need an online presence.
+					Granted they're usually referring to fully fledged businesses, but it can't hurt to have a personal
+					website. These days, a CV is not enough to show off who you are as a person, what skills you have,
+					and what you have achieved, so it's important to have somewhere employers or other interested
+					parties can find out more.
+				</p>
+				<p>
+					Therefore I set out to crate a website that would allow me to show off who I am and what I do, in
+					greater depth than a CV could. There were a few things I wanted the website to be able to do. It
+					should:
+				</p>
+				<ul>
+					<li>Provide information about who I am and what sort of person I am</li>
+					<li>Allow people to view a curated list of the projects I've undertaken, whether for work or fun
+					</li>
+					<li>Provide a way for people to contact me</li>
+					<li>Work well on a range of devices, so anyone can access it</li>
+				</ul>
+				<p>
+					On top of this I wanted the website itself to be a way for me to display my wide range of abilities,
+					so I decided to code everything from scratch, and to set up my own web server.
+				</p>
+			</div>
+			<h1 class="pageHeaders">
+				Process
+			</h1>
+			<hr class="underline">
+			<div class="pageText">
+				<!--<img src="../Images/Projects/website.png" alt="Workplace" usemap="#workmap" width="400" height="400" style="float: right;">-->
+				<p>I started off by reasearching good website designing tools so that I could get an idea of how I
+					wanted the site to look, before I spent the time creating it. While there are a lot of great online
+					website builders (such as Wix or Squarespace), I wanted something that wouldn't result in a usable
+					website, but rather a functioning prototype I could start coding. In the end, I found two potential
+					programmes, Mobirise and Adobe XD. Mobirise is an offline website designer, aimed at non-techincally
+					inclined people which uses premade "block" to allow the user to quickly and easily produce a
+					webstie. While this is closer to what I was looking for, the free version of the software was fairly
+					limited, and the overall product was fairly restricted by the design blocks they provided.</p>
+				<p>This then left Adobe XD. Adobe XD is not a dedicated website designer as with the other options, but
+					rather a universal UX design tool predominantly meant for creating web or mobile apps. This meant
+					that I could easily create a mock up of the precise design I wanted, while also testing how it would
+					flow by using the in built interactive prototyping tools. Using Adobe XD, I created two designs for
+					the website, one to use on desktop screens, and one for mobile.</p>
+				<p>The next step was to take this mock up design, and convert it into the code for the final website. I
+					wanted to maintain control over the website, and to gain a deeper understanding of the core of web
+					development, so I opted to stick to pure HTML, CSS, and JavaScript where possible. Where not
+					possible, or simply to make life slightly easier, I also used Bootstrap and JQuery, as these could
+					make coding the site much quicker and simpler, without giving up the fine control I wanted.</p>
+				<p>The core design of the website is based around four tabs. This allows me to separate the various
+					sections of the site and keep everything looking neat and clean. The traditional way to accomplish
+					this look, would be to have four separate webpages and to have the navbar at the top contain links
+					to each page. However, this approach causes the entire page to reload whenever a new tab is
+					selected, which felt cumbersome and outdated. So I turned to bootstrap, more specifically to the tab
+					feature. Bootstrap tabs allow you to have a navigation bar that controls a content area and fades
+					nicely between content when the appropriate tab is selected. Almost perfect! The biggest issue was
+					that each of my tab designs had a different background across the entire page, whereas bootstrap
+					tabs only control a portion of the screen.</p>
+				<p>To get around this limitation, I split each tab in to two parts. One &lt;div&gt; tag containing all
+					of the content of the page shown below the navigation bar, and One &lt;div&gt; tag containing the
+					background image. The content was set to use the standard bootstrap tab system, but the images had
+					to be controlled with additional JavaScript programming. A function was set up to occur whenever a
+					new tab was selected, it grabs the new tab, and the current one, and controls the fading of the
+					background images to ensure that there's a seamless transition to the new tab. This produced the
+					desired effect of each tab appearing as a completely new webpage, while never completely refreshing
+					the page, and allowing for smooth fading between each section. All that remained with the navigation
+					bar was to improve the look of the default navigation bar. None of the bootstrap options fitted the
+					aesthetic of the rest of the webiste, so I completely rewrote the design using CSS and, where
+					needed, the <mark>!important</mark> command to ensure that my design choices overruled the bootstrap
+					design.</p>
+				<ul>
+					<li>Responsive design</li>
+					<li>Overflow (scrolling)</li>
+					<li>Hosting</li>
+					<li>PHP Form</li>
+				</ul>
+			</div>
+			<h1 class="pageHeaders">
+				Outcome
+			</h1>
+			<hr class="underline">
+			<div class="pageText">
+				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris nec condimentum urna. Lorem ipsum
+					dolor sit amet, consectetur adipiscing elit. Cras arcu ipsum, ultricies sit amet efficitur sit amet,
+					efficitur et risus. Nulla varius sapien nec lacus semper efficitur. Nulla facilisi. Duis eu ex id
+					diam vulputate vehicula at accumsan nisl. In hac habitasse platea dictumst. Sed velit est, hendrerit
+					interdum tellus non, consequat hendrerit mi. Aliquam tincidunt lacus ac nunc viverra placerat sed
+					sed sapien. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis
+					egestas. Duis imperdiet eu purus quis ornare. Quisque sodales ullamcorper blandit. Donec tempor,
+					lacus ut egestas laoreet, arcu est sagittis tellus, eleifend dictum quam augue vitae est. Vivamus
+					fermentum ligula posuere, commodo tellus vitae, accumsan turpis. Vivamus dictum lectus quis justo
+					imperdiet, vel eleifend purus interdum.</p>
+				<p>Interdum et malesuada fames ac ante ipsum primis in faucibus. Curabitur euismod et ex eget mollis.
+					Maecenas et dolor id sapien mattis vestibulum. Cras quis urna pharetra, venenatis erat eget, cursus
+					justo. Donec consectetur urna eu turpis vestibulum, ut vulputate nunc bibendum. Donec non lectus ac
+					lorem molestie scelerisque vitae vitae quam. Proin vestibulum ultrices turpis, quis rhoncus felis.
+					Phasellus id vehicula tortor. Donec pretium nibh metus, in blandit massa semper ut. Fusce varius in
+					purus at finibus. Nunc commodo semper luctus. Nulla sollicitudin lacinia nibh, a tristique orci
+					porta non. Aenean vel porta eros. Sed euismod, quam sed venenatis semper, libero mi elementum
+					libero, vel blandit tortor quam sit amet arcu. Proin et placerat sem, auctor molestie ipsum. Fusce
+					auctor, tortor sed mattis suscipit, ex leo luctus neque, eget tincidunt erat enim at ligula.</p>
+				<p>Vivamus cursus vel mi sed consectetur. Proin sit amet commodo arcu. In aliquet laoreet quam, at
+					cursus ipsum commodo ut. Nunc semper sagittis dui, vel interdum leo placerat vitae. Cras malesuada
+					ipsum ut orci porta porta. Cras sit amet est ut tortor imperdiet rutrum et eget metus. In
+					sollicitudin volutpat neque ac malesuada.</p>
 			</div>
 		</div>
-		<div class="pageContainer">
-			<div class="pageContent">
-				<h1 class="pageHeaders">
-					Overview
-				</h1>
-				<hr class="underline">
-				<div class="pageText">
-					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris nec condimentum urna. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras arcu ipsum, ultricies sit amet efficitur sit amet, efficitur et risus. Nulla varius sapien nec lacus semper efficitur. Nulla facilisi. Duis eu ex id diam vulputate vehicula at accumsan nisl. In hac habitasse platea dictumst. Sed velit est, hendrerit interdum tellus non, consequat hendrerit mi. Aliquam tincidunt lacus ac nunc viverra placerat sed sed sapien. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Duis imperdiet eu purus quis ornare. Quisque sodales ullamcorper blandit. Donec tempor, lacus ut egestas laoreet, arcu est sagittis tellus, eleifend dictum quam augue vitae est. Vivamus fermentum ligula posuere, commodo tellus vitae, accumsan turpis. Vivamus dictum lectus quis justo imperdiet, vel eleifend purus interdum.</p>
-				</div>
-				<h1 class="pageHeaders">
-					Process
-				</h1>
-				<hr class="underline">
-				<div class="pageText">
-					<img src="../Images/Projects/website.png" alt="Workplace" usemap="#workmap" width="400" height="400" style="float: right;">
-					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris nec condimentum urna. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras arcu ipsum, ultricies sit amet efficitur sit amet, efficitur et risus. Nulla varius sapien nec lacus semper efficitur. Nulla facilisi. Duis eu ex id diam vulputate vehicula at accumsan nisl. In hac habitasse platea dictumst. Sed velit est, hendrerit interdum tellus non, consequat hendrerit mi. Aliquam tincidunt lacus ac nunc viverra placerat sed sed sapien. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Duis imperdiet eu purus quis ornare. Quisque sodales ullamcorper blandit. Donec tempor, lacus ut egestas laoreet, arcu est sagittis tellus, eleifend dictum quam augue vitae est. Vivamus fermentum ligula posuere, commodo tellus vitae, accumsan turpis. Vivamus dictum lectus quis justo imperdiet, vel eleifend purus interdum.</p>
-					<p>Interdum et malesuada fames ac ante ipsum primis in faucibus. Curabitur euismod et ex eget mollis. Maecenas et dolor id sapien mattis vestibulum. Cras quis urna pharetra, venenatis erat eget, cursus justo. Donec consectetur urna eu turpis vestibulum, ut vulputate nunc bibendum. Donec non lectus ac lorem molestie scelerisque vitae vitae quam. Proin vestibulum ultrices turpis, quis rhoncus felis. Phasellus id vehicula tortor. Donec pretium nibh metus, in blandit massa semper ut. Fusce varius in purus at finibus. Nunc commodo semper luctus. Nulla sollicitudin lacinia nibh, a tristique orci porta non. Aenean vel porta eros. Sed euismod, quam sed venenatis semper, libero mi elementum libero, vel blandit tortor quam sit amet arcu. Proin et placerat sem, auctor molestie ipsum. Fusce auctor, tortor sed mattis suscipit, ex leo luctus neque, eget tincidunt erat enim at ligula.</p>
-					<p>Vivamus cursus vel mi sed consectetur. Proin sit amet commodo arcu. In aliquet laoreet quam, at cursus ipsum commodo ut. Nunc semper sagittis dui, vel interdum leo placerat vitae. Cras malesuada ipsum ut orci porta porta. Cras sit amet est ut tortor imperdiet rutrum et eget metus. In sollicitudin volutpat neque ac malesuada.</p> 
-				</div>
-				<h1 class="pageHeaders">
-					Outcome
-				</h1>
-				<hr class="underline">
-				<div class="pageText">
-					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris nec condimentum urna. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras arcu ipsum, ultricies sit amet efficitur sit amet, efficitur et risus. Nulla varius sapien nec lacus semper efficitur. Nulla facilisi. Duis eu ex id diam vulputate vehicula at accumsan nisl. In hac habitasse platea dictumst. Sed velit est, hendrerit interdum tellus non, consequat hendrerit mi. Aliquam tincidunt lacus ac nunc viverra placerat sed sed sapien. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Duis imperdiet eu purus quis ornare. Quisque sodales ullamcorper blandit. Donec tempor, lacus ut egestas laoreet, arcu est sagittis tellus, eleifend dictum quam augue vitae est. Vivamus fermentum ligula posuere, commodo tellus vitae, accumsan turpis. Vivamus dictum lectus quis justo imperdiet, vel eleifend purus interdum.</p>
-					<p>Interdum et malesuada fames ac ante ipsum primis in faucibus. Curabitur euismod et ex eget mollis. Maecenas et dolor id sapien mattis vestibulum. Cras quis urna pharetra, venenatis erat eget, cursus justo. Donec consectetur urna eu turpis vestibulum, ut vulputate nunc bibendum. Donec non lectus ac lorem molestie scelerisque vitae vitae quam. Proin vestibulum ultrices turpis, quis rhoncus felis. Phasellus id vehicula tortor. Donec pretium nibh metus, in blandit massa semper ut. Fusce varius in purus at finibus. Nunc commodo semper luctus. Nulla sollicitudin lacinia nibh, a tristique orci porta non. Aenean vel porta eros. Sed euismod, quam sed venenatis semper, libero mi elementum libero, vel blandit tortor quam sit amet arcu. Proin et placerat sem, auctor molestie ipsum. Fusce auctor, tortor sed mattis suscipit, ex leo luctus neque, eget tincidunt erat enim at ligula.</p>
-					<p>Vivamus cursus vel mi sed consectetur. Proin sit amet commodo arcu. In aliquet laoreet quam, at cursus ipsum commodo ut. Nunc semper sagittis dui, vel interdum leo placerat vitae. Cras malesuada ipsum ut orci porta porta. Cras sit amet est ut tortor imperdiet rutrum et eget metus. In sollicitudin volutpat neque ac malesuada.</p> 
-				</div>
-			</div>
-		</div>
-	</body>
+	</div>
+</body>
+
 </html>
