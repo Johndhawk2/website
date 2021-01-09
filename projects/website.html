@@ -60,7 +60,10 @@
 			</h1>
 			<hr class="underline">
 			<div class="pageText">
-				<!--<img src="../Images/Projects/website.png" alt="Workplace" usemap="#workmap" width="400" height="400" style="float: right;">-->
+				<figure  style="float: right; padding-left: 10pt;">
+					<img src="../Images/Projects/website.png" alt="Workplace" usemap="#workmap" width="400" height="400">
+					<figcaption style="text-align: center;">Early design of the website</figcaption>
+				</figure>
 				<p>I started off by reasearching good website designing tools so that I could get an idea of how I
 					wanted the site to look, before I spent the time creating it. While there are a lot of great online
 					website builders (such as Wix or Squarespace), I wanted something that wouldn't result in a usable
@@ -100,44 +103,72 @@
 					aesthetic of the rest of the webiste, so I completely rewrote the design using CSS and, where
 					needed, the <mark>!important</mark> command to ensure that my design choices overruled the bootstrap
 					design.</p>
-				<ul>
-					<li>Responsive design</li>
-					<li>Overflow (scrolling)</li>
-					<li>Hosting</li>
-					<li>PHP Form</li>
-				</ul>
+					<figure  style="float: left; padding-right: 10pt;">
+						<img src="../Images/Projects/MobileSite.png" alt="Workplace" usemap="#workmap" width="205" height="365">
+						<figcaption style="text-align: center;">Early design of the website</figcaption>
+					</figure>
+				<p>One of the major design points I wanted to focus on when developing this website, was to ensure that
+					it functioned well across a range of devices with varying screen sizes. To accomplish this, I
+					designed two separate, but similar, layouts, one for mobile devices and one for desktops. The mobile 
+					site is more focused on touch inputs with larger buttons, a more vertical layout, and a separate
+					navigation menu, whereas the desktop site has a more horizontal layout, smaller buttons, and a 
+					navbar permanently along the top of the screen. To break it up further, and to ensure most devices
+					can nicely display my site, I added multiple media queries in css to detect the screen width of the 
+					device accessing the website. These queries cause both the main change between the desktop and
+					mobile site, and smaller changes such as font size and positioning of elements on the screen. 
+					Finally, to make sure the site still looked good between the media query breaks, as many values as
+					possible for position and size were based on the screen size using css units such as <mark>vh</mark>
+					,which is one percent of the screen height, and js functions to position elements precicely,
+					ensuring that they responded to the changes in screen size smoothly between the breaks.</p>
+				<p>While it would have been simple to buy a web hosting service, possibly even with the registrar I
+					bought my domain from, I wanted to have a deeper understanding and control over how my website is
+					hosted. Initially I had my website hosted on gitpages free hosting system for testing, but when I
+					decided to finalise the website, I chose to rent out space on a VPS (virtual private server) from
+					OVH. On this VPS I set up an apache web server to serve my website so it can be accessed from
+					anywhere, there was little to no reason that apache was chosen over the alternatives such as nginx
+					, besides the fact that it was the first option I happened upon. To ensure web browsers wouldn't
+					flag my site as a hazard, I had to generate some ssl certificates which were done using certbot.
+					To allow people to access certain files for my projects, such as cad files or the code used, I set
+					up a simple file server through apache as well, allowing me to like to a locked down file store of
+					project files, without granting access to the entire server storage. Lastly, to avoid having to ssh 
+					into the VPS and writing all the code in vi or nano, or manually transfering the files each time I
+					want to make a minor change, I set up a cron job to pull any changes from a git repository, so all
+					I have to do to update the site, it to push a change to my git repository, and the website updates
+					within a minute.</p>
+				<p>The last feature to put on my website was the contact form. While having my contact information on my
+					website is a good way to allow people to contact me, it requires people to leave the site or have
+					set up a linked in profile. To make this simpler, I added a simple form to fill out containing the
+					name and email address of the person wishing to contact me, as well as their message. This was done
+					using a simple javascript function to reset the form, as well as a PHP script to process the data and
+					send the message to me. To make it easier, I set up a spare email adress, sending@johnhawk.tech, to 
+					email these messages to myself via the PHP script. </p>
 			</div>
 			<h1 class="pageHeaders">
 				Outcome
 			</h1>
 			<hr class="underline">
 			<div class="pageText">
-				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris nec condimentum urna. Lorem ipsum
-					dolor sit amet, consectetur adipiscing elit. Cras arcu ipsum, ultricies sit amet efficitur sit amet,
-					efficitur et risus. Nulla varius sapien nec lacus semper efficitur. Nulla facilisi. Duis eu ex id
-					diam vulputate vehicula at accumsan nisl. In hac habitasse platea dictumst. Sed velit est, hendrerit
-					interdum tellus non, consequat hendrerit mi. Aliquam tincidunt lacus ac nunc viverra placerat sed
-					sed sapien. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis
-					egestas. Duis imperdiet eu purus quis ornare. Quisque sodales ullamcorper blandit. Donec tempor,
-					lacus ut egestas laoreet, arcu est sagittis tellus, eleifend dictum quam augue vitae est. Vivamus
-					fermentum ligula posuere, commodo tellus vitae, accumsan turpis. Vivamus dictum lectus quis justo
-					imperdiet, vel eleifend purus interdum.</p>
-				<p>Interdum et malesuada fames ac ante ipsum primis in faucibus. Curabitur euismod et ex eget mollis.
-					Maecenas et dolor id sapien mattis vestibulum. Cras quis urna pharetra, venenatis erat eget, cursus
-					justo. Donec consectetur urna eu turpis vestibulum, ut vulputate nunc bibendum. Donec non lectus ac
-					lorem molestie scelerisque vitae vitae quam. Proin vestibulum ultrices turpis, quis rhoncus felis.
-					Phasellus id vehicula tortor. Donec pretium nibh metus, in blandit massa semper ut. Fusce varius in
-					purus at finibus. Nunc commodo semper luctus. Nulla sollicitudin lacinia nibh, a tristique orci
-					porta non. Aenean vel porta eros. Sed euismod, quam sed venenatis semper, libero mi elementum
-					libero, vel blandit tortor quam sit amet arcu. Proin et placerat sem, auctor molestie ipsum. Fusce
-					auctor, tortor sed mattis suscipit, ex leo luctus neque, eget tincidunt erat enim at ligula.</p>
-				<p>Vivamus cursus vel mi sed consectetur. Proin sit amet commodo arcu. In aliquet laoreet quam, at
-					cursus ipsum commodo ut. Nunc semper sagittis dui, vel interdum leo placerat vitae. Cras malesuada
-					ipsum ut orci porta porta. Cras sit amet est ut tortor imperdiet rutrum et eget metus. In
-					sollicitudin volutpat neque ac malesuada.</p>
+				<p>From the first idea of the website, to the final product, there were many hurdles and issues that I
+					had to overcome. Some of these were fixed with elegant solutions, other by subtly changing the
+					design in a way that wouldn't affect the final outcome, and the majority with less than ideal bodges.
+					This led to a website that functions as I want on the surface, and in the majority of cases no-one
+					will notice any of the issues, but for some fringe cases (such as very specific screen sizes) various
+					bits break for unknown reasons.</p>
+				<p>While the number of shortcuts and bodges wouldn't work for a professional design, they work perfectly
+					for the site I was trying to create. In the end, only half of the purpose of this site was to act as
+					an online presence for me, the other half was for me to learn about web development and web hosting.
+					After this project, I not only have a functional website, but I have learnt a lot about good web
+					development practices and how websites themselves are hosted, so it has been successful on both 
+					fronts.</p>
+				<p>If I were to redo this project, I would have designed the website with everything I have learnt in mind,
+					such as designing the site to be mobile first to make it more responsive, or creating a navigation
+					system from scratch rather than butchering the system from bootstrap. Overall, I'm very pleased with 
+					the outcome of this project, and hope that it stays functional for many years to come.
+				</p>
 			</div>
+			<hr>
+			<p style="float: right;"><i>Last Updated: 09/01/2021</i></p>
 		</div>
 	</div>
 </body>
-
 </html>
