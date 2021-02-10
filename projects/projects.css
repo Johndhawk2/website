@@ -94,3 +94,8 @@ img{
 		display: none;
 	}
 }
+
+.pdfViewer{
+	padding-left: 10vw;
+	padding-right: 10vw;
+}
