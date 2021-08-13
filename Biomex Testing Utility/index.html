@@ -1,0 +1,68 @@
+<head>
+	<title>Biomex Testing Utility</title>
+	<script src = "main.js"></script>
+	<link rel = "stylesheet" href = "main.css">
+	<link rel = "stylesheet" href = "https://fonts.googleapis.com/css?family=Montserrat">
+	<link rel = "stylesheet" href = "https://fonts.googleapis.com/css?family=Roboto">
+</head>
+
+<body onLoad = "pageLoad()">
+	<div id = "title_banner">
+		<div id="title_text">
+			Biomex Bluetooth Testing Utility
+		</div>
+	</div>
+	<div id="main_body">
+		<div class = "section_container" id = "ble">
+			<div class = "connection" id = "ble_connection">
+				<h3 class = "connected_device">Bluetooth</h3>
+				<h1 class = "connected_device" id = "ble_connected_device">No device connected</h1>
+				<div id = "ble_connect_button">
+					<button class = "button" onclick="bleConnect()">Connect</button>
+				</div>
+			</div>
+			<div class = "in_out">
+				<div class = "in">
+					<h3 class="connected_device">Send Message</h3>
+					<input type = "text" id = "ble_input">
+					<button class = "send_button" id = "ble_send" onclick = "bleSend()">Send</button>
+				</div>
+				<div class = "out">
+					<h3 class="connected_device">Received Messages</h3>
+					<textarea class = "comms_output" id="ble_output" name="ble_output" readonly></textarea>
+					<br>
+					<button class = "send_button" id = "ble_clear" onclick = "document.getElementById('ble_output').innerHTML=``">Clear</button>
+				</div>
+			</div>
+		</div>
+		<div class = "section_container" id = "serial">
+			<div class = "connection" id ="serial_connection">
+				<h3 class = "connected_device">Serial</h3>
+				<h1 class = "connected_device" id ="serial_connected_device">No device connected</h1>
+				<label for = "baudRate">Baud Rate:</label>
+				<select name = "baudRate" id = "baudRate">
+					<option value = "9600">9600</option>
+					<option value = "115200">115200</option>
+				</select>
+				<div id = "serial_connect_button">
+					<button class = "button" id = "serial_connect" onclick = "serialConnect()">Connect</button>
+				</div>
+			</div>
+			<div class = "in_out">
+				<div class = "in">
+					<h3 class="connected_device">Send Message</h3>
+					<input class = "text_input" type = "text" id = "serial_input">
+					<button class = "send_button" id = "serial_send" onclick = "serialWrite()">Send</button>
+				</div>
+				<div class = "out">
+					<h3 class="connected_device">Received Messages</h3>
+					<textarea class = "comms_output" id="serial_output" name="serial_output" readonly></textarea>
+					<br>
+					<button class = "send_button" id = "serial_clear" onclick = "document.getElementById('serial_output').innerHTML=``">Clear</button>
+				</div>
+			</div>
+			<input type="file" id="select_csv" accept=".csv">
+			<button id="select_button" onclick="csvRead()">Submit</button>
+		</div>
+	</div>
+</body>
