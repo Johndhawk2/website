@@ -43,8 +43,15 @@ function pageLoad(){
 
 async function bleSend(){
 	var input = document.getElementById("ble_input").value;
-	input += '\r\n'	//not required
+	input += '\r\n';	//not required
 	document.getElementById("ble_input").value = '';
+	var encoder = new TextEncoder();
+	var message = encoder.encode(input);
+	for (i = 0; i < message.byteLength; i+=20)await bleConnectedDevice.characteristic.writeValue(message.slice(i,i+20));
+}
+
+async function bleSendMessage(input){
+	input += '\r\n';	//not required
 	var encoder = new TextEncoder();
 	var message = encoder.encode(input);
 	for (i = 0; i < message.byteLength; i+=20)await bleConnectedDevice.characteristic.writeValue(message.slice(i,i+20));
@@ -68,14 +75,8 @@ function onReceive(){
 	if (ble.msgRec.charAt(ble.msgRec.length-1) == '\n'){
 		console.log(ble.msgRec);
 		document.getElementById("ble_output").innerHTML+=ble.msgRec;
-		////BODGE////
-		if(ble.msgRec == "BLE Test Message!!\r\n"){
-			console.log("Samesies");
-			document.getElementById("ble_send").value="Received";
-			bleSend();
-		}
-		
-		
+		if(ble.msgRec == "BLE Test Message!!\r\n")bleSendMessage("Received");
+		if(ble.msgRec == "App Writing Test\r\n")bleSendMessage("App Msg Received");
 		ble.msgRec = "";
 	}
 }
