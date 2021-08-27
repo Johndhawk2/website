@@ -1,5 +1,5 @@
 var ble = {
-	devName: "HMSoft",
+	//devName: "HMSoft",
 	sendRecService: "0000ffe0-0000-1000-8000-00805f9b34fb",
 	sendRecCharacteristic: "0000ffe1-0000-1000-8000-00805f9b34fb",
 	msgRec: ""
@@ -25,7 +25,7 @@ var serialConnectedDevice = {
 
 
 function pageLoad(){
-	console.log("Starting version: 0.2.3");
+	console.log("Starting version: 0.2.4");
 	document.getElementById("ble_input").addEventListener("keyup", function(event) {
 		if (event.keyCode === 13) {
 			event.preventDefault();
@@ -42,8 +42,9 @@ function pageLoad(){
 
 
 async function bleSend(){
-	var input = document.getElementById("ble_input").value;
-	input += '\r\n';	//not required
+	var input = '';
+	input += document.getElementById("ble_input").value;
+	input += '\n';	//not required
 	document.getElementById("ble_input").value = '';
 	var encoder = new TextEncoder();
 	var message = encoder.encode(input);
@@ -51,7 +52,7 @@ async function bleSend(){
 }
 
 async function bleSendMessage(input){
-	input += '\r\n';	//not required
+	input += '\n';	//not required
 	var encoder = new TextEncoder();
 	var message = encoder.encode(input);
 	for (i = 0; i < message.byteLength; i+=20)await bleConnectedDevice.characteristic.writeValue(message.slice(i,i+20));
