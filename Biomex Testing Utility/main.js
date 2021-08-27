@@ -1,5 +1,5 @@
 var ble = {
-	//devName: "HMSoft",
+	devName: "HMSoft",
 	sendRecService: "0000ffe0-0000-1000-8000-00805f9b34fb",
 	sendRecCharacteristic: "0000ffe1-0000-1000-8000-00805f9b34fb",
 	msgRec: ""
