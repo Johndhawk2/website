@@ -91,3 +91,11 @@ body{
     height: 150px;
     resize: none;
 }
+
+#ble_send_ready{
+    margin: 10px 0px 5px;
+}
+
+#ble_send_settings{
+    margin: 10px 0px 5px;
+}

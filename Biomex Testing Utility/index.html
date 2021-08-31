@@ -21,6 +21,12 @@
 					<button class = "button" onclick="bleConnect()">Connect</button>
 				</div>
 			</div>
+			<div id = "ble_send_ready">
+				<button class = "button" onclick="bleSendMessage('READY')">Send 'READY'</button>
+			</div>
+			<div id = "ble_send_settings">
+				<button class = "button" onclick="bleSendMessage('100110050P00750NDE2108271414')">Send Settings</button>
+			</div>
 			<div class = "in_out">
 				<div class = "in">
 					<h3 class="connected_device">Send Message</h3>
@@ -34,8 +40,11 @@
 					<button class = "send_button" id = "ble_clear" onclick = "document.getElementById('ble_output').innerHTML=``">Clear</button>
 				</div>
 			</div>
+			<div id = "ble_send_settings">
+				<button class = "button" onclick="bleConnect()">Send Settings</button>
+			</div>
 		</div>
-		<div class = "section_container" id = "serial">
+		<!--<div class = "section_container" id = "serial">
 			<div class = "connection" id ="serial_connection">
 				<h3 class = "connected_device">Serial</h3>
 				<h1 class = "connected_device" id ="serial_connected_device">No device connected</h1>
@@ -63,6 +72,6 @@
 			</div>
 			<input type="file" id="select_csv" accept=".csv">
 			<button id="select_button" onclick="csvRead()">Submit</button>
-		</div>
+		</div>-->
 	</div>
 </body>

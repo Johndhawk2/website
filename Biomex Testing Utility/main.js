@@ -6,6 +6,7 @@ var ble = {
 }
 
 var bleConnectedDevice = {
+	raw: null,
 	device: null,
 	service: null,
 	characteristic: null
@@ -25,7 +26,7 @@ var serialConnectedDevice = {
 
 
 function pageLoad(){
-	console.log("Starting version: 0.2.3");
+	console.log("Starting version: 0.2.5");
 	document.getElementById("ble_input").addEventListener("keyup", function(event) {
 		if (event.keyCode === 13) {
 			event.preventDefault();
@@ -43,7 +44,7 @@ function pageLoad(){
 
 async function bleSend(){
 	var input = document.getElementById("ble_input").value;
-	input += '\r\n';	//not required
+	input += '\n';
 	document.getElementById("ble_input").value = '';
 	var encoder = new TextEncoder();
 	var message = encoder.encode(input);
@@ -51,7 +52,8 @@ async function bleSend(){
 }
 
 async function bleSendMessage(input){
-	input += '\r\n';	//not required
+	console.log("Sending: " + input)
+	input += '\n';
 	var encoder = new TextEncoder();
 	var message = encoder.encode(input);
 	for (i = 0; i < message.byteLength; i+=20)await bleConnectedDevice.characteristic.writeValue(message.slice(i,i+20));
@@ -81,18 +83,26 @@ function onReceive(){
 	}
 }
 
+function onDisconnected(event) {
+	// Object event.target is Bluetooth Device getting disconnected.
+	console.log('Bluetooth Device disconnected');
+	document.getElementById("ble_connect_button").innerHTML = `<button class="button" onclick="bleConnect()">Connect</button>`
+	document.getElementById("ble_connected_device").innerHTML = "No device connected";
+}
+  
 async function bleConnect(){
 	document.getElementById("ble_connect_button").innerHTML = `<button class="button" onclick="bleConnect()">Connecting</button>`
 	//bleConnectedDevice.device = await bleConnect();
 	try{
-		var device = await bleDeviceGet();
-		bleConnectedDevice.device = await device.gatt.connect();
+		bleConnectedDevice.raw = await bleDeviceGet();
+		bleConnectedDevice.device = await bleConnectedDevice.raw.gatt.connect();
 		if (bleConnectedDevice.device != null)document.getElementById("ble_connect_button").innerHTML = `<button class="button" onclick="bleDisconnect()">Disconnect</button>`
 		bleConnectedDevice.service = await bleConnectedDevice.device.getPrimaryService(ble.sendRecService);
 		bleConnectedDevice.characteristic = await bleConnectedDevice.service.getCharacteristic(ble.sendRecCharacteristic);
 		await bleConnectedDevice.characteristic.startNotifications();
 		bleConnectedDevice.characteristic.addEventListener('characteristicvaluechanged', onReceive);
 		document.getElementById("ble_connected_device").innerHTML = device.name;
+		bleConnectedDevice.raw.addEventListener('gattserverdisconnected', onDisconnected);
 	}catch{
 		document.getElementById("ble_connect_button").innerHTML = `<button class="button" onclick="bleConnect()">Connect</button>`
 	}
