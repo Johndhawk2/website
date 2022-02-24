@@ -17,7 +17,8 @@ var bleConnectedDevice = {
 	raw: null,
 	device: null,
 	service: null,
-	characteristic: null
+	TXcharacteristic: null,
+	RXcharacteristic: null
 }
 
 var serial = {
@@ -32,9 +33,10 @@ var serialConnectedDevice = {
 	closed: null
 }
 
+var maxPackageLength = 244;
 
 function pageLoad(){
-	console.log("Starting version: 0.3.0");
+	console.log("Starting version: 0.3.3");
 	document.getElementById("ble_input").addEventListener("keyup", function(event) {
 		if (event.keyCode === 13) {
 			event.preventDefault();
@@ -56,7 +58,7 @@ async function bleSend(){
 	document.getElementById("ble_input").value = '';
 	var encoder = new TextEncoder();
 	var message = encoder.encode(input);
-	for (i = 0; i < message.byteLength; i+=20)await bleConnectedDevice.characteristic.writeValue(message.slice(i,i+20));
+	for (i = 0; i < message.byteLength; i+=maxPackageLength)await bleConnectedDevice.RXcharacteristic.writeValue(message.slice(i,i+maxPackageLength));
 }
 
 async function bleSendMessage(input){
@@ -64,7 +66,7 @@ async function bleSendMessage(input){
 	input += '\n';
 	var encoder = new TextEncoder();
 	var message = encoder.encode(input);
-	for (i = 0; i < message.byteLength; i+=20)await bleConnectedDevice.characteristic.writeValue(message.slice(i,i+20));
+	for (i = 0; i < message.byteLength; i+=maxPackageLength)await bleConnectedDevice.RXcharacteristic.writeValue(message.slice(i,i+maxPackageLength));
 }
 
 async function bleDisconnect(){
@@ -78,11 +80,11 @@ async function bleDisconnect(){
 }
 
 function onReceive(){
-	var buffer = bleConnectedDevice.characteristic.value.buffer;
+	var buffer = bleConnectedDevice.TXcharacteristic.value.buffer;
 	var encoder = new TextDecoder('utf-8');
 	var message = encoder.decode(buffer);
 	ble.msgRec += message;
-	//console.log(ble.msgRec);
+	console.log(ble.msgRec);
 	if (ble.msgRec.charAt(ble.msgRec.length-1) == '\n'){
 		console.log(ble.msgRec);
 		document.getElementById("ble_output").innerHTML+=ble.msgRec;
@@ -104,26 +106,17 @@ async function bleConnect(){
 	//bleConnectedDevice.device = await bleConnect();
 	try{
 		bleConnectedDevice.raw = await bleDeviceGet();
-		console.log("Test A");
 		bleConnectedDevice.device = await bleConnectedDevice.raw.gatt.connect();
-		console.log("Test B", bleConnectedDevice.device);
-		if (bleConnectedDevice.device != null)document.getElementById("ble_connect_button").innerHTML = `<button class="button" onclick="bleDisconnect()">Disconnect</button>`
-		console.log("Test C");
+		if (bleConnectedDevice.device != null)document.getElementById("ble_connect_button").innerHTML = `<button class="button" onclick="bleDisconnect()">Disconnect</button>`;
 		bleConnectedDevice.service = await bleConnectedDevice.device.getPrimaryService(ble.sendRecService);
-		console.log("Test D");
-		bleConnectedDevice.characteristic = await bleConnectedDevice.service.getCharacteristic(ble.sendRecCharacteristic);
-		console.log("Test E");
-		await bleConnectedDevice.characteristic.startNotifications();
-		console.log("Test F");
-		bleConnectedDevice.characteristic.addEventListener('characteristicvaluechanged', onReceive);
-		console.log("Test G");
+		bleConnectedDevice.RXcharacteristic = await bleConnectedDevice.service.getCharacteristic(ble.RXCharacteristic);
+		bleConnectedDevice.TXcharacteristic = await bleConnectedDevice.service.getCharacteristic(ble.TXCharacteristic);
+		await bleConnectedDevice.TXcharacteristic.startNotifications();
+		bleConnectedDevice.TXcharacteristic.addEventListener('characteristicvaluechanged', onReceive);
 		document.getElementById("ble_connected_device").innerHTML = device.name;
-		console.log("Test H");
 		bleConnectedDevice.raw.addEventListener('gattserverdisconnected', onDisconnected);
-		console.log("Test I");
 	}catch{
 		document.getElementById("ble_connect_button").innerHTML = `<button class="button" onclick="bleConnect()">Connect</button>`
-		console.log("Test J");
 	}
 }
 
