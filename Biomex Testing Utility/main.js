@@ -36,7 +36,7 @@ var serialConnectedDevice = {
 var maxPackageLength = 244;
 
 function pageLoad(){
-	console.log("Starting version: 0.3.3");
+	console.log("Starting version: 0.3.4");
 	document.getElementById("ble_input").addEventListener("keyup", function(event) {
 		if (event.keyCode === 13) {
 			event.preventDefault();
@@ -88,8 +88,14 @@ function onReceive(){
 	if (ble.msgRec.charAt(ble.msgRec.length-1) == '\n'){
 		console.log(ble.msgRec);
 		document.getElementById("ble_output").innerHTML+=ble.msgRec;
-		if(ble.msgRec == "BLE Test Message!!\r\n")bleSendMessage("Received");
-		if(ble.msgRec == "App Writing Test\r\n")bleSendMessage("App Msg Received");
+		if(ble.msgRec == "BLE Test Message!!\r\n"){
+			console.log("'BLE Test Message!!' Received");
+			bleSendMessage("Received");
+		}
+		if(ble.msgRec == "App Writing Test\r\n"){
+			console.log("'App Writing Test' Received");
+			bleSendMessage("App Msg Received");
+		}
 		ble.msgRec = "";
 	}
 }
