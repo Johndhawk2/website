@@ -129,8 +129,8 @@ async function bleConnect(){
 async function bleDeviceGet(){
 	console.log('Requesting Bluetooth Device');
 	device = await navigator.bluetooth.requestDevice({
-		filters:[{name: ble.devName}],
-		optionalServices:[ble.sendRecService]
+		filters:[{services: [ble.sendRecService]}],//name: ble.devName}],
+		//optionalServices:[ble.sendRecService]
 	});
 	return device;
 }
