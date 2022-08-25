@@ -6,7 +6,7 @@
 }*/
 
 var ble = {
-	devName: "Test 0.0.3",
+	//devName: "Test 0.0.3",
 	sendRecService: "6e400001-b5a3-f393-e0a9-e50e24dcca9e", // Values to transparent uart communication
 	TXCharacteristic: "6e400003-b5a3-f393-e0a9-e50e24dcca9e",
 	RXCharacteristic: "6e400002-b5a3-f393-e0a9-e50e24dcca9e",
@@ -36,7 +36,7 @@ var serialConnectedDevice = {
 var maxPackageLength = 244;
 
 function pageLoad(){
-	console.log("Starting version: 0.3.4");
+	console.log("Starting version: 0.3.5");
 	document.getElementById("ble_input").addEventListener("keyup", function(event) {
 		if (event.keyCode === 13) {
 			event.preventDefault();
