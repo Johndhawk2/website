@@ -1,0 +1,79 @@
+<head>
+	<title>Apacor Flow Meter Demo</title>
+	<script src = "main.js"></script>
+	<link rel = "stylesheet" href = "main.css">
+	<link rel = "stylesheet" href = "https://fonts.googleapis.com/css?family=Montserrat">
+	<link rel = "stylesheet" href = "https://fonts.googleapis.com/css?family=Roboto">
+</head>
+
+<body onLoad = "pageLoad()">
+	<div id = "title_banner">
+		<div id="title_text">
+			Apacor Flow Meter Demo
+		</div>
+	</div>
+	<div id="main_body">
+		<div class = "section_container" id = "ble">
+			<div class = "connection" id = "ble_connection">
+				<!-- <h3 class = "connected_device">Bluetooth</h3> -->
+				<h1 class = "connected_device" id = "ble_connected_device">No device connected</h1>
+				<div id = "ble_connect_button">
+					<button class = "button" onclick="bleConnect()">Connect</button>
+				</div>
+			</div>
+			<div class = "in_out">
+				<div class = "out">
+					<!-- <h3 class="connected_device">Received Messages</h3>
+					<textarea class = "comms_output" id="ble_output" name="ble_output" readonly></textarea>
+					<br>
+					<button class = "send_button" id = "ble_clear" onclick = "document.getElementById('ble_output').innerHTML=``">Clear</button> -->
+					<div class="valDisplay">
+						<p class="value_header">Flow</p>
+						<p class="value" id="flow">N/A</p>
+						<p class="value_units">L/min</p>
+					</div>
+					<div class="valDisplay">
+						<p class="value_header">Oxygen</p>
+						<p class="value" id="oxygen">N/A</p>
+						<p class="value_units">%O2</p>
+					</div>
+					<div class="valDisplay">
+						<p class="value_header">Temp.</p>
+						<p class="value" id="temperature">N/A</p>
+						<p class="value_units">°C</p>
+					</div>
+					<div class="valDisplay">
+						<p class="value_header">Humidity</p>
+						<p class="value" id="humidity">N/A</p>
+						<p class="value_units">RH%</p>
+					</div>
+					<div class="valDisplay">
+						<p class="value_header">Pressure</p>
+						<p class="value" id="pressure">N/A</p>
+						<p class="value_units">KPa</p>
+					</div>
+					<div class="valDisplay">
+						<p class="value_header">Battery</p>
+						<p class="value" id="battery">N/A</p>
+						<p class="value_units">%</p>
+					</div>
+				</div>
+				<div class = "in">
+					<p class = "header">Device Control<p>
+					<div class = "button_grid">
+						<button class = "send_button" id = "ble_send" onclick = "bleSend(0x00, 0x01)" style="grid-area: 1 / 1 / span 1 / span 1">Enable Flow Value</button>
+						<button class = "send_button" id = "ble_send" onclick = "bleSend(0x00, 0x00)" style="grid-area: 2 / 1 / span 1 / span 1">Disable Flow Value</button>
+						<button class = "send_button" id = "ble_send" onclick = "bleSend(0x01, 0x01)" style="grid-area: 1 / 2 / span 1 / span 1">Enable Oxygen Value</button>
+						<button class = "send_button" id = "ble_send" onclick = "bleSend(0x01, 0x00)" style="grid-area: 2 / 2 / span 1 / span 1">Disable Oxygen Value</button>
+						<button class = "send_button" id = "ble_send" onclick = "bleSend(0x02, 0x01)" style="grid-area: 1 / 3 / span 1 / span 1">Enable Temperature Value</button>
+						<button class = "send_button" id = "ble_send" onclick = "bleSend(0x02, 0x00)" style="grid-area: 2 / 3 / span 1 / span 1">Disable Temperature Value</button>
+						<button class = "send_button" id = "ble_send" onclick = "bleSend(0x03, 0x01)" style="grid-area: 1 / 4 / span 1 / span 1">Enable Humidity Value</button>
+						<button class = "send_button" id = "ble_send" onclick = "bleSend(0x03, 0x00)" style="grid-area: 2 / 4 / span 1 / span 1">Disable Humidity Value</button>
+						<button class = "send_button" id = "ble_send" onclick = "bleSend(0x04, 0x01)" style="grid-area: 1 / 5 / span 1 / span 1">Enable Pressure Value</button>
+						<button class = "send_button" id = "ble_send" onclick = "bleSend(0x04, 0x00)" style="grid-area: 2 / 5 / span 1 / span 1">Disable Pressure Value</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
