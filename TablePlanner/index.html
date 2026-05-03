@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wedding Table Planner</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #c9a96e; --gold-light: #e8d5b0; --gold-dark: #8c6d3f;
+    --cream: #faf7f2; --cream-dark: #f0ead9;
+    --sage: #7a8c6e; --sage-light: #b8c9aa;
+    --rose: #c97a7a; --rose-light: #f5e0e0;
+    --text-dark: #2c2416; --text-mid: #5a4e3a; --text-muted: #8c7d65;
+    --panel-bg: #fff; --shadow: 0 2px 16px rgba(100,80,40,0.10);
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Jost', sans-serif; background: var(--cream); color: var(--text-dark); min-height: 100vh; display: flex; flex-direction: column; }
+  header { background: var(--text-dark); color: var(--gold-light); padding: 18px 32px; display: flex; align-items: center; justify-content: space-between; border-bottom: 2px solid var(--gold-dark); }
+  header h1 { font-family: 'Cormorant Garamond', serif; font-size: 28px; font-weight: 500; letter-spacing: 0.04em; font-style: italic; }
+  header .subtitle { font-size: 12px; font-weight: 300; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-top: 2px; }
+  .header-actions { display: flex; gap: 10px; align-items: center; }
+  .btn { font-family: 'Jost', sans-serif; font-size: 12px; font-weight: 400; letter-spacing: 0.12em; text-transform: uppercase; padding: 8px 18px; border-radius: 2px; border: 1px solid var(--gold); background: transparent; color: var(--gold-light); cursor: pointer; transition: background 0.18s, color 0.18s; white-space: nowrap; }
+  .btn:hover { background: var(--gold-dark); color: #fff; }
+  .btn.primary { background: var(--gold); color: var(--text-dark); border-color: var(--gold); }
+  .btn.primary:hover { background: var(--gold-dark); color: #fff; }
+  .layout { display: flex; flex: 1; min-height: 0; height: calc(100vh - 70px); }
+
+  .left-panel { width: 272px; min-width: 220px; background: var(--panel-bg); border-right: 1px solid var(--cream-dark); display: flex; flex-direction: column; overflow: hidden; }
+  .panel-section { padding: 14px 16px 12px; border-bottom: 1px solid var(--cream-dark); flex-shrink: 0; }
+  .panel-title { font-family: 'Cormorant Garamond', serif; font-size: 14px; font-weight: 600; letter-spacing: 0.08em; color: var(--text-mid); text-transform: uppercase; margin-bottom: 10px; }
+  .guest-list { flex: 1; overflow-y: auto; padding: 6px 10px 10px; }
+  .guest-chip { display: flex; align-items: center; gap: 8px; background: var(--cream); border: 1px solid var(--gold-light); border-radius: 3px; padding: 6px 10px; margin-bottom: 5px; cursor: grab; font-size: 13px; color: var(--text-dark); transition: border-color 0.15s, background 0.15s, opacity 0.15s; user-select: none; }
+  .guest-chip:active { cursor: grabbing; }
+  .guest-chip:hover { border-color: var(--gold); background: var(--gold-light); }
+  .guest-chip.dragging { opacity: 0.35; }
+  .guest-chip.seated { opacity: 0.42; border-style: dashed; cursor: default; }
+  .guest-chip .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--sage-light); flex-shrink: 0; }
+  .guest-chip.seated .dot { background: var(--gold); }
+  .guest-chip .remove-guest { margin-left: auto; font-size: 14px; color: var(--text-muted); cursor: pointer; padding: 0 2px; display: none; line-height: 1; }
+  .guest-chip:hover .remove-guest { display: block; }
+  .add-row { display: flex; gap: 6px; margin-top: 6px; }
+  .add-row input { flex: 1; font-family: 'Jost', sans-serif; font-size: 13px; padding: 6px 10px; border: 1px solid var(--cream-dark); border-radius: 3px; background: var(--cream); color: var(--text-dark); outline: none; }
+  .add-row input:focus { border-color: var(--gold); }
+  .add-row button { font-size: 18px; line-height: 1; padding: 4px 11px; border: 1px solid var(--gold); border-radius: 3px; background: var(--gold); color: var(--text-dark); cursor: pointer; font-family: 'Jost', sans-serif; }
+  .add-row button:hover { background: var(--gold-dark); color: #fff; }
+  .import-label { display: flex; align-items: center; justify-content: center; gap: 7px; font-size: 11px; letter-spacing: 0.10em; text-transform: uppercase; color: var(--text-muted); padding: 7px 10px; border: 1px dashed var(--gold-light); border-radius: 3px; cursor: pointer; width: 100%; margin-top: 8px; transition: border-color 0.15s, background 0.15s; }
+  .import-label:hover { border-color: var(--gold); background: var(--cream); color: var(--text-mid); }
+  #csvFileInput { display: none; }
+  .csv-hint { font-size: 11px; color: var(--text-muted); margin-top: 5px; line-height: 1.5; opacity: 0.75; }
+
+  .tables-list { padding: 4px 10px 10px; overflow-y: auto; flex-shrink: 0; max-height: 200px; }
+  .table-item { display: flex; align-items: center; padding: 5px 8px; border-radius: 3px; font-size: 13px; cursor: pointer; transition: background 0.12s; gap: 6px; }
+  .table-item:hover { background: var(--cream); }
+  .table-item .tbadge { font-size: 9px; letter-spacing: 0.07em; text-transform: uppercase; padding: 2px 5px; border-radius: 2px; background: var(--rose-light); color: var(--rose); flex-shrink: 0; }
+  .table-item .tbadge.regular { background: var(--cream-dark); color: var(--text-muted); }
+  .table-item .tname { flex: 1; font-weight: 400; }
+  .table-item .tinfo { font-size: 11px; color: var(--text-muted); }
+  .table-item .tdel { font-size: 13px; color: var(--text-muted); cursor: pointer; padding: 0 3px; display: none; }
+  .table-item:hover .tdel { display: block; }
+
+  .main { flex: 1; overflow: auto; position: relative; background: var(--cream); }
+  .canvas { position: relative; min-width: 1000px; min-height: 660px; padding: 40px; }
+  .canvas-bg { position: absolute; inset: 0; background-image: radial-gradient(circle, var(--gold-light) 1px, transparent 1px); background-size: 28px 28px; opacity: 0.28; pointer-events: none; }
+  .canvas-empty { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; pointer-events: none; }
+  .canvas-empty p { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-style: italic; color: var(--text-muted); opacity: 0.5; }
+  .canvas-empty small { font-size: 12px; color: var(--text-muted); margin-top: 8px; opacity: 0.35; letter-spacing: 0.08em; }
+
+  .table-block { position: absolute; user-select: none; }
+  .table-inner { display: inline-flex; flex-direction: column; align-items: center; }
+  .table-label { font-family: 'Cormorant Garamond', serif; font-size: 12px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted); text-align: center; margin-bottom: 5px; white-space: nowrap; pointer-events: none; }
+  .table-label.sw { color: var(--rose); }
+  .table-surface { background: var(--panel-bg); border: 2px solid var(--gold); border-radius: 4px; padding: 9px 11px; box-shadow: var(--shadow); display: flex; flex-direction: column; gap: 5px; cursor: move; }
+  .table-surface.sw { border-color: var(--rose); background: #fffafa; }
+  .seats-row { display: flex; gap: 5px; }
+
+  .seat { width: 68px; min-height: 50px; border: 1.5px dashed var(--gold-light); border-radius: 3px; background: #fff; display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 10px; color: var(--text-muted); text-align: center; padding: 4px; transition: border-color 0.15s, background 0.15s; position: relative; cursor: default; }
+  .seat.sw-seat { border-color: #f0c0c0; width: 82px; min-height: 58px; }
+  .seat.occupied { border: 1.5px solid var(--sage); background: #f0f5ea; }
+  .seat.occupied.sw-seat { border-color: var(--rose); background: var(--rose-light); }
+  .seat.drag-over { border: 2px solid var(--sage); background: #e4f0dc; }
+  .seat .guest-name { font-family: 'Jost', sans-serif; font-size: 11px; font-weight: 500; color: var(--text-dark); line-height: 1.25; word-break: break-word; text-align: center; }
+  .seat.sw-seat .guest-name { font-family: 'Cormorant Garamond', serif; font-size: 13px; font-style: italic; }
+  .seat .seat-num { font-size: 9px; color: var(--text-muted); margin-bottom: 2px; }
+  .seat .heart { font-size: 14px; color: #f0c0c0; margin-bottom: 2px; line-height: 1; }
+  .seat.occupied .heart { color: var(--rose); }
+  .seat .unseat-btn { position: absolute; top: 2px; right: 3px; font-size: 10px; color: var(--text-muted); cursor: pointer; line-height: 1; display: none; }
+  .seat.occupied:hover .unseat-btn { display: block; }
+
+  .rotate-handle { width: 24px; height: 24px; border-radius: 50%; border: 1.5px solid var(--gold); background: var(--panel-bg); display: flex; align-items: center; justify-content: center; cursor: grab; margin-top: 6px; color: var(--gold); font-size: 14px; transition: background 0.15s, color 0.15s; box-shadow: 0 1px 5px rgba(100,80,40,0.15); flex-shrink: 0; }
+  .rotate-handle:hover { background: var(--gold); color: #fff; }
+  .rotate-handle:active { cursor: grabbing; }
+  .rotate-hint { font-size: 9px; color: var(--text-muted); letter-spacing: 0.06em; text-transform: uppercase; margin-top: 3px; opacity: 0; transition: opacity 0.2s; }
+  .table-block:hover .rotate-hint { opacity: 0.6; }
+
+  .stats-bar { background: var(--text-dark); color: var(--gold-light); padding: 7px 28px; font-size: 12px; letter-spacing: 0.10em; display: flex; gap: 24px; border-top: 1px solid var(--gold-dark); flex-shrink: 0; }
+  .stats-bar span { color: var(--gold); font-weight: 500; }
+
+  .modal-backdrop { display: none; position: fixed; inset: 0; background: rgba(30,20,10,0.45); z-index: 100; align-items: center; justify-content: center; }
+  .modal-backdrop.open { display: flex; }
+  .modal { background: var(--panel-bg); border: 1px solid var(--gold); border-radius: 6px; padding: 26px 30px; min-width: 360px; box-shadow: 0 8px 40px rgba(60,40,10,0.18); }
+  .modal h2 { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 500; color: var(--text-dark); margin-bottom: 16px; }
+  .modal .field { margin-bottom: 13px; }
+  .modal label { font-size: 12px; color: var(--text-muted); letter-spacing: 0.07em; display: block; margin-bottom: 5px; }
+  .modal input, .modal select { width: 100%; font-family: 'Jost', sans-serif; font-size: 14px; padding: 8px 12px; border: 1px solid var(--cream-dark); border-radius: 3px; background: var(--cream); color: var(--text-dark); outline: none; }
+  .modal input:focus, .modal select:focus { border-color: var(--gold); }
+  .modal .modal-actions { display: flex; gap: 10px; margin-top: 18px; justify-content: flex-end; }
+  .type-row { display: flex; gap: 8px; margin-bottom: 16px; }
+  .type-card { flex: 1; padding: 10px 8px; border: 1.5px solid var(--cream-dark); border-radius: 4px; cursor: pointer; text-align: center; transition: border-color 0.15s, background 0.15s; }
+  .type-card:hover { border-color: var(--gold-light); background: var(--cream); }
+  .type-card.selected { border-color: var(--gold); background: #fdf7ee; }
+  .type-card.sel-sw { border-color: var(--rose) !important; background: var(--rose-light) !important; }
+  .type-card .ti { font-size: 22px; display: block; margin-bottom: 4px; }
+  .type-card .tn { font-size: 11px; letter-spacing: 0.07em; text-transform: uppercase; color: var(--text-mid); }
+
+  /* confirm modal */
+  .confirm-backdrop { display:none; position:fixed; inset:0; background:rgba(30,20,10,0.5); z-index:200; align-items:center; justify-content:center; }
+  .confirm-backdrop.open { display:flex; }
+  .confirm-box { background:var(--panel-bg); border:1px solid var(--gold); border-radius:6px; padding:26px 30px; min-width:320px; box-shadow:0 8px 40px rgba(60,40,10,0.2); }
+  .confirm-box h3 { font-family:'Cormorant Garamond',serif; font-size:20px; font-weight:500; margin-bottom:10px; }
+  .confirm-box p { font-size:13px; color:var(--text-muted); line-height:1.55; margin-bottom:18px; }
+  .confirm-actions { display:flex; gap:10px; justify-content:flex-end; }
+
+  .toast { position: fixed; bottom: 24px; right: 24px; background: var(--text-dark); color: var(--gold-light); padding: 10px 20px; border-radius: 3px; font-size: 13px; border-left: 3px solid var(--gold); z-index: 200; opacity: 0; transform: translateY(10px); transition: opacity 0.2s, transform 0.2s; pointer-events: none; }
+  .toast.show { opacity: 1; transform: translateY(0); }
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <h1>&#10022; Wedding Table Planner &#10022;</h1>
+    <div class="subtitle">Drag &amp; Drop Seating Arrangement</div>
+  </div>
+  <div class="header-actions">
+    <button class="btn" onclick="openModal()">&#43; Add Table</button>
+    <button class="btn" onclick="saveLayout()" title="Save layout as .wtp file">&#128190; Save Layout</button>
+    <label class="btn" for="loadFileInput" title="Load a saved .wtp layout file" style="cursor:pointer">&#128194; Load Layout</label>
+    <input type="file" id="loadFileInput" accept=".wtp,.json" style="display:none" onchange="loadLayout(event)">
+    <button class="btn primary" onclick="exportPlan()">Export Plan</button>
+  </div>
+</header>
+
+<div class="layout">
+  <div class="left-panel">
+    <div class="panel-section">
+      <div class="panel-title">Guest List</div>
+      <div class="add-row">
+        <input id="guestInput" type="text" placeholder="Guest name…" onkeydown="if(event.key==='Enter')addGuest()">
+        <button onclick="addGuest()" title="Add">+</button>
+      </div>
+      <label class="import-label" for="csvFileInput">
+        <svg width="13" height="13" viewBox="0 0 16 16" fill="none"><path d="M8 1v9M4 6l4 4 4-4M2 13h12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Import from CSV
+      </label>
+      <input type="file" id="csvFileInput" accept=".csv,.txt" onchange="importCSV(event)">
+      <div class="csv-hint">One name per row, or a column headed "name"</div>
+    </div>
+    <div class="guest-list" id="guestList"></div>
+    <div class="panel-section" style="border-top: 2px solid var(--gold-light); border-bottom: none; margin-top: auto;">
+      <div class="panel-title">Tables</div>
+    </div>
+    <div class="tables-list" id="tablesList"></div>
+  </div>
+
+  <div class="main" id="mainCanvas">
+    <div class="canvas" id="canvas">
+      <div class="canvas-bg"></div>
+      <div class="canvas-empty" id="canvasEmpty">
+        <p>No tables yet</p>
+        <small>Click "Add Table" to begin arranging your seating plan</small>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="stats-bar">
+  Tables: <span id="statTables">0</span>&nbsp;&nbsp;
+  Seats: <span id="statSeats">0</span>&nbsp;&nbsp;
+  Guests: <span id="statGuests">0</span>&nbsp;&nbsp;
+  Seated: <span id="statSeated">0</span>&nbsp;&nbsp;
+  Unassigned: <span id="statUnassigned">0</span>
+</div>
+
+<!-- MODAL -->
+<div class="modal-backdrop" id="modalBackdrop">
+  <div class="modal">
+    <h2>Add Table</h2>
+    <div class="type-row">
+      <div class="type-card selected" id="tcLong" onclick="selType('long')">
+        <span class="ti">▬</span><div class="tn">Long Table</div>
+      </div>
+      <div class="type-card" id="tcRound" onclick="selType('round')">
+        <span class="ti">⬡</span><div class="tn">6-Person Round</div>
+      </div>
+      <div class="type-card" id="tcSw" onclick="selType('sweetheart')">
+        <span class="ti">♥</span><div class="tn">Sweetheart</div>
+      </div>
+    </div>
+    <div class="field">
+      <label>Table Name</label>
+      <input id="mName" type="text" placeholder="e.g. Top Table, Table 1…">
+    </div>
+    <div id="longOpts">
+      <div class="field">
+        <label>Seats Per Side</label>
+        <input id="mSPS" type="number" min="1" max="20" value="3">
+      </div>
+      <div class="field">
+        <label>Sides</label>
+        <select id="mSides">
+          <option value="1">One side (bench style)</option>
+          <option value="2" selected>Two sides (facing)</option>
+        </select>
+      </div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn" onclick="closeModal()">Cancel</button>
+      <button class="btn primary" onclick="addTable()">Add Table</button>
+    </div>
+  </div>
+</div>
+
+<!-- CONFIRM LOAD MODAL -->
+<div class="confirm-backdrop" id="confirmBackdrop">
+  <div class="confirm-box">
+    <h3>Load Layout</h3>
+    <p>Loading a saved layout will replace your current tables and guest list. Are you sure?</p>
+    <div class="confirm-actions">
+      <button class="btn" onclick="closeConfirm()">Cancel</button>
+      <button class="btn primary" id="confirmOkBtn">Load</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+let tables = [], guests = [], tableIdCounter = 0;
+let dragGuest = null, dragFromSeat = null;
+let selTableType = 'long';
+
+// ── TYPE SELECT ──
+function selType(type) {
+  selTableType = type;
+  const dimOpts = type !== 'long';
+  document.getElementById('tcLong').className = 'type-card' + (type === 'long' ? ' selected' : '');
+  document.getElementById('tcRound').className = 'type-card' + (type === 'round' ? ' selected' : '');
+  document.getElementById('tcSw').className = 'type-card' + (type === 'sweetheart' ? ' selected sel-sw' : '');
+  const lo = document.getElementById('longOpts');
+  lo.style.opacity = dimOpts ? '0.35' : '1';
+  lo.style.pointerEvents = dimOpts ? 'none' : '';
+  if (type === 'sweetheart') document.getElementById('mName').placeholder = 'Sweetheart Table';
+  else document.getElementById('mName').placeholder = 'e.g. Top Table, Table 1…';
+}
+
+// ── MODAL ──
+function openModal() {
+  selType('long');
+  document.getElementById('mName').value = 'Table ' + (tables.length + 1);
+  document.getElementById('mSPS').value = 3;
+  document.getElementById('mSides').value = 2;
+  document.getElementById('modalBackdrop').classList.add('open');
+  setTimeout(() => document.getElementById('mName').focus(), 60);
+}
+function closeModal() { document.getElementById('modalBackdrop').classList.remove('open'); }
+document.getElementById('modalBackdrop').addEventListener('click', e => { if (e.target === e.currentTarget) closeModal(); });
+document.getElementById('mName').addEventListener('keydown', e => { if (e.key === 'Enter') addTable(); });
+
+// ── ADD TABLE ──
+function addTable() {
+  const name = document.getElementById('mName').value.trim() || (selTableType === 'sweetheart' ? 'Sweetheart Table' : 'Table ' + (tables.length + 1));
+  const id = 'tbl' + (tableIdCounter++);
+  const x = snap(60 + (tables.length % 2) * 380);
+  const y = snap(60 + Math.floor(tables.length / 2) * 230);
+  let tbl;
+  if (selTableType === 'sweetheart') {
+    tbl = { id, name, type: 'sweetheart', seatsPerSide: 2, sides: 1,
+      seats: [{ idx: 0, guestId: null, guestName: null }, { idx: 1, guestId: null, guestName: null }],
+      x, y, rotation: 0 };
+  } else if (selTableType === 'round') {
+    tbl = { id, name, type: 'round', seatsPerSide: 3, sides: 2,
+      seats: Array.from({ length: 6 }, (_, i) => ({ idx: i, guestId: null, guestName: null })),
+      x, y, rotation: 0 };
+  } else {
+    const sps = Math.max(1, Math.min(20, parseInt(document.getElementById('mSPS').value) || 6));
+    const sides = parseInt(document.getElementById('mSides').value) || 2;
+    tbl = { id, name, type: 'long', seatsPerSide: sps, sides,
+      seats: Array.from({ length: sps * sides }, (_, i) => ({ idx: i, guestId: null, guestName: null })),
+      x, y, rotation: 0 };
+  }
+  tables.push(tbl);
+  closeModal();
+  renderTable(tbl); renderTablesList(); updateStats(); checkCanvasEmpty();
+}
+
+// ── REMOVE TABLE ──
+function removeTable(id) {
+  const tbl = tables.find(t => t.id === id);
+  if (!tbl) return;
+  tbl.seats.forEach(s => { if (s.guestId) { const g = guests.find(g => g.id === s.guestId); if (g) g.seated = false; } });
+  tables = tables.filter(t => t.id !== id);
+  document.getElementById(id)?.remove();
+  renderTablesList(); renderGuestList(); updateStats(); checkCanvasEmpty();
+}
+
+// ── RENDER TABLE ──
+function renderTable(t) {
+  const canvas = document.getElementById('canvas');
+  let el = document.getElementById(t.id);
+  if (!el) {
+    el = document.createElement('div');
+    el.className = 'table-block';
+    el.id = t.id;
+    canvas.appendChild(el);
+    makeMovable(el, t);
+  }
+  el.style.left = t.x + 'px';
+  el.style.top = t.y + 'px';
+  el.style.transform = `rotate(${t.rotation || 0}deg)`;
+  el.style.transformOrigin = 'center center';
+
+  const sw = t.type === 'sweetheart';
+  const rnd = t.type === 'round';
+  const sw_ = sw ? ' sw' : '';
+  const sW = sw ? 82 : 68, sG = 5;
+  const rowW = t.seatsPerSide * (sW + sG) - sG;
+
+  let h = `<div class="table-inner">`;
+  h += `<div class="table-label${sw_}">${esc(t.name)}</div>`;
+
+  if (rnd) {
+    // 6-person round: rendered as two rows of 3 with a circular surface
+    h += `<div class="table-surface round-surface" style="width:${3*(68+5)-5+22}px">`;
+    for (let side = 0; side < 2; side++) {
+      h += `<div class="seats-row">`;
+      for (let s = 0; s < 3; s++) {
+        const si = side * 3 + s;
+        const seat = t.seats[si];
+        const cls = `seat${seat.guestId ? ' occupied' : ''}`;
+        if (seat.guestId) {
+          h += `<div class="${cls}" data-tid="${t.id}" data-si="${si}">
+            <div class="seat-num">${si + 1}</div>
+            <div class="guest-name">${esc(seat.guestName)}</div>
+            <span class="unseat-btn" onclick="unseat('${t.id}',${si})">&#x2715;</span>
+          </div>`;
+        } else {
+          h += `<div class="${cls}" data-tid="${t.id}" data-si="${si}">
+            <div class="seat-num" style="color:var(--gold-light)">${si + 1}</div>
+            <span style="font-size:9px;color:var(--gold-light)">drop here</span>
+          </div>`;
+        }
+      }
+      h += `</div>`;
+      if (side === 0) h += `<div class="round-divider"><span class="round-icon">&#9711;</span></div>`;
+    }
+    h += `</div>`; // surface
+  } else {
+    h += `<div class="table-surface${sw_}" style="width:${rowW + 22}px">`;
+    for (let side = 0; side < t.sides; side++) {
+      h += `<div class="seats-row">`;
+      for (let s = 0; s < t.seatsPerSide; s++) {
+        const si = side * t.seatsPerSide + s;
+        const seat = t.seats[si];
+        const cls = `seat${sw ? ' sw-seat' : ''}${seat.guestId ? ' occupied' : ''}`;
+        if (seat.guestId) {
+          h += `<div class="${cls}" data-tid="${t.id}" data-si="${si}">
+            ${sw ? '<span class="heart">&#9829;</span>' : `<div class="seat-num">${si + 1}</div>`}
+            <div class="guest-name">${esc(seat.guestName)}</div>
+            <span class="unseat-btn" onclick="unseat('${t.id}',${si})">&#x2715;</span>
+          </div>`;
+        } else {
+          h += `<div class="${cls}" data-tid="${t.id}" data-si="${si}">
+            ${sw ? '<span class="heart">&#9829;</span>' : `<div class="seat-num" style="color:var(--gold-light)">${si + 1}</div>`}
+            <span style="font-size:9px;color:${sw ? '#f0c0c0' : 'var(--gold-light)'}">drop here</span>
+          </div>`;
+        }
+      }
+      h += `</div>`;
+      if (side === 0 && t.sides === 2) h += `<div style="height:1px;background:var(--cream-dark);margin:2px 0"></div>`;
+    }
+    h += `</div>`; // surface
+  }
+  h += `<div class="rotate-handle" title="Drag to rotate in 90° steps" data-tid="${t.id}">&#8635;</div>`;
+  h += `<div class="rotate-hint">rotate 90°</div>`;
+  h += `</div>`; // inner
+  el.innerHTML = h;
+
+  // seat events
+  el.querySelectorAll('.seat').forEach(sEl => {
+    const tid = sEl.dataset.tid, si = parseInt(sEl.dataset.si);
+    sEl.addEventListener('dragover', e => {
+      if (!dragGuest && !dragFromSeat) return;
+      const tbl = tables.find(t => t.id === tid);
+      if (!tbl || tbl.seats[si].guestId) return;
+      e.preventDefault(); sEl.classList.add('drag-over');
+    });
+    sEl.addEventListener('dragleave', () => sEl.classList.remove('drag-over'));
+    sEl.addEventListener('drop', e => {
+      e.preventDefault(); sEl.classList.remove('drag-over');
+      const tbl = tables.find(t => t.id === tid);
+      if (!tbl || tbl.seats[si].guestId) { if (tbl?.seats[si].guestId) showToast('Seat already taken'); return; }
+      if (dragGuest) {
+        tbl.seats[si].guestId = dragGuest.id; tbl.seats[si].guestName = dragGuest.name;
+        dragGuest.seated = true; dragGuest = null;
+      } else if (dragFromSeat) {
+        const { tid: fTid, si: fSi } = dragFromSeat;
+        const fTbl = tables.find(t => t.id === fTid);
+        if (!fTbl) return;
+        tbl.seats[si].guestId = fTbl.seats[fSi].guestId;
+        tbl.seats[si].guestName = fTbl.seats[fSi].guestName;
+        fTbl.seats[fSi].guestId = null; fTbl.seats[fSi].guestName = null;
+        dragFromSeat = null; renderTable(fTbl);
+      }
+      renderTable(tbl); renderGuestList(); renderTablesList(); updateStats();
+    });
+    if (sEl.classList.contains('occupied')) {
+      sEl.draggable = true;
+      sEl.addEventListener('dragstart', e => {
+        dragFromSeat = { tid, si }; dragGuest = null;
+        e.dataTransfer.effectAllowed = 'move'; e.stopPropagation();
+      });
+    }
+  });
+
+  // rotate handle
+  const rh = el.querySelector('.rotate-handle');
+  if (rh) attachRotate(rh, el, t);
+}
+
+// ── ROTATE (90° snapping) ──
+function attachRotate(handle, el, t) {
+  handle.addEventListener('mousedown', e => {
+    e.stopPropagation(); e.preventDefault();
+    const rect = el.getBoundingClientRect();
+    const cx = rect.left + rect.width / 2, cy = rect.top + rect.height / 2;
+    const startA = Math.atan2(e.clientY - cy, e.clientX - cx) * 180 / Math.PI;
+    const startR = t.rotation || 0;
+    let lastSnapped = startR;
+    function move(e) {
+      const a = Math.atan2(e.clientY - cy, e.clientX - cx) * 180 / Math.PI;
+      const raw = ((startR + a - startA) % 360 + 360) % 360;
+      const snapped = Math.round(raw / 90) * 90 % 360;
+      if (snapped !== lastSnapped) {
+        lastSnapped = snapped;
+        t.rotation = snapped;
+        el.style.transform = `rotate(${snapped}deg)`;
+        el.style.transition = 'transform 0.12s cubic-bezier(0.34,1.56,0.64,1)';
+        setTimeout(() => { el.style.transition = ''; }, 140);
+      }
+    }
+    function up() { document.removeEventListener('mousemove', move); document.removeEventListener('mouseup', up); }
+    document.addEventListener('mousemove', move);
+    document.addEventListener('mouseup', up);
+  });
+}
+
+// ── GRID SNAP ──
+const GRID = 20;
+function snap(v) { return Math.round(v / GRID) * GRID; }
+
+// ── MOVE (canvas drag, grid-snapped) ──
+function makeMovable(el, t) {
+  let drag = false, sx, sy, sl, st;
+  el.addEventListener('mousedown', e => {
+    if (e.target.closest('.seat,.unseat-btn,.rotate-handle')) return;
+    drag = true; sx = e.clientX; sy = e.clientY; sl = t.x; st = t.y; e.preventDefault();
+  });
+  document.addEventListener('mousemove', e => {
+    if (!drag) return;
+    t.x = snap(Math.max(0, sl + e.clientX - sx));
+    t.y = snap(Math.max(0, st + e.clientY - sy));
+    el.style.left = t.x + 'px'; el.style.top = t.y + 'px';
+  });
+  document.addEventListener('mouseup', () => { drag = false; });
+}
+
+// ── GUESTS ──
+function addGuest(name) {
+  const inp = document.getElementById('guestInput');
+  const n = (name !== undefined ? name : inp.value).trim();
+  if (!n) return false;
+  if (guests.find(g => g.name.toLowerCase() === n.toLowerCase())) return false;
+  guests.push({ id: 'g' + Date.now() + Math.random(), name: n, seated: false });
+  if (name === undefined) inp.value = '';
+  renderGuestList(); updateStats(); return true;
+}
+
+function removeGuest(id) {
+  tables.forEach(t => t.seats.forEach(s => { if (s.guestId === id) { s.guestId = null; s.guestName = null; } }));
+  guests = guests.filter(g => g.id !== id);
+  renderGuestList(); tables.forEach(t => renderTable(t)); updateStats();
+}
+
+function renderGuestList() {
+  const el = document.getElementById('guestList');
+  el.innerHTML = '';
+  if (!guests.length) {
+    el.innerHTML = '<div style="font-size:12px;color:var(--text-muted);text-align:center;padding:16px;opacity:0.5">No guests added yet</div>';
+    return;
+  }
+  guests.forEach(g => {
+    const d = document.createElement('div');
+    d.className = 'guest-chip' + (g.seated ? ' seated' : '');
+    d.draggable = !g.seated;
+    d.innerHTML = `<span class="dot"></span><span style="flex:1">${esc(g.name)}</span><span class="remove-guest" onclick="removeGuest('${g.id}')">&#x2715;</span>`;
+    d.addEventListener('dragstart', e => {
+      if (g.seated) { e.preventDefault(); return; }
+      dragGuest = g; dragFromSeat = null; d.classList.add('dragging'); e.dataTransfer.effectAllowed = 'move';
+    });
+    d.addEventListener('dragend', () => d.classList.remove('dragging'));
+    el.appendChild(d);
+  });
+}
+
+// ── CSV IMPORT ──
+function importCSV(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = e => {
+    const lines = e.target.result.split(/\r?\n/).map(l => l.trim()).filter(Boolean);
+    if (!lines.length) { showToast('CSV appears empty'); return; }
+    let colIdx = 0, start = 0;
+    const header = lines[0].split(',').map(c => c.trim().toLowerCase().replace(/^["']|["']$/g, ''));
+    const ni = header.findIndex(c => ['name','full name','fullname','guest','guest name'].includes(c));
+    if (ni !== -1) { colIdx = ni; start = 1; }
+    let added = 0, skipped = 0;
+    for (let i = start; i < lines.length; i++) {
+      const cols = lines[i].split(',').map(c => c.trim().replace(/^["']|["']$/g, ''));
+      const name = cols[colIdx];
+      if (!name) continue;
+      if (addGuest(name)) added++; else skipped++;
+    }
+    showToast(`Imported ${added} guest${added !== 1 ? 's' : ''}${skipped ? `, ${skipped} skipped (duplicates)` : ''}`);
+    event.target.value = '';
+  };
+  reader.readAsText(file);
+}
+
+// ── TABLES LIST PANEL ──
+function renderTablesList() {
+  const el = document.getElementById('tablesList');
+  el.innerHTML = '';
+  tables.forEach(t => {
+    const seated = t.seats.filter(s => s.guestId).length;
+    const d = document.createElement('div');
+    d.className = 'table-item';
+    const badge = t.type === 'sweetheart'
+      ? `<span class="tbadge">&#9829; sweet</span>`
+      : `<span class="tbadge regular">${t.sides}&#8209;side</span>`;
+    d.innerHTML = `${badge}<span class="tname">${esc(t.name)}</span><span class="tinfo">${seated}/${t.seats.length}</span><span class="tdel" onclick="removeTable('${t.id}')">&#x2715;</span>`;
+    d.onclick = e => { if (e.target.classList.contains('tdel')) return; document.getElementById(t.id)?.scrollIntoView({ behavior: 'smooth', block: 'center' }); };
+    el.appendChild(d);
+  });
+}
+
+// ── UNSEAT ──
+function unseat(tid, si) {
+  const tbl = tables.find(t => t.id === tid);
+  if (!tbl) return;
+  const s = tbl.seats[si];
+  if (!s.guestId) return;
+  const g = guests.find(g => g.id === s.guestId);
+  if (g) g.seated = false;
+  s.guestId = null; s.guestName = null;
+  renderTable(tbl); renderGuestList(); renderTablesList(); updateStats();
+}
+
+// ── UTILS ──
+function checkCanvasEmpty() { document.getElementById('canvasEmpty').style.display = tables.length ? 'none' : 'flex'; }
+function updateStats() {
+  const total = tables.reduce((a, t) => a + t.seats.length, 0);
+  const seated = tables.reduce((a, t) => a + t.seats.filter(s => s.guestId).length, 0);
+  document.getElementById('statTables').textContent = tables.length;
+  document.getElementById('statSeats').textContent = total;
+  document.getElementById('statGuests').textContent = guests.length;
+  document.getElementById('statSeated').textContent = seated;
+  document.getElementById('statUnassigned').textContent = guests.length - seated;
+}
+function esc(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2800);
+}
+
+// ── SAVE LAYOUT ──
+function saveLayout() {
+  const data = {
+    version: 1,
+    savedAt: new Date().toISOString(),
+    guests: guests.map(g => ({ id: g.id, name: g.name, seated: g.seated })),
+    tables: tables.map(t => ({
+      id: t.id, name: t.name, type: t.type,
+      seatsPerSide: t.seatsPerSide, sides: t.sides,
+      x: t.x, y: t.y, rotation: t.rotation || 0,
+      seats: t.seats.map(s => ({ idx: s.idx, guestId: s.guestId, guestName: s.guestName }))
+    })),
+    tableIdCounter
+  };
+  const json = JSON.stringify(data, null, 2);
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([json], { type: 'application/json' }));
+  const date = new Date().toISOString().slice(0,10);
+  a.download = `wedding-layout-${date}.wtp`;
+  a.click();
+  showToast('Layout saved!');
+}
+
+// ── LOAD LAYOUT ──
+let pendingLoadData = null;
+
+function loadLayout(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = e => {
+    try {
+      const data = JSON.parse(e.target.result);
+      if (!data.version || !Array.isArray(data.tables) || !Array.isArray(data.guests)) {
+        showToast('Invalid layout file'); return;
+      }
+      // if canvas is empty, load straight away; otherwise confirm first
+      if (tables.length === 0 && guests.length === 0) {
+        applyLayout(data);
+      } else {
+        pendingLoadData = data;
+        openConfirm();
+      }
+    } catch {
+      showToast('Could not read file — is it a valid .wtp layout?');
+    }
+    event.target.value = '';
+  };
+  reader.readAsText(file);
+}
+
+function openConfirm() {
+  document.getElementById('confirmBackdrop').classList.add('open');
+  document.getElementById('confirmOkBtn').onclick = () => {
+    closeConfirm();
+    if (pendingLoadData) { applyLayout(pendingLoadData); pendingLoadData = null; }
+  };
+}
+function closeConfirm() { document.getElementById('confirmBackdrop').classList.remove('open'); }
+document.getElementById('confirmBackdrop').addEventListener('click', e => { if (e.target === e.currentTarget) closeConfirm(); });
+
+function applyLayout(data) {
+  // clear existing DOM tables
+  tables.forEach(t => { document.getElementById(t.id)?.remove(); });
+  tables = [];
+  guests = [];
+
+  tableIdCounter = data.tableIdCounter || 0;
+  guests = data.guests.map(g => ({ id: g.id, name: g.name, seated: g.seated }));
+  data.tables.forEach(td => {
+    const tbl = {
+      id: td.id, name: td.name, type: td.type,
+      seatsPerSide: td.seatsPerSide, sides: td.sides,
+      x: td.x, y: td.y, rotation: td.rotation || 0,
+      seats: td.seats.map(s => ({ idx: s.idx, guestId: s.guestId, guestName: s.guestName }))
+    };
+    tables.push(tbl);
+    renderTable(tbl);
+  });
+  renderGuestList(); renderTablesList(); updateStats(); checkCanvasEmpty();
+  showToast('Layout loaded successfully!');
+}
+
+function exportPlan() {
+  let text = '✦ WEDDING SEATING PLAN ✦\n\n';
+  tables.forEach(t => {
+    text += `${t.name.toUpperCase()}${t.type === 'sweetheart' ? ' ♥' : ''}\n${'─'.repeat(32)}\n`;
+    t.seats.forEach((s, i) => { text += `  Seat ${i + 1}: ${s.guestName || '(empty)'}\n`; });
+    text += '\n';
+  });
+  const unseated = guests.filter(g => !g.seated);
+  if (unseated.length) {
+    text += `UNASSIGNED GUESTS\n${'─'.repeat(32)}\n`;
+    unseated.forEach(g => { text += `  - ${g.name}\n`; });
+  }
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([text], { type: 'text/plain' }));
+  a.download = 'wedding-seating-plan.txt'; a.click();
+  showToast('Plan exported!');
+}
+
+// ── SEED ──
+updateStats(); checkCanvasEmpty();
+</script>
+</body>
+</html>
